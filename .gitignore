@@ -12,6 +12,7 @@
 *.blg
 *.bcf
 *.run.xml
+*.pdf
 
 # LaTeX build directory
 build/
