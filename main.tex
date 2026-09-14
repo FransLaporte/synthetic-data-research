@@ -1,53 +1,39 @@
-\documentclass{article}
-
+% Compile with XeLaTeX twice.
+\documentclass[10pt,a4paper]{article}
+\usepackage{twente-paper}
+\hypersetup{pdftitle={Requirements on Synthetic Data for Training Machine Learning Algorithms},pdfauthor={Frans Laporte and Florent Kegler}}
 \begin{document}
-
-\begin{titlepage}
-
-    \centering
-
-    {\Large University of Twente\par}
-    \vspace{0.3cm}
-    {\large Faculty of Electrical Engineering, Mathematics
-    and Computer Science\par}
-
-    \vfill
-
-    {\Huge\bfseries
-    Requirements on Synthetic Data\\
-    for Training Machine Learning Algorithms
-    \par}
-
-    \vspace{0.7cm}
-
-    {\Large Literature Review\par}
-
-    \vfill
-
-    \begin{flushleft}
-    \large
-    \textbf{Authors}\\
-    Frans Laporte\\
-    Florent Kegler
-
-    \vspace{0.5cm}
-
-    \textbf{Course}\\
-    Academic Research Skills
-
-    \vspace{0.5cm}
-
-    \textbf{Date}\\
-    September 2026
-    \end{flushleft}
-
-\end{titlepage}
-
+\input{cover}
+\pagenumbering{roman}
+\eyebrow{Literature review / Research overview}
+\section*{At a glance}
+\vspace{3mm}
+\begin{researchbox}{Abstract / to be written}
+Summarise the problem, the scope of the literature search, the main findings and
+their implications for training machine learning algorithms. Complete this abstract
+after the review has been conducted.
+\end{researchbox}
+\vspace{5mm}
+\eyebrow{Keywords}
+Synthetic data\quad /\quad Machine learning\quad /\quad Data quality\quad /\quad Literature review
+\vspace{11mm}
 \tableofcontents
-
+\vfill
+\begin{researchbox}{About this working paper}
+Prepared for Academic Research Skills, Faculty of Electrical Engineering,
+Mathematics and Computer Science, University of Twente. This is a designed
+manuscript scaffold: proposed questions, review dimensions and workflows are
+starting points, not research findings.
+\end{researchbox}
+\clearpage
+\pagenumbering{arabic}
 \input{chapters/introduction}
 \input{chapters/literature_review}
+\clearpage
 \input{chapters/methodology}
 \input{chapters/conclusion}
-
+% Add verified entries to references.bib, then enable these lines and run BibTeX.
+% \bibliographystyle{plain}
+% \bibliography{references}
 \end{document}
+

@@ -1,0 +1,45 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{twente-paper}[2026/09/14 UT-inspired academic paper]
+\RequirePackage{fontspec}
+\IfFontExistsTF{Arial}{\setmainfont{Arial}\setsansfont{Arial}}{\setmainfont{TeX Gyre Heros}\setsansfont{TeX Gyre Heros}}
+\RequirePackage[a4paper,left=24mm,right=24mm,top=25mm,bottom=23mm,headheight=14pt,headsep=9mm]{geometry}
+\RequirePackage{xcolor}
+\definecolor{ink}{HTML}{101010}
+\definecolor{muted}{HTML}{575757}
+\definecolor{rulegray}{HTML}{D5D5D5}
+\definecolor{papergray}{HTML}{F2F2F0}
+\RequirePackage{graphicx}
+\RequirePackage{tikz}
+\usetikzlibrary{calc,arrows.meta}
+\RequirePackage{titlesec}
+\RequirePackage{fancyhdr}
+\RequirePackage{booktabs,tabularx,array}
+\RequirePackage{caption}
+\RequirePackage{hyperref}
+\hypersetup{colorlinks=true,allcolors=ink,bookmarksnumbered=true}
+\color{ink}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\renewcommand{\baselinestretch}{1.16}
+\setcounter{tocdepth}{1}
+\setlength{\emergencystretch}{2em}
+\titleformat{\section}{\Large\bfseries}{\makebox[11mm][l]{\color{muted}\fontsize{11}{13}\selectfont\ifnum\value{section}<10 0\fi\thesection}}{0pt}{}
+\titlespacing*{\section}{0pt}{8mm}{3mm}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{2mm}{}
+\titlespacing*{\subsection}{0pt}{4mm}{1mm}
+\renewcommand{\contentsname}{Contents}
+\captionsetup{font=small,labelfont=bf,labelsep=period,justification=raggedright,singlelinecheck=false,skip=3mm}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\fontsize{7.5}{9}\selectfont\bfseries SYNTHETIC DATA / LITERATURE REVIEW}
+\fancyhead[R]{\fontsize{7.5}{9}\selectfont\color{muted} LAPORTE / KEGLER}
+\fancyfoot[L]{\fontsize{7.5}{9}\selectfont\color{muted} UNIVERSITY OF TWENTE\enspace /\enspace EEMCS}
+\fancyfoot[R]{\fontsize{9}{10}\selectfont\bfseries\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+\newcommand{\eyebrow}[1]{{\fontsize{8}{10}\selectfont\bfseries\MakeUppercase{#1}\par}}
+\newsavebox{\researchsave}
+\newenvironment{researchbox}[1]{\par\begingroup\setlength{\fboxsep}{5mm}\noindent\begin{lrbox}{\researchsave}\begin{minipage}{\dimexpr\linewidth-10mm\relax}\eyebrow{#1}\vspace{2mm}\small}{\end{minipage}\end{lrbox}\colorbox{papergray}{\usebox{\researchsave}}\endgroup\par}
+\newcommand{\draftnote}[1]{\par{\small\color{muted}\textit{#1}\par}}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+
