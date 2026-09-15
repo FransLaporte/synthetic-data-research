@@ -22,6 +22,9 @@
 \RequirePackage[toc,nonumberlist]{glossaries}
 % Pure LaTeX glossary: no Perl or external indexing program required.
 \makenoidxglossaries
+% Make clickable terms and abbreviations recognisable in the body text.
+\definecolor{glossarylink}{HTML}{245B78}
+\renewcommand*{\glstextformat}[1]{\textcolor{glossarylink}{#1}}
 \color{ink}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{6pt}

@@ -29,6 +29,7 @@ Use **XeLaTeX** on Overleaf too. Arial is used when installed; otherwise the tem
 - chapters/: research content; replace grey italic drafting prompts as writing progresses.
 - references.bib: verified bibliography entries.
 - glossary.tex: term definitions; use `\gls{synthetic-data}`, `\Gls{synthetic-data}` or `\glspl{gan}` to create linked terms. Only used entries appear, alphabetically.
+- Abbreviations: use `\gls{gan}` for **GAN**, `\glspl{gan}` for **GANs**, `\gls{machine-learning}` for **ML** and `\gls{ctgan}` for **CTGAN**. These blue labels jump directly to their full definitions in the glossary. Typing plain `GAN` does not create a hyperlink. Add another abbreviation with `\newglossaryentry{key}{name={ABC},description={Full name: definition}}` in glossary.tex, then use `\gls{key}` in the text.
 - chapters/mathematical_examples.tex: removable example appendix with inline math, numbered equations, aligned expressions, matrices and cases. Use `\label{eq:name}` and `\eqref{eq:name}` for linked equation references.
 - build.bat: runs XeLaTeX, BibTeX, XeLaTeX, XeLaTeX and produces main.pdf.
 

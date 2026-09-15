@@ -2,11 +2,13 @@
 % Used entries appear automatically and terms link to their definitions.
 \newglossaryentry{synthetic-data}{name={synthetic data},
   description={Artificially generated data designed to represent selected properties of observed or target data}}
-\newglossaryentry{machine-learning}{name={machine learning},
-  description={Methods that learn patterns from data to perform tasks such as prediction or classification}}
-\newglossaryentry{gan}{name={generative adversarial network},
-  plural={generative adversarial networks},
-  description={A generative modelling approach in which a generator and a discriminator are trained with competing objectives; abbreviated GAN}}
+% Abbreviations are displayed as short forms; the full name is in the glossary.
+\newglossaryentry{machine-learning}{name={ML},
+  description={Machine learning: methods that learn patterns from data to perform tasks such as prediction or classification}}
+\newglossaryentry{gan}{name={GAN},plural={GANs},
+  description={Generative adversarial network: a generative modelling approach in which a generator and a discriminator are trained with competing objectives}}
+\newglossaryentry{ctgan}{name={CTGAN},
+  description={Conditional tabular generative adversarial network: a GAN-based approach to generating synthetic tabular data using conditional generation}}
 \newglossaryentry{fidelity}{name={fidelity},
   description={The extent to which synthetic data reproduce relevant properties of the target data}}
 \newglossaryentry{utility}{name={utility},
