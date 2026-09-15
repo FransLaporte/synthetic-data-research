@@ -1,0 +1,44 @@
+\section{Mathematical notation examples}
+\label{app:mathematics}
+\draftnote{Template examples only. Adapt the notation and objectives to the
+research methods actually used.}
+
+\subsection{Inline and numbered expressions}
+Let $\mathcal{D}_{\mathrm{syn}}=\{(\bm{x}_i,y_i)\}_{i=1}^{n}$ denote a
+synthetic training dataset, where $\bm{x}_i\in\mathbb{R}^{d}$ is a feature
+vector and $y_i$ its target. An illustrative empirical training objective is
+\begin{equation}
+  \hat{\theta}=\operatorname*{arg\,min}_{\theta\in\Theta}
+  \frac{1}{n}\sum_{i=1}^{n}\ell\bigl(f_{\theta}(\bm{x}_i),y_i\bigr).
+  \label{eq:training-objective}
+\end{equation}
+Here $f_{\theta}$ is the model and $\ell$ is its loss function.
+Equation~\eqref{eq:training-objective} demonstrates a clickable equation reference.
+
+\subsection{Aligned expressions}
+For regression, a squared-error loss and an illustrative real-data evaluation
+risk can be written as
+\begin{align}
+  \ell(\hat{y},y)&=(\hat{y}-y)^2, \label{eq:squared-loss}\\
+  R_{\mathrm{real}}(\theta)&=
+  \mathbb{E}_{(\bm{x},y)\sim P_{\mathrm{real}}}
+  \!\left[\ell\bigl(f_{\theta}(\bm{x}),y\bigr)\right].
+  \label{eq:real-risk}
+\end{align}
+Training on synthetic data does not, by itself, establish performance on real
+data; Equation~\eqref{eq:real-risk} defines a separate evaluation quantity.
+
+\subsection{Matrices and cases}
+A feature matrix and a binary decision rule illustrate two other useful forms:
+\[
+  \bm{X}=\begin{bmatrix}
+    x_{11} & \cdots & x_{1d}\\
+    \vdots & \ddots & \vdots\\
+    x_{n1} & \cdots & x_{nd}
+  \end{bmatrix},
+  \qquad
+  \hat{y}=\begin{cases}
+    1, & p_{\theta}(y=1\mid\bm{x})\geq\tfrac{1}{2},\\
+    0, & \text{otherwise}.
+  \end{cases}
+\]

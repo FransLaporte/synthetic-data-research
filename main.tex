@@ -1,6 +1,7 @@
-% Compile with XeLaTeX twice.
+% Build with build.bat (XeLaTeX, BibTeX, XeLaTeX, XeLaTeX).
 \documentclass[10pt,a4paper]{article}
 \usepackage{twente-paper}
+\input{glossary}
 \hypersetup{pdftitle={Requirements on Synthetic Data for Training Machine Learning Algorithms},pdfauthor={Frans Laporte and Florent Kegler}}
 \begin{document}
 \input{cover}
@@ -29,11 +30,21 @@ starting points, not research findings.
 \pagenumbering{arabic}
 \input{chapters/introduction}
 \input{chapters/literature_review}
-\clearpage
 \input{chapters/methodology}
 \input{chapters/conclusion}
-% Add verified entries to references.bib, then enable these lines and run BibTeX.
-% \bibliographystyle{plain}
-% \bibliography{references}
+\clearpage
+\phantomsection
+\addcontentsline{toc}{section}{References}
+\bibliographystyle{plainnat}
+\begingroup
+\raggedright
+\bibliography{references}
+\endgroup
+\clearpage
+\printnoidxglossary[title={Glossary},style=list]
+\clearpage
+\appendix
+\titleformat{\section}{\Large\bfseries}{\makebox[11mm][l]{\color{muted}\fontsize{11}{13}\selectfont\thesection}}{0pt}{}
+\input{chapters/mathematical_examples}
 \end{document}
 
