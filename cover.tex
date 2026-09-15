@@ -1,0 +1,44 @@
+\begin{titlepage}
+\thispagestyle{empty}
+\begin{tikzpicture}[remember picture,overlay,x=1mm,y=1mm]
+  \fill[ink] (current page.north west) rectangle ([yshift=-210mm]current page.north east);
+  \begin{scope}[shift={(current page.north west)}]
+    \node[anchor=north west,text=white,inner sep=0] at (24,-22) {\fontsize{8}{10}\selectfont\bfseries ACADEMIC RESEARCH SKILLS};
+    \node[anchor=north east,text=white,inner sep=0] at (186,-22) {\fontsize{8}{10}\selectfont SEPTEMBER 2026};
+    \draw[white,line width=.35pt] (24,-32)--(186,-32);
+    \node[anchor=north west,text=white,inner sep=0] at (24,-43) {\fontsize{9}{11}\selectfont LITERATURE REVIEW};
+    \node[anchor=north west,text=white,text width=166mm,inner sep=0] at (23,-58) {\fontsize{38}{40}\selectfont\bfseries Requirements on\\Synthetic Data};
+    \node[anchor=north west,text=white,text width=150mm,inner sep=0] at (24,-94) {\fontsize{18}{23}\selectfont for Training Machine\\Learning Algorithms};
+    % Original artwork: irregular observations become a synthetic grid.
+    \begin{scope}
+      \clip (24,-130) rectangle (186,-196);
+      \foreach \i in {0,...,23}{
+        \pgfmathsetmacro{\ya}{-137-\i*2.15}
+        \pgfmathsetmacro{\yb}{\ya+5*sin(\i*37)}
+        \draw[white,opacity=.22,line width=.35pt] (24,\yb) .. controls (79,\yb+16) and (117,\ya-16) .. (186,\ya);
+      }
+      \foreach \i in {0,...,9}{\foreach \j in {0,...,6}{
+        \pgfmathsetmacro{\xx}{27+\i*4.1+1.4*sin(\i*67+\j*39)}
+        \pgfmathsetmacro{\yy}{-143-\j*7+2*cos(\i*41+\j*61)}
+        \fill[white,opacity=.8] (\xx,\yy) circle (.48);
+      }}
+      \foreach \i in {0,...,9}{\foreach \j in {0,...,6}{
+        \draw[white,opacity=.85,line width=.45pt] (142+\i*4.6,-140-\j*7) circle (.65);
+      }}
+      \draw[white,line width=.8pt] (105,-166) circle (14);
+      \draw[white,line width=.7pt,-{Stealth[length=2mm]}] (97,-166)--(113,-166);
+    \end{scope}
+    \node[anchor=west,text=white,inner sep=0] at (24,-202) {\fontsize{6.5}{8}\selectfont OBSERVATIONS};
+    \node[anchor=center,text=white,inner sep=0] at (105,-202) {\fontsize{6.5}{8}\selectfont REPRESENTATION};
+    \node[anchor=east,text=white,inner sep=0] at (186,-202) {\fontsize{6.5}{8}\selectfont SYNTHETIC SAMPLES};
+    \node[anchor=north west,inner sep=0,text width=80mm] at (24,-223) {\eyebrow{Authors}\vspace{2mm}{\fontsize{12}{17}\selectfont Frans Laporte\\Florent Kegler}};
+    \node[anchor=north west,inner sep=0,text width=70mm] at (114,-223) {\eyebrow{Course}\vspace{2mm}{\fontsize{11}{15}\selectfont Academic Research Skills}\par\vspace{2mm}{\small Literature review / Working draft}};
+    \draw[rulegray,line width=.4pt] (24,-251)--(186,-251);
+    \node[anchor=north west,inner sep=0,text width=83mm,text=muted] at (24,-262) {\fontsize{8}{11}\selectfont Faculty of Electrical Engineering,\\Mathematics and Computer Science\\September 2026};
+    % Institutional text, not a recreation of the official logo.
+    \node[anchor=north east,align=right,inner sep=0] at (186,-261) {\fontsize{16}{17}\selectfont\bfseries UNIVERSITY\\\fontsize{16}{17}\selectfont\bfseries OF TWENTE};
+  \end{scope}
+\end{tikzpicture}
+\null
+\end{titlepage}
+
