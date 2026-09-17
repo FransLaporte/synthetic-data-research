@@ -4,7 +4,7 @@ A University of Twente-inspired academic manuscript scaffold with a dedicated ti
 
 ## Build
 
-PDFs and `.bib` exports are local files excluded from Git. After cloning, configure Zotero's Better BibLaTeX export to write `references.bib` into this directory before building. Each collaborator needs the cited sources and matching citation keys in their export.
+PDFs are excluded from Git; `references.bib` is versioned so local and GitHub builds use the same sources and citation keys. After cloning, the committed bibliography is ready to build. When updating sources, configure Zotero's Better BibLaTeX export to write `references.bib` into this directory and commit the updated export with the text that cites it.
 
 On Windows, run `build.bat` using MiKTeX or TeX Live (with XeLaTeX and Biber on PATH). The script works from any working directory and stops on errors. In PowerShell:
 
@@ -23,7 +23,51 @@ xelatex -interaction=nonstopmode -halt-on-error main.tex
 
 Use **XeLaTeX** on Overleaf too. Arial is used when installed; otherwise the template uses TeX Gyre Heros. The build resolves contents, citations, equations and glossary links. The glossary uses `glossaries` in no-index mode, so neither Perl nor `makeglossaries` is needed. Install missing LaTeX packages through your distribution; additions include `biblatex`, `glossaries`, `amsmath`, `amssymb` and `bm`.
 
-## Edit
+## GitHub Actions: PDF downloads and merge checks
+
+`.github/workflows/latex.yml` builds pull requests targeting `main`, every push
+to `main`, merge-queue groups, and manual runs. XeLaTeX and Biber run through
+latexmk. The `LaTeX build` check fails on compilation errors, missing bibliography
+entries and unresolved references. Linux uses the template's TeX Gyre Heros font
+fallback when Arial is unavailable, so line breaks can differ from Windows.
+
+### Bibliography collaboration
+
+CI reads the committed `references.bib`; no shared URL or secret is needed.
+Keep citation keys stable and use the same Better BibLaTeX export settings.
+Prefer a shared Zotero collection/library or one person managing the export:
+exporting an incomplete personal library over this file can remove a coauthor's
+references. Review the bibliography diff before committing. If Git reports a
+conflict, preserve the required entries or regenerate from the complete shared
+collection, then rebuild. Avoid changing metadata for the same entries in parallel.
+
+### Download the PDF
+
+- [Latest successful main PDF](https://github.com/FransLaporte/synthetic-data-research/releases/download/latest-pdf/main.pdf)
+  is updated after successful `main` builds. It is stored as a release asset,
+  outside Git, without the Actions artifact expiry. The rolling prerelease notes
+  identify the source commit and workflow run; its tag marks initial creation.
+- For a particular PR or commit, open **Actions > LaTeX PDF > run > Artifacts**
+  and download `paper-<commit SHA>`. These artifacts are retained for 90 days
+  (subject to repository policy). Failed runs upload diagnostic logs.
+- The latest link becomes available after the first successful `main` publication.
+  If a build fails, the link continues to serve the previous successful build.
+
+### Require compilation before merging
+
+After the workflow has run once, a repository administrator should configure a
+branch protection rule/ruleset for `main` in **Settings > Branches / Rules**:
+
+1. Require pull requests before merging.
+2. Require status checks to pass: select **LaTeX build** (GitHub Actions).
+3. Require the branch to be up to date before merging.
+4. Apply the rule to administrators too if everyone must obey it.
+
+The YAML creates the check; it cannot itself enable GitHub branch protection.
+Do not require the publication job, which runs only on `main`. The workflow needs
+Actions enabled and permission for its publication job to write release assets.
+
+## Editing the document
 
 - main.tex: overview, chapter order, PDF metadata, bibliography, glossary and appendix.
 - cover.tex: visible title, authors, date and editable TikZ artwork.

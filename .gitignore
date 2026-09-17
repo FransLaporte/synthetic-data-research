@@ -14,9 +14,6 @@
 *.run.xml
 *.pdf
 
-# Zotero-managed bibliography exports
-*.bib
-
 # LaTeX build directory
 build/
 

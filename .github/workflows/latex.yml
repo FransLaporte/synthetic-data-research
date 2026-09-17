@@ -1,0 +1,87 @@
+name: LaTeX PDF
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  merge_group:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: latex-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  build:
+    name: LaTeX build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Compile with XeLaTeX and Biber
+        uses: xu-cheng/latex-action@v4
+        with:
+          root_file: main.tex
+          latexmk_use_xelatex: true
+          args: -file-line-error -halt-on-error -interaction=nonstopmode
+
+      - name: Check citations and cross-references
+        run: python3 scripts/check_latex.py
+
+      - name: Upload PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper-${{ github.sha }}
+          path: main.pdf
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: Upload failure logs
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: latex-logs-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            main.log
+            main.blg
+          if-no-files-found: ignore
+          retention-days: 14
+
+  publish:
+    name: Publish latest main PDF
+    needs: build
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && github.event_name != 'merge_group'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: paper-${{ github.sha }}
+          path: output
+      - name: Update rolling PDF download
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          BUILD_SHA: ${{ github.sha }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          # Never replace the download with an outdated main build.
+          if [ "$(gh api "repos/$GH_REPO/commits/main" --jq .sha)" != "$BUILD_SHA" ]; then
+            echo "main has advanced; leaving publication to the newer build."
+            exit 0
+          fi
+          printf 'Latest successful main build: %s\n\nWorkflow: %s\n\nThis rolling prerelease stores the current PDF. Its tag marks initial creation; the build commit above identifies the PDF.\n' "$BUILD_SHA" "$RUN_URL" > notes.md
+          if ! gh release view latest-pdf >/dev/null 2>&1; then
+            gh release create latest-pdf --target "$BUILD_SHA" --prerelease --title "Latest main PDF" --notes-file notes.md
+          fi
+          gh release upload latest-pdf output/main.pdf --clobber
+          gh release edit latest-pdf --title "Latest main PDF" --notes-file notes.md
