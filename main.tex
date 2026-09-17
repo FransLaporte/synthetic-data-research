@@ -1,6 +1,7 @@
-% Build with build.bat (XeLaTeX, BibTeX, XeLaTeX, XeLaTeX).
+% Build with build.bat (XeLaTeX, Biber, XeLaTeX, XeLaTeX).
 \documentclass[10pt,a4paper]{article}
 \usepackage{twente-paper}
+\addbibresource{references.bib}
 \input{glossary}
 \hypersetup{pdftitle={Requirements on Synthetic Data for Training Machine Learning Algorithms},pdfauthor={Frans Laporte and Florent Kegler}}
 \begin{document}
@@ -33,12 +34,9 @@ starting points, not research findings.
 \input{chapters/methodology}
 \input{chapters/conclusion}
 \clearpage
-\phantomsection
-\addcontentsline{toc}{section}{References}
-\bibliographystyle{plainnat}
 \begingroup
 \raggedright
-\bibliography{references}
+\printbibliography[heading=bibintoc,title={References}]
 \endgroup
 \clearpage
 \printnoidxglossary[title={Glossary},style=list]
