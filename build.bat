@@ -4,12 +4,12 @@ pushd "%~dp0"
 if errorlevel 1 exit /b 1
 where xelatex >nul 2>nul
 if errorlevel 1 goto missing
-where bibtex >nul 2>nul
+where biber >nul 2>nul
 if errorlevel 1 goto missing
 
 xelatex -interaction=nonstopmode -halt-on-error main.tex
 if errorlevel 1 goto failed
-bibtex main
+biber main
 if errorlevel 1 goto failed
 xelatex -interaction=nonstopmode -halt-on-error main.tex
 if errorlevel 1 goto failed
@@ -21,7 +21,7 @@ popd
 exit /b 0
 
 :missing
-echo ERROR: XeLaTeX and BibTeX must be on PATH. Install MiKTeX or TeX Live.
+echo ERROR: XeLaTeX and Biber must be on PATH. Install MiKTeX or TeX Live.
 goto failed
 
 :failed
