@@ -1,0 +1,26 @@
+\subsection{RQ3: Resources and prerequisites for assessment}
+\label{sec:rq3}
+\subsubsection{Real reference data and annotations}
+\draftnote{Map metrics to unlabelled real images, task labels, subgroup
+metadata, paired images or generator training data. Separate generation,
+metric development, validation and testing data. Discuss representativeness,
+sample size, independent subjects/scenes and uncertainty. State what
+cannot be concluded without real data.}
+
+\subsubsection{Statistical priors and domain expertise}
+\draftnote{Identify required knowledge of class prevalence, operational
+conditions, sensors, physical constraints, rare events and group definitions.
+Record each prior's source and uncertainty. Distinguish deployment
+prevalence from a balanced evaluation set. Identify expert judgement needs.}
+
+\subsubsection{Trained networks and computation}
+\draftnote{Separate pretrained feature extractors for distributional
+metrics from task networks trained for utility assessment. Record
+checkpoints, training domains, preprocessing, suitability and compute.
+Identify network-free measures and domains where generic features may fail.}
+
+\subsubsection{Reproducibility and assessment protocol}
+\draftnote{Map each chosen metric to minimum inputs, software/version,
+sample-size considerations, budget and limitations. Include generator
+settings, seeds, dataset versions, baselines, uncertainty and human-rating
+protocols where relevant. Answer RQ3, including resource-limited cases.}

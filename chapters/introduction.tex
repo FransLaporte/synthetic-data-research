@@ -1,12 +1,38 @@
 \eyebrow{Context / Research direction}
 \section{Introduction}
-This is the introduction to the research project.
-\subsection{Research background}
-\Gls{synthetic-data} can be used to train and evaluate \gls{machine-learning} algorithms.
-\draftnote{Develop this background with cited evidence: explain the application context,
-the limitations of available real data and the motivation for using synthetic data.}
-\begin{researchbox}{Proposed research question}
-\large What requirements should synthetic data meet to support the training of
-machine learning algorithms?
+\label{sec:introduction}
+This review examines the requirements and assessment of \gls{synthetic-data}
+used to train \gls{machine-learning} algorithms for computer vision.
+It separates what a dataset should provide, how those properties can be
+measured, and what resources are needed to make an assessment meaningful.
+
+\subsection{Motivation and scope}
+\draftnote{Develop the motivation with cited evidence about data collection,
+annotation, rare events and the gap between synthetic and real images.
+Focus on classification, object detection and semantic segmentation.
+Distinguish rendered/simulated images from learned generation, and
+synthetic-only training from mixing synthetic and real data.
+Use other modalities as methodological background only, explaining
+whether their conclusions transfer to vision.}
+
+\begin{researchbox}{Research questions}
+\textbf{RQ1 --- Requirements:} What requirements should synthetic data meet
+when used to train machine learning algorithms for vision applications?
+
+\textbf{RQ2 --- Metrics:} Which metrics should assess the quality of a
+synthetic vision dataset, including realism, coverage, similarity and bias?
+
+\textbf{RQ3 --- Assessment resources:} What real data, statistical prior
+knowledge, trained networks and other resources are needed to carry out
+these assessments?
 \end{researchbox}
 
+\subsection{Contribution and paper structure}
+The planned output is an evidence-backed mapping from requirements to
+metrics and assessment prerequisites.
+Section~\ref{sec:background} defines the concepts;
+Section~\ref{sec:methodology} specifies the review procedure;
+Section~\ref{sec:findings} organises findings by research question;
+Section~\ref{sec:discussion} integrates the answers and discusses limitations.
+\draftnote{This is a review in progress. Replace prompts with supported
+synthesis; do not describe planned work as completed research.}

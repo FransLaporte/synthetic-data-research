@@ -1,0 +1,24 @@
+\subsection{Evidence extraction and synthesis}
+Use one study record per source based on the shared template. One author
+extracts and the other verifies against the source. Record citation key
+and page/table/figure locations, task, domain, datasets, generator, splits,
+training regime, requirements (RQ1), metrics and limitations (RQ2), and
+assessment prerequisites (RQ3). Record feature networks and checkpoints,
+preprocessing, sample sizes, baselines, subgroup definitions, uncertainty,
+code availability and limitations where reported.
+
+Compare evidence within compatible tasks and settings. Separate source
+claims, reported results and our interpretation. Do not pool scores from
+incompatible feature extractors, datasets, preprocessing or training
+budgets. Use narrative synthesis and a requirement--metric--resource
+mapping. Quantitative pooling requires an explicit comparability rationale.
+Report missing evidence, conflicting results and strength of support.
+
+\subsection{Review protocol versus experimental assessment}
+This paper currently plans a literature review, not a new training
+experiment. Section~\ref{sec:rq3} synthesises assessment prerequisites.
+If an experiment is added, specify its protocol before running it:
+independent real train/validation/test splits; real-only, synthetic-only
+and mixed-data baselines; controlled architectures and training budgets;
+multiple seeds; task and subgroup metrics; uncertainty estimates; and
+safeguards against test-set tuning.

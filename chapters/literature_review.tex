@@ -1,36 +1,9 @@
-\section{Literature review}
-This section reviews existing literature on synthetic data for machine learning.
-\subsection{Evaluating synthetic data quality}
-\textcite{alaaHowFaithfulYour2022} propose three complementary metrics:
-$\alpha$-Precision, $\beta$-Recall and Authenticity. These assess
-\gls{fidelity}, diversity and generalization, respectively, including the
-extent to which a generative model copies training data. This provides a
-starting point for examining synthetic data quality alongside downstream
-\gls{utility} in the review.
-\subsection{An organising framework}
-\draftnote{The dimensions below are proposed categories for structuring the review.
-Refine them using the selected studies; they are not validated findings.}
-\begin{table}[ht]
-\caption{Proposed dimensions for extracting requirements from the literature.}
-\label{tab:dimensions}
-\renewcommand{\arraystretch}{1.45}
-\small
-\begin{tabularx}{\linewidth}{@{}p{29mm}YY@{}}
-\toprule
-\textbf{Dimension} & \textbf{Guiding question} & \textbf{Evidence to extract} \\
-\midrule
-Fidelity & Which properties of real data must be preserved? & Distributional comparisons and domain constraints. \\
-\addlinespace[2mm]
-Utility & How is usefulness for the learning task assessed? & Downstream metrics and real-data baselines. \\
-\addlinespace[2mm]
-Coverage & Which groups and conditions need representation? & Subgroup results and rare-case analyses. \\
-\addlinespace[2mm]
-Privacy & How is disclosure risk evaluated? & Threat models, attack tests and stated guarantees. \\
-\bottomrule
-\end{tabularx}
-\end{table}
-\subsection{Synthesis of the evidence}
-\draftnote{Compare where studies agree, where their requirements differ and how
-those differences depend on the task, data modality and evaluation setting.
-Support each substantive claim with a reference.}
-
+\eyebrow{Evidence / Findings by research question}
+\section{Literature review findings}
+\label{sec:findings}
+\draftnote{Complete these sections after screening and extraction.
+The candidate framework below is not a completed review's findings.
+Support each conclusion with included studies.}
+\input{chapters/findings/rq1_requirements}
+\input{chapters/findings/rq2_metrics}
+\input{chapters/findings/rq3_assessment_resources}

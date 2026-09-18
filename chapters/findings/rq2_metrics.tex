@@ -1,0 +1,39 @@
+\subsection{RQ2: Metrics for assessing dataset quality}
+\label{sec:rq2}
+\draftnote{For each retained candidate add its definition, direction,
+citation, implementation, assumptions, inputs and evidence of its
+relationship to downstream utility. This table is an extraction framework,
+not a recommendation to use every measure.}
+
+\begin{table}[htbp]
+\caption{Candidate dimensions and measures to investigate.}
+\label{tab:dimensions}
+\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\linewidth}{@{}p{25mm}YY@{}}
+\toprule
+\textbf{Dimension} & \textbf{Candidate measures} & \textbf{Interpretation questions} \\
+\midrule
+Realism & Human ratings; physical and semantic validity checks. & Are criteria explicit and raters consistent? \\
+Similarity & Fr\'echet Inception Distance (FID); Kernel Inception Distance (KID); class-conditional comparisons. & Which features, reference data and preprocessing? \\
+Coverage & Generative precision/recall; $\alpha$-Precision and $\beta$-Recall; scenario occupancy. & Are rare cases and joint conditions represented? \\
+Bias & Representation ratios; subgroup error gaps; worst-group performance. & Which population and group definitions? \\
+Labels & Audited label error; box/mask agreement. & Are reference annotations independently checked? \\
+Utility & Classification accuracy or macro-F1; detection mAP; segmentation mIoU. & Performance on independent real test data? \\
+Authenticity & Authenticity; duplicate and nearest-neighbour audits. & Is generator training data available? \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsubsection{Validity and limitations}
+\draftnote{Examine sample-size effects, feature dependence, uncertainty
+and implementation comparability. Distinguish generative precision/recall
+from classifier precision/recall. Investigate whether paired measures such
+as SSIM or PSNR fit the data; avoid arbitrary real/synthetic pairing.
+Distinguish authenticity diagnostics from formal privacy guarantees.}
+
+\subsubsection{Selecting complementary metrics}
+\draftnote{Use evidence to propose a task-dependent set of distributional,
+coverage, label, subgroup and utility measures. Explain what each adds
+and misses, and whether acceptance thresholds are supported.
+End with a direct answer to RQ2.}

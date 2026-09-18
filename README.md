@@ -1,6 +1,33 @@
 # Synthetic data literature review
 
-A University of Twente-inspired academic manuscript scaffold with a dedicated title page, the supplied UT logo, a review framework table, a workflow figure, a linked glossary and mathematical examples. Draft prompts are explicitly marked. The literature review cites the Zotero-exported Alaa et al. paper as a starting point for evaluating synthetic data quality.
+## Paper structure and shared writing
+
+The paper focuses on synthetic data for **computer vision**. It is a working
+review scaffold: candidate metrics and drafting prompts are not final findings.
+Read [CONTRIBUTING.md](CONTRIBUTING.md) for the two-author Git workflow and
+[research/README.md](research/README.md) for shared evidence records.
+
+| Reading order | File | Purpose |
+| --- | --- | --- |
+| Abstract | `chapters/abstract.tex` | Write last, once the answers are known. |
+| 1. Introduction | `chapters/introduction.tex` | Vision scope and three research questions. |
+| 2. Background | `chapters/background.tex` | Concepts and working definitions. |
+| 3. Methodology | `chapters/methodology/*.tex` | Search, selection, extraction and synthesis. |
+| 4. Findings: RQ1 | `chapters/findings/rq1_requirements.tex` | Requirements on synthetic vision data. |
+| 4. Findings: RQ2 | `chapters/findings/rq2_metrics.tex` | Metrics, validity and limitations. |
+| 4. Findings: RQ3 | `chapters/findings/rq3_assessment_resources.tex` | Real data, priors, networks and other inputs. |
+| 5. Discussion | `chapters/discussion.tex` | Integrate answers, trade-offs and limitations. |
+| 6. Conclusion | `chapters/conclusion.tex` | Concise answers to all three questions. |
+
+`main.tex` assembles the paper; `chapters/methodology.tex` and
+`chapters/literature_review.tex` assemble their respective subsections.
+Compile **main.tex**, not individual section files. The mathematical example
+appendix is retained as a writing aid but excluded from the paper by default.
+
+A University of Twente-inspired manuscript scaffold with a dedicated title page,
+the supplied UT logo, a candidate assessment table and a linked glossary.
+Draft prompts are explicitly marked. The background cites the Zotero-exported
+Alaa et al. paper as a starting point for evaluating synthetic data quality.
 
 ## Build
 
@@ -69,7 +96,7 @@ Actions enabled and permission for its publication job to write release assets.
 
 ## Editing the document
 
-- main.tex: overview, chapter order, PDF metadata, bibliography, glossary and appendix.
+- main.tex: chapter order, PDF metadata, bibliography and glossary; abstract text is in chapters/abstract.tex.
 - cover.tex: visible title, authors, date and editable TikZ artwork.
 - twente-paper.sty: margins, fonts, palette, headings, headers/footers, captions and reusable researchbox / draftnote commands.
 - chapters/: research content; replace grey italic drafting prompts as writing progresses.
@@ -81,7 +108,7 @@ Actions enabled and permission for its publication job to write release assets.
 
 Use `\textcite{alaaHowFaithfulYour2022}` for an author-led citation or `\parencite{alaaHowFaithfulYour2022}` for a bracketed numeric citation. Import sources into Zotero and use their exported citation keys in the text. Only cited entries appear in the reference list; uncited library items remain in the export. After changing Zotero entries, let the automatic export finish, then run build.bat.
 
-The body flows naturally as it grows. The overview, references, glossary and mathematical appendix start on separate pages.
+The body flows naturally as it grows. The overview, references and glossary start on separate pages.
 
 ## Design sources
 

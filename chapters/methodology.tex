@@ -1,27 +1,9 @@
 \eyebrow{Approach / From search to synthesis}
-\section{Methodology}
-\draftnote{Describe the review procedure here. The workflow below is a proposed
-structure; update it to reflect the work actually performed.}
-\begin{figure}[ht]
-\centering
-\begin{tikzpicture}[x=1mm,y=1mm]
-  \foreach \x/\n/\title/\desc in {0/01/Search/Define the query,42/02/Screen/Apply criteria,84/03/Extract/Record evidence,126/04/Synthesise/Compare findings}{
-    \fill[papergray] (\x,0) rectangle (\x+36,35);
-    \fill[ink] (\x,34) rectangle (\x+36,35);
-    \node[anchor=north west,inner sep=0,font=\scriptsize\bfseries,text=muted] at (\x+3,30) {\n};
-    \node[anchor=north west,inner sep=0,font=\normalsize\bfseries] at (\x+3,21) {\title};
-    \node[anchor=north west,inner sep=0,font=\scriptsize,text width=30mm] at (\x+3,12) {\desc};
-  }
-  \foreach \x in {37,79,121}{\draw[ink,-{Stealth[length=1.3mm]},line width=.5pt] (\x,17)--(\x+4,17);}
-\end{tikzpicture}
-\caption{Proposed literature-review workflow. No search or screening counts are implied.}
-\label{fig:workflow}
-\end{figure}
-\subsection{Search strategy and selection}
-\draftnote{Record the databases, search date, exact search strings and inclusion
-and exclusion criteria. Explain how duplicate records and disagreements were handled.}
-\subsection{Extraction and comparison}
-\draftnote{For each selected study, capture its task, dataset, generation method,
-stated requirements, evaluation metrics and limitations. Use
-Table~\ref{tab:dimensions} as an initial extraction structure.}
-
+\section{Review methodology}
+\label{sec:methodology}
+\draftnote{This is a proposed protocol. Agree on it before screening, then
+describe what was actually done and record deviations. Maintain search
+logs and study records in the repository's research directory.}
+\input{chapters/methodology/search_strategy}
+\input{chapters/methodology/study_selection}
+\input{chapters/methodology/extraction_synthesis}
