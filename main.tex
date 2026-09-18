@@ -10,11 +10,7 @@
 \eyebrow{Literature review / Research overview}
 \section*{At a glance}
 \vspace{3mm}
-\begin{researchbox}{Abstract / to be written}
-Summarise the problem, the scope of the literature search, the main findings and
-their implications for training machine learning algorithms. Complete this abstract
-after the review has been conducted.
-\end{researchbox}
+\input{chapters/abstract}
 \vspace{5mm}
 \eyebrow{Keywords}
 Synthetic data\quad /\quad Machine learning\quad /\quad Data quality\quad /\quad Literature review
@@ -30,8 +26,10 @@ starting points, not research findings.
 \clearpage
 \pagenumbering{arabic}
 \input{chapters/introduction}
-\input{chapters/literature_review}
+\input{chapters/background}
 \input{chapters/methodology}
+\input{chapters/literature_review}
+\input{chapters/discussion}
 \input{chapters/conclusion}
 \clearpage
 \begingroup
@@ -43,6 +41,7 @@ starting points, not research findings.
 \clearpage
 \appendix
 \titleformat{\section}{\Large\bfseries}{\makebox[11mm][l]{\color{muted}\fontsize{11}{13}\selectfont\thesection}}{0pt}{}
-\input{chapters/mathematical_examples}
+% Retained as writing examples, excluded from the research paper by default.
+% \input{chapters/mathematical_examples}
 \end{document}
 

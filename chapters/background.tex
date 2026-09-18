@@ -1,0 +1,23 @@
+\section{Background and terminology}
+\label{sec:background}
+\subsection{Synthetic data for vision}
+\draftnote{Define synthetic images and labels, rendering/simulation, learned
+generation and augmentation. Introduce classification, detection and
+segmentation and their annotation needs. Define the intended real-world
+deployment population before discussing quality.}
+
+\subsection{Quality dimensions}
+For this review, realism denotes perceptual or physical plausibility;
+similarity denotes agreement with a specified reference distribution;
+coverage concerns representation of relevant classes and conditions;
+and bias concerns systematic imbalances and differences in errors across
+relevant groups or conditions. These are working definitions to refine
+against the selected literature. Downstream \gls{utility} concerns model
+performance on the intended task after training with synthetic data.
+
+\textcite{alaaHowFaithfulYour2022} distinguish fidelity, diversity and
+generalization using $\alpha$-Precision, $\beta$-Recall and Authenticity.
+This is a methodological starting point; vision-specific suitability
+remains a question for the synthesis.
+\draftnote{Distinguish image, annotation, dataset and trained-model
+properties, and a requirement from its metric and assessment resources.}
