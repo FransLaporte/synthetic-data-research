@@ -25,6 +25,10 @@ is in `shared/question-block.tex`. Shared fonts and colours live in
 
 Topic contact: [dr.ir. G.A. Folkertsma (Geert)](https://people.utwente.nl/g.a.folkertsma).
 Edit contact details in `shared/contact.tex`, used by all three documents.
+Student contacts are `f.p.s.laporte@student.utwente.nl` (Frans Laporte) and
+`o.c.f.kegler@student.utwente.nl` (Florent Kegler); the topic contact email is
+`g.a.folkertsma@utwente.nl`. The campus visiting address is Drienerlolaan 5,
+7522 NB Enschede, The Netherlands ([official UT contact page](https://www.utwente.nl/en/about-us/campus/contact-route/)).
 
 See [proposal notes](proposal/README.md), [Beamer notes](slides/README.md) and
 the [deadlines and rubric checklist](research/course_requirements.md).
