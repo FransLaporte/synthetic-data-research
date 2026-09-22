@@ -1,5 +1,35 @@
 # Synthetic data literature review
 
+## Three documents, one research project
+
+| Document | Root file | Content files | Windows build |
+| --- | --- | --- | --- |
+| Literature review | `main.tex` | `chapters/` | `build.bat main` |
+| Research proposal | `proposal.tex` | `proposal/` | `build.bat proposal` |
+| Beamer presentation (16:9) | `presentation.tex` | `slides/` | `build.bat presentation` |
+
+Run `build.bat all` to build all three. No argument still builds the paper.
+Use these root files on Overleaf too; all use XeLaTeX and Biber.
+Outputs are `main.pdf`, `proposal.pdf` and `presentation.pdf`, excluded from Git.
+For manual builds, replace `main` in the commands below with the desired root.
+Validate with `python scripts/check_latex.py proposal` (or `main`/`presentation`).
+
+The **main research question** is: How can the suitability of synthetic datasets
+for training computer vision models be assessed in terms of data requirements,
+quality metrics and assessment resources?
+
+RQ1--RQ3 are its subquestions. Edit their canonical wording only in
+`shared/questions.tex`; all three documents load it. Article question layout
+is in `shared/question-block.tex`. Shared fonts and colours live in
+`twente-visual.sty`; slide layouts live in `beamerthemeTwenteResearch.sty`.
+
+See [proposal notes](proposal/README.md), [Beamer notes](slides/README.md) and
+the [deadlines and rubric checklist](research/course_requirements.md).
+Draft review: **5 October 2026**; proposal: **9 October, 17:00**; peer review:
+**12 October**; supervisor feedback: **19 October**; both final documents:
+**6 November, 17:00** (Europe/Amsterdam). The proposal is a draft for coauthor
+review; its candidate gap must still be substantiated by the literature review.
+
 ## Paper structure and shared writing
 
 The paper focuses on synthetic data for **computer vision**. It is a working
@@ -53,7 +83,9 @@ Use **XeLaTeX** on Overleaf too. Arial is used when installed; otherwise the tem
 ## GitHub Actions: PDF downloads and merge checks
 
 `.github/workflows/latex.yml` builds pull requests targeting `main`, every push
-to `main`, merge-queue groups, and manual runs. XeLaTeX and Biber run through
+to `main`, merge-queue groups, and manual runs. All three documents are built
+and included in the downloadable artifact. The rolling release still publishes
+the literature review only. XeLaTeX and Biber run through
 latexmk. The `LaTeX build` check fails on compilation errors, missing bibliography
 entries and unresolved references. Linux uses the template's TeX Gyre Heros font
 fallback when Arial is unavailable, so line breaks can differ from Windows.

@@ -1,0 +1,44 @@
+\section{Problem and objective}
+Synthetic data offers a way to construct training examples under controlled
+conditions. This project asks how to judge whether such data is suitable
+for a computer vision task, rather than judging images only by their appearance.
+The assessment must connect dataset properties to the intended use and make
+explicit the evidence and resources needed to support a judgement.
+
+A starting point is the framework of \textcite{alaaHowFaithfulYour2022},
+which distinguishes fidelity, diversity and generalization through
+$\alpha$-Precision, $\beta$-Recall and Authenticity.
+This motivates examining complementary dimensions of quality.
+Its applicability to particular vision tasks, and the resources required
+to apply it alongside other measures, will be investigated in the review.
+The project does not assume in advance that one metric or threshold is
+appropriate for every task.
+
+\section{Research question and scope}
+\input{shared/question-block}
+The review will focus on image classification, object detection and semantic
+segmentation. It will consider both rendered or simulated images and learned
+image generation, distinguishing synthetic-only from mixed real/synthetic
+training. Domain-general evaluation methods may inform the review, but
+evidence from unrelated modalities will not be treated as direct evidence
+of effectiveness in vision.
+
+\section{Research gap and expectations}
+The gap to investigate is whether existing evaluation approaches provide
+sufficient guidance for connecting vision-specific requirements to both
+measurements and their practical prerequisites. This is a candidate gap,
+not a claim that such guidance is absent. We will test its relevance against
+existing frameworks and surveys and narrow it if the literature already
+addresses parts of the problem.
+
+Building on the distinction between fidelity, diversity and generalization
+in Alaa et al., we expect complementary measures to be needed rather than
+a single interchangeable quality score. We also expect the usefulness of
+an assessment to depend on its reference data and target task. These are
+provisional analytical expectations to examine for supporting and conflicting
+evidence, not statistical hypotheses that this review will experimentally test.
+
+The objective is an evidence-backed assessment framework linking each
+requirement to suitable measurements, necessary inputs and limitations.
+This is a literature-review project; training a new generator or conducting
+a model benchmark is outside the proposed scope.

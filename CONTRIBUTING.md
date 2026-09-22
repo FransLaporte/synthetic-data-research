@@ -5,6 +5,14 @@ root is the inner `synthetic-data-research` directory containing `main.tex`.
 
 ## Divide the work
 
+Coordinate proposal (`proposal/`), paper (`chapters/`) and slide (`slides/`)
+sections separately. See `research/course_requirements.md` for deadlines and
+the rubric. Edit question wording only in `shared/questions.tex`; review it
+together because it affects all documents. After shared question, style or
+bibliography changes, run `build.bat all` and inspect every PDF. Otherwise build
+the relevant document and run `python scripts/check_latex.py main`, `proposal`
+or `presentation` as appropriate.
+
 Agree on a lead and reviewer for each file in a GitHub issue before editing.
 Suggested split (swap as needed): author A leads RQ1 and RQ3; author B leads
 RQ2; each reviews the other's work. Divide source screening between neither:

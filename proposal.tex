@@ -1,0 +1,20 @@
+% Compile from repository root: build.bat proposal
+\documentclass[10pt,a4paper]{article}
+\usepackage{twente-paper}
+% A compact proposal uses the same identity with tighter section spacing.
+\titlespacing*{\section}{0pt}{5mm}{2mm}
+\titlespacing*{\subsection}{0pt}{3mm}{1mm}
+\addbibresource{references.bib}
+\input{shared/questions}
+\hypersetup{pdftitle={Research Proposal: Assessing Synthetic Data for Computer Vision},pdfauthor={Frans Laporte and Florent Kegler}}
+\fancyhead[L]{\fontsize{7.5}{9}\selectfont\bfseries SYNTHETIC DATA / RESEARCH PROPOSAL}
+\begin{document}
+\input{proposal/title}
+\input{proposal/problem_questions}
+\input{proposal/methodology}
+\input{proposal/plan}
+\begingroup
+\small\raggedright
+\printbibliography[heading=bibintoc,title={References}]
+\endgroup
+\end{document}
