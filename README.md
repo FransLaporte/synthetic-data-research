@@ -23,6 +23,9 @@ RQ1--RQ3 are its subquestions. Edit their canonical wording only in
 is in `shared/question-block.tex`. Shared fonts and colours live in
 `twente-visual.sty`; slide layouts live in `beamerthemeTwenteResearch.sty`.
 
+Topic contact: [dr.ir. G.A. Folkertsma (Geert)](https://people.utwente.nl/g.a.folkertsma).
+Edit contact details in `shared/contact.tex`, used by all three documents.
+
 See [proposal notes](proposal/README.md), [Beamer notes](slides/README.md) and
 the [deadlines and rubric checklist](research/course_requirements.md).
 Draft review: **5 October 2026**; proposal: **9 October, 17:00**; peer review:

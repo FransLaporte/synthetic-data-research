@@ -4,6 +4,16 @@ Source: rubric and deadlines supplied by the authors on 22 September 2026.
 Deadline interpretation confirmed by the user. No page limit supplied.
 Times use Europe/Amsterdam local course time.
 
+## Topic contact
+
+**dr.ir. G.A. Folkertsma (Geert)**, Lecturer, Robotics and Mechatronics,
+Faculty of EEMCS, University of Twente.
+Email: [g.a.folkertsma@utwente.nl](mailto:g.a.folkertsma@utwente.nl).
+Name, title, affiliation and email verified against the
+[official UT profile](https://people.utwente.nl/g.a.folkertsma).
+The authors identify him as the topic contact; no additional supervisory
+or approval role is assumed. Shared document details are in `shared/contact.tex`.
+
 | Date, 2026 | Deliverable or event |
 | --- | --- |
 | 5 October | Literature-review draft; time not specified. |
