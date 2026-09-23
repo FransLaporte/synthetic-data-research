@@ -25,6 +25,7 @@ is in `shared/question-block.tex`. Shared fonts and colours live in
 
 Topic contact: [dr.ir. G.A. Folkertsma (Geert)](https://people.utwente.nl/g.a.folkertsma).
 Edit contact details in `shared/contact.tex`, used by all three documents.
+Jorien Berendsen is the **EE/ROB topics contact**.
 Student contacts are `f.p.s.laporte@student.utwente.nl` (Frans Laporte) and
 `o.c.f.kegler@student.utwente.nl` (Florent Kegler); the topic contact email is
 `g.a.folkertsma@utwente.nl`. The campus visiting address is Drienerlolaan 5,

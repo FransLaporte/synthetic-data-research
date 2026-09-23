@@ -14,6 +14,8 @@ Name, title, affiliation and email verified against the
 The authors identify him as the topic contact; no additional supervisory
 or approval role is assumed. Shared document details are in `shared/contact.tex`.
 
+**Jorien Berendsen** is the EE/ROB topics contact, as specified by the authors.
+
 | Date, 2026 | Deliverable or event |
 | --- | --- |
 | 5 October | Literature-review draft; time not specified. |
