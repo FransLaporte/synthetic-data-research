@@ -40,6 +40,14 @@ review; its candidate gap must still be substantiated by the literature review.
 
 ## Paper structure and shared writing
 
+The literature review opens with the illustrated cover (`cover.tex`), followed
+by a separate formal title page (`titlepage.tex`), then the abstract and contents.
+The illustrated cover keeps the title, subtitle, author names, course/date and
+logo; detailed contacts, qualifications and address appear on the title page.
+The cover and title page display no page numbers. Roman numbering starts at the
+overview; Arabic numbering restarts at the introduction. The formal title page
+uses the same title/subtitle as the cover and the shared contact definitions.
+
 The paper focuses on synthetic data for **computer vision**. It is a working
 review scaffold: candidate metrics and drafting prompts are not final findings.
 Read [CONTRIBUTING.md](CONTRIBUTING.md) for the two-author Git workflow and
@@ -47,6 +55,8 @@ Read [CONTRIBUTING.md](CONTRIBUTING.md) for the two-author Git workflow and
 
 | Reading order | File | Purpose |
 | --- | --- | --- |
+| Cover | `cover.tex` | Illustrated outer cover. |
+| Title page | `titlepage.tex` | Full title, authors, contacts, institution, place and date. |
 | Abstract | `chapters/abstract.tex` | Write last, once the answers are known. |
 | 1. Introduction | `chapters/introduction.tex` | Vision scope and three research questions. |
 | 2. Background | `chapters/background.tex` | Concepts and working definitions. |

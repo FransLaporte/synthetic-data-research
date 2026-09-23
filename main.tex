@@ -7,8 +7,12 @@
 \input{shared/contact}
 \hypersetup{pdftitle={Requirements on Synthetic Data for Training Machine Learning Algorithms},pdfauthor={Frans Laporte and Florent Kegler}}
 \begin{document}
+% Avoid duplicate PDF page destinations on the two unnumbered title pages.
+\hypersetup{pageanchor=false}
 \input{cover}
+\input{titlepage}
 \pagenumbering{roman}
+\hypersetup{pageanchor=true}
 \eyebrow{Literature review / Research overview}
 \section*{At a glance}
 \vspace{3mm}

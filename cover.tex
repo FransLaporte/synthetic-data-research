@@ -31,14 +31,15 @@
     \node[anchor=west,text=white,inner sep=0] at (24,-202) {\fontsize{6.5}{8}\selectfont OBSERVATIONS};
     \node[anchor=center,text=white,inner sep=0] at (105,-202) {\fontsize{6.5}{8}\selectfont REPRESENTATION};
     \node[anchor=east,text=white,inner sep=0] at (186,-202) {\fontsize{6.5}{8}\selectfont SYNTHETIC SAMPLES};
-    \node[anchor=north west,inner sep=0,text width=86mm] at (24,-217) {\eyebrow{Student authors}\vspace{2mm}{\fontsize{10}{13}\selectfont Frans Laporte BSc.\\{\fontsize{8}{11}\selectfont\LaporteEmailLink}\\[1mm]Florent Kegler BSc.\\{\fontsize{8}{11}\selectfont\KeglerEmailLink}}};
-    \node[anchor=north west,inner sep=0,text width=72mm] at (114,-217) {\eyebrow{Topic contact}\vspace{1mm}{\fontsize{9}{12}\selectfont\TopicContactLink\\\TopicContactEmailLink}};
-    \node[anchor=north west,inner sep=0,text width=72mm] at (114,-237) {\eyebrow{EE/ROB topics contact}\vspace{1mm}{\fontsize{9}{12}\selectfont\EEROBContactLink\\\EEROBContactEmailLink}};
-    \node[anchor=west,inner sep=0] at (24,-250) {\fontsize{8}{10}\selectfont Academic Research Skills / Literature review / Working draft};
-    \draw[rulegray,line width=.4pt] (24,-257)--(186,-257);
-    \node[anchor=north west,inner sep=0,text width=93mm,text=muted] at (24,-263) {\fontsize{8}{11}\selectfont University of Twente / EEMCS\\\UTStreet\\\UTCityCountry};
+    % Full author details, contacts and address are on the formal title page.
+    % Aligned labels and a shared rule make the lower area one coherent block.
+    \draw[rulegray,line width=.5pt] (24,-232)--(186,-232);
+    \node[anchor=north west,inner sep=0,text=muted] at (24,-239) {\fontsize{8}{10}\selectfont\bfseries AUTHORS};
+    \node[anchor=north west,inner sep=0] at (24,-249) {\fontsize{14}{18}\selectfont Frans Laporte};
+    \node[anchor=north west,inner sep=0] at (24,-260) {\fontsize{14}{18}\selectfont Florent Kegler};
+    \node[anchor=north west,inner sep=0,text=muted] at (136,-239) {\fontsize{8}{10}\selectfont\bfseries INSTITUTION};
     % Official image supplied in Images; retain its original aspect ratio.
-    \node[anchor=north east,inner sep=0] at (186,-263) {\includegraphics[width=50mm]{Images/UTLogo.png}};
+    \node[anchor=north east,inner sep=0] at (186,-249) {\includegraphics[width=50mm]{Images/UTLogo.png}};
   \end{scope}
 \end{tikzpicture}
 \null
