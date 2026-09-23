@@ -28,18 +28,27 @@ jobs:
       - name: Compile with XeLaTeX and Biber
         uses: xu-cheng/latex-action@v4
         with:
-          root_file: main.tex
+          root_file: |
+            main.tex
+            proposal.tex
+            presentation.tex
           latexmk_use_xelatex: true
           args: -file-line-error -halt-on-error -interaction=nonstopmode
 
       - name: Check citations and cross-references
-        run: python3 scripts/check_latex.py
+        run: |
+          python3 scripts/check_latex.py main
+          python3 scripts/check_latex.py proposal
+          python3 scripts/check_latex.py presentation
 
       - name: Upload PDF
         uses: actions/upload-artifact@v4
         with:
           name: paper-${{ github.sha }}
-          path: main.pdf
+          path: |
+            main.pdf
+            proposal.pdf
+            presentation.pdf
           if-no-files-found: error
           retention-days: 90
 
@@ -51,6 +60,10 @@ jobs:
           path: |
             main.log
             main.blg
+            proposal.log
+            proposal.blg
+            presentation.log
+            presentation.blg
           if-no-files-found: ignore
           retention-days: 14
 

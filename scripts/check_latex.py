@@ -1,10 +1,15 @@
 """Fail CI on unresolved citations/references even if LaTeX produced a PDF."""
 from pathlib import Path
+import argparse
 import re
 
-pdf = Path("main.pdf")
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument("document", nargs="?", default="main",
+                    choices=("main", "proposal", "presentation"))
+document = parser.parse_args().document
+pdf = Path(f"{document}.pdf")
 if not pdf.is_file() or pdf.stat().st_size == 0:
-    raise SystemExit("main.pdf was not produced.")
+    raise SystemExit(f"{pdf} was not produced.")
 patterns = (
     r"(?:Citation|Reference)\b[^\n]*\bundefined",
     r"There were undefined (?:references|citations)",
@@ -15,7 +20,7 @@ patterns = (
     r"^.*\bERROR\s*-",
 )
 errors = []
-for filename in ("main.log", "main.blg"):
+for filename in (f"{document}.log", f"{document}.blg"):
     path = Path(filename)
     if not path.is_file():
         errors.append(f"Missing build log: {filename}")
@@ -26,4 +31,4 @@ for filename in ("main.log", "main.blg"):
                       re.finditer(pattern, content, re.IGNORECASE | re.MULTILINE))
 if errors:
     raise SystemExit("\n".join(errors))
-print("PDF built; citations and cross-references resolved.")
+print(f"{pdf}: built; citations and cross-references resolved.")

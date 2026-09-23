@@ -1,0 +1,40 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerthemeTwenteResearch}[2026/09/22 UT-inspired research slides]
+% Independent student theme, not an official University of Twente template.
+\RequirePackage{twente-visual}
+\RequirePackage{tikz}
+\RequirePackage{booktabs}
+\RequirePackage{array}
+\usefonttheme{professionalfonts}
+\setbeamersize{text margin left=10mm,text margin right=10mm}
+\setbeamercolor{normal text}{fg=ink,bg=white}
+\setbeamercolor{structure}{fg=ink}
+\setbeamercolor{frametitle}{fg=ink,bg=white}
+\setbeamercolor{block title}{fg=white,bg=ink}
+\setbeamercolor{block body}{fg=ink,bg=papergray}
+\setbeamercolor{footline}{fg=muted,bg=white}
+\setbeamerfont{title}{size=\LARGE,series=\bfseries}
+\setbeamerfont{frametitle}{size=\Large,series=\bfseries}
+\setbeamerfont{block title}{size=\normalsize,series=\bfseries}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize item}{\small\textbullet}
+\setbeamertemplate{itemize subitem}{\tiny\textbullet}
+\setbeamertemplate{frametitle}{%
+  \vspace{5mm}\insertframetitle\par
+  \vspace{2mm}{\color{rulegray}\hrule}\vspace{2mm}}
+\setbeamertemplate{footline}{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=5mm,dp=2mm,leftskip=10mm,rightskip=10mm]{footline}
+  \tiny LAPORTE / KEGLER\hfill\insertshorttitle\hfill\insertframenumber\,/\,\inserttotalframenumber
+  \end{beamercolorbox}}
+\setbeamertemplate{title page}{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \fill[ink] (current page.north west) rectangle ([yshift=18mm]current page.south east);
+    \node[anchor=north west,text=white,inner sep=0] at ([xshift=10mm,yshift=-9mm]current page.north west)
+      {\scriptsize ACADEMIC RESEARCH SKILLS / RESEARCH PROPOSAL};
+    \node[anchor=north west,text=white,text width=137mm,inner sep=0] at ([xshift=10mm,yshift=-23mm]current page.north west)
+      {{\usebeamerfont{title}\inserttitle}\par\vspace{4mm}{\large\insertsubtitle}\par\vspace{5mm}{\small\insertauthor}\par\vspace{3mm}{\footnotesize\insertinstitute}};
+    \node[anchor=south west,text=muted,inner sep=0] at ([xshift=10mm,yshift=6mm]current page.south west)
+      {\scriptsize\insertdate};
+    \node[anchor=south east,inner sep=0] at ([xshift=-10mm,yshift=4mm]current page.south east)
+      {\includegraphics[width=32mm]{Images/UTLogo.png}};
+  \end{tikzpicture}}

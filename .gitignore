@@ -13,6 +13,9 @@
 *.bcf
 *.run.xml
 *.pdf
+*.nav
+*.snm
+*.vrb
 
 # LaTeX build directory
 build/
