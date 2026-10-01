@@ -3,7 +3,7 @@
 These notes support the paper but are not included in the PDF automatically.
 
 The RQ1 draft has six targeted records under `studies/`, awaiting author
-verification. See [the branch and PR plan](pr_plan.md) for the four-part split.
+verification. See [the branch and PR plan](pr_plan.md) for the five-part split.
 
 - `templates/search.md`: copy to `searches/YYYY-MM-DD-database-author.md`.
 - `templates/study.md`: copy to `studies/<citation-key>.md`.

@@ -2,19 +2,17 @@
 \section{Introduction}
 \label{sec:introduction}
 This review begins with methods for creating \gls{synthetic-data} for
-\gls{machine-learning}, then focuses on LiDAR point clouds for autonomous
+\gls{machine-learning}, then focuses on \gls{lidar} \glspl{point-cloud} for autonomous
 driving perception. The broad stage maps generation approaches; the focused
 stage examines sensor-specific requirements and usefulness on real data.
 
 \subsection{Motivation and scope}
-\draftnote{Develop the motivation with evidence about collection and
-annotation costs, controllable scenarios and rare events. Use screened
-papers from the research notes; do not assume synthetic data improves utility.}
+
 The general overview covers statistical modelling, procedural and
 physics-based simulation, learned generative models, and hybrid approaches.
 It is a conceptual mapping, not an exhaustive review of every modality.
 The detailed synthesis concerns scene-level automotive LiDAR and training
-for 3D object detection and semantic segmentation. Separate new-scene
+for \gls{object-detection} and \gls{semantic-segmentation}. Separate new-scene
 generation, reconstruction-based novel-view simulation, and completion or
 augmentation of existing scans. Object-only shape generation is background
 unless a study connects it to driving-scene scans.
@@ -32,5 +30,6 @@ Section~\ref{sec:background} defines the concepts;
 Section~\ref{sec:methodology} specifies the review procedure;
 Section~\ref{sec:findings} organises findings by research question;
 Section~\ref{sec:discussion} integrates the answers and discusses limitations.
-\draftnote{This is a review in progress. Replace prompts with supported
-synthesis; do not describe planned work as completed research.}
+
+
+\newpage

@@ -1,6 +1,6 @@
 # Branches and PR plan
 
-Prepared 1 October 2026. These are four local, committed branches forming a
+Prepared 1 October 2026. These are five branches forming a
 stack. Each row adds only its own work on top of the previous row. The original
 branch and `main` remain at the original base, `cc57915`.
 
@@ -10,24 +10,25 @@ branch and `main` remain at the original base, `cc57915`.
 | 2 | `research/02-ai-acknowledgement` | `research/01-lidar-scope` | AI disclosure and title-page spacing |
 | 3 | `research/03-sources-and-reading-notes` | `research/02-ai-acknowledgement` | User's Zotero export, annotated reading list, source-check notes and Zotero-only rule |
 | 4 | `writing/04-rq1-generation-methods` | `research/03-sources-and-reading-notes` | RQ1 synthesis, comparison table, six evidence records and drafting disclosure |
+| 5 | `writing/05-figures-glossary-and-layout` | `writing/04-rq1-generation-methods` | Linked glossary terms, two cited LiDARsim figures and author layout edits |
 
 RQ1 belongs to the requesting author; the coauthor's source verification remains
 pending. No human screening decisions, approval or assignment of RQ2/RQ3 is
 claimed. Their sections remain prompts.
 
-## Publish the branches when ready
+## Publish or update the branches
 
-No PRs have been created and these branches have not been pushed by this work.
-From the repository root, publish each branch without force:
+From the repository root, publish or update each branch without force:
 
 ```powershell
 git push -u origin research/01-lidar-scope
 git push -u origin research/02-ai-acknowledgement
 git push -u origin research/03-sources-and-reading-notes
 git push -u origin writing/04-rq1-generation-methods
+git push -u origin writing/05-figures-glossary-and-layout
 ```
 
-Create each PR with the head/base pair above. Opening all four against `main`
+Create each PR with the head/base pair above. Opening all five against `main`
 immediately would show earlier changes repeatedly. Review and merge in order.
 After the parent merges, check and retarget the next PR to `main`. If using
 squash merges, the remaining branches may need rebasing onto the new parent
@@ -73,6 +74,16 @@ verification remain pending; RQ2 and RQ3 are not presented as completed findings
 Validation: all three documents built with resolved citations/references;
 the RQ1 pages and title-page layout were inspected. No training experiment
 or comprehensive literature search is claimed.
+
+### 5. Add LiDAR illustrations, linked terminology and layout refinements
+
+Add the two author-supplied LiDARsim images to RQ1's hybrid-method explanation,
+with paraphrased captions, original figure numbers and the existing Zotero
+citation. Expand the glossary and link the relevant terms in the review.
+Include the author's question-label, page-break and draft-prompt edits.
+Validation: all three documents built with resolved references; the figure
+and glossary pages were inspected visually. Bibliography entries remain
+managed through Zotero.
 
 ## Recovery and bibliography
 

@@ -16,7 +16,7 @@ Statistical approaches generate observations by sampling a fitted
 probability model. The health-record review by
 \textcite{hernandezSyntheticDataGeneration2022} describes models that
 capture relationships between attributes and generate numerical or
-categorical records. Bayesian networks are one example: variables and
+categorical records. \Glspl{bayesian-network} are one example: variables and
 their conditional dependencies define a joint distribution from which new
 records can be sampled. They are included alongside neural generators in
 the tabular benchmark of \textcite{hansenReimaginingSyntheticTabular2023}.
@@ -33,7 +33,7 @@ illustrate general modelling choices; they do not establish how well those
 choices reproduce LiDAR geometry.
 
 \subsubsection{Procedural generation and physical simulation}
-Procedural generation constructs data through rules, assets and sampled
+\Gls{procedural-generation} constructs data through rules, assets and sampled
 parameters. For a virtual scene, these can specify which objects appear
 and how they are arranged. Physical simulation then models an observation
 or interaction with that scene. These are complementary stages: constructing
@@ -52,7 +52,7 @@ as sources of discrepancy between simulated and real scans
 \parencite{manivasagamLiDARsimRealisticLiDAR2020}. Thus, control over a
 scenario does not by itself establish realistic sensor measurements.
 
-Domain randomization varies generation parameters to expose a trained
+\Gls{domain-randomization} varies generation parameters to expose a trained
 model to a wider range of conditions. In this review it is treated as a
 strategy applied to a generator, rather than a separate generator family.
 Nikolenko describes both broad randomization and approaches constrained
@@ -73,8 +73,8 @@ families illustrate different ways to formulate this learning problem.
 Autoencoder-based methods use an encoder to obtain a compact representation
 and a decoder to reconstruct observations, as described by
 \textcite{hernandezSyntheticDataGeneration2022}. A variational autoencoder
-(VAE) is a probabilistic member of this family; Hansen et al.\ include its
-tabular variant, TVAE, among the evaluated generators
+(\gls{vae}) is a probabilistic member of this family; Hansen et al.\ include its
+tabular variant, \gls{tvae}, among the evaluated generators
 \parencite{hansenReimaginingSyntheticTabular2023}.
 For the comparison here, the important distinction is that reconstructing
 an input and producing useful new samples are different objectives.
@@ -83,33 +83,32 @@ alongside downstream evidence, rather than treating an autoencoder's
 reconstruction ability as sufficient evidence of synthetic-data utility.
 
 \paragraph{Generative adversarial networks.}
-A generative adversarial network (GAN) trains a generator against a
+A generative adversarial network (\gls{gan}) trains a generator against a
 discriminator that distinguishes generated from training samples.
 The generator learns to produce examples that challenge this discriminator
 \parencite{hernandezSyntheticDataGeneration2022}.
-Van Breugel et al.\ discuss mode collapse and poor coverage among the
+Van Breugel et al.\ discuss \gls{mode-collapse} and poor coverage among the
 limitations of learned synthetic data
 \parencite{breugelSyntheticDataReal2023}.
 This makes diversity a separate concern from the plausibility of individual
 samples. A conditional generator can make selected attributes controllable,
-as illustrated by tabular conditional GANs in
+as illustrated by tabular conditional GANs (\gls{ctgan}) in
 \textcite{hansenReimaginingSyntheticTabular2023}; the available conditioning
 variables determine what is directly specified.
 
 \paragraph{Diffusion and score-based models.}
 Diffusion and score-based methods provide another route to learned
-generation. Hansen et al.\ include a tabular diffusion model in their
+generation. Hansen et al.\ include a tabular \gls{diffusion-model} in their
 benchmark \parencite{hansenReimaginingSyntheticTabular2023}.
-For a concrete sensor-data example, LiDARGen learns a score function from
-range and intensity images perturbed at different noise levels. Generation
-starts from noise and uses repeated updates through annealed Langevin
-dynamics \parencite{zyrianovLearningGenerateRealistic2022}.
+For a concrete sensor-data example, LiDARGen learns a \gls{score-function} from
+\glslink{range-image}{range} and \gls{intensity} images perturbed at different noise levels. Generation
+starts from noise and uses repeated updates through \gls{langevin-dynamics} \parencite{zyrianovLearningGenerateRealistic2022}.
 This iterative sampling makes the number and schedule of updates practical
 computational considerations. LiDARGen illustrates a score-based method;
 its particular sampler should not be assumed to describe every diffusion
 model or to establish a universal advantage over other generator families.
 
-These are not the only neural approaches. Normalizing flows use invertible
+These are not the only neural approaches. \Glspl{normalizing-flow} use invertible
 mappings between a reference distribution and observations and appear in
 the tabular comparison by Hansen et al.
 \parencite{hansenReimaginingSyntheticTabular2023}.
@@ -119,8 +118,7 @@ without asserting that the remaining families are unimportant.
 
 \subsubsection{Hybrid methods and augmentation}
 Hybrid pipelines combine explicit structure with learned components.
-LiDARsim reconstructs scene assets from real recordings, performs ray
-casting, and learns which simulated rays should be dropped. It therefore
+LiDARsim reconstructs scene assets from real recordings, performs \gls{ray-casting}, and learns which simulated rays should be dropped. It therefore
 uses learning to model effects not adequately captured by the physical
 stage \parencite{manivasagamLiDARsimRealisticLiDAR2020}.
 This offers a way to retain scene control while fitting aspects of real
@@ -128,7 +126,43 @@ sensor behaviour. The corresponding dependency is twofold: the pipeline
 needs both suitable scene assets and data for its learned component.
 Hybrid generation consequently does not eliminate real-data requirements.
 
-Augmentation instead modifies available examples, for instance by
+Figure~\ref{fig:lidarsim-object-reconstruction} illustrates the asset-building
+stage: multiple observations are combined, incomplete geometry is filled
+using vehicle symmetry, and the result is refined into a representation
+made of \glspl{surfel}. These reconstructed assets can then be placed in
+simulation scenes \parencite{manivasagamLiDARsimRealisticLiDAR2020}.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{Images/IndividualLidarSweep to surfelmeshing.png}
+\caption[Reconstructing vehicle assets for LiDAR simulation]{Reconstructing
+a vehicle asset from real LiDAR observations. From left to right: a single
+sparse sweep, accumulated observations, symmetry-based completion, and
+the refined surfel representation. Reproduced from Manivasagam et al.,
+Figure~4 \parencite{manivasagamLiDARsimRealisticLiDAR2020}.}
+\label{fig:lidarsim-object-reconstruction}
+\end{figure}
+
+The sensor-modelling stage is illustrated in
+Figure~\ref{fig:lidarsim-raydrop-comparison}. Ray casting determines where
+beams intersect the scene, while the learned \gls{ray-drop} component models
+which returns are absent. The example makes the change in sampling pattern
+visible; it is a qualitative illustration rather than a measure of
+downstream perception performance
+\parencite{manivasagamLiDARsimRealisticLiDAR2020}.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.85\linewidth]{Images/RaycastvsLiDARsimvsRealLiDAR.png}
+\caption[Ray casting, LiDARsim and real LiDAR]{A qualitative comparison of
+vehicle point clouds. Left: ray-cast LiDAR. Centre: LiDARsim with learned
+ray drop. Right: real LiDAR. The learned component changes which simulated
+returns are retained. Reproduced from Manivasagam et al., Figure~7
+\parencite{manivasagamLiDARsimRealisticLiDAR2020}.}
+\label{fig:lidarsim-raydrop-comparison}
+\end{figure}
+
+\Glslink{augmentation}{Augmentation} instead modifies available examples, for instance by
 transforming an image or inserting an object into a scan. Nikolenko
 distinguishes transformation-based augmentation from creating new data,
 while LiDARGen discusses object insertion as a form of LiDAR simulation
