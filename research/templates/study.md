@@ -10,24 +10,30 @@
 - Author A full-text decision and reason:
 - Author B full-text decision and reason:
 - Agreed decision, reason and reconciliation date:
-- Evidence role: direct vision training / methodological background:
+- Evidence role: general generation background / LiDAR method / real-test utility:
 - Extracted by / checked by / dates:
 
 ## Setting
 
-- Vision task, domain and target deployment population:
+- Generation task: new scene / novel view-time / completion / translation / augmentation:
+- Perception task, sensor, domain and target deployment population:
+- Representation, conditioning, assets, label production and sensor effects:
 - Generator/simulator and version; synthetic size and generation settings:
 - Real datasets, sizes, annotations and subgroup metadata:
 - Train/validation/test splits; subject/scene independence; leakage risks:
 - Training regime: real-only / synthetic-only / mixed; mixture proportions:
 - Task model, checkpoint, training budget, baselines and seeds:
 
-## RQ1: Requirements
+## RQ1: General generation methods
+
+- Method family, assumptions, controllability, data dependence and trade-offs:
+
+## RQ2: LiDAR generation and requirements
 
 | Requirement | Source claim or result | Page/table/figure | Conditions and counterevidence |
 | --- | --- | --- | --- |
 
-## RQ2 and RQ3: Measurements and prerequisites
+## RQ3: Evaluation, real-test transfer and prerequisites
 
 | Dimension / metric | Definition and direction | Real data / labels / priors needed | Networks, preprocessing and software | Result and uncertainty | Source location / limitations |
 | --- | --- | --- | --- | --- | --- |

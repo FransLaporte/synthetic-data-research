@@ -1,23 +1,19 @@
-\subsection{RQ1: Requirements for synthetic vision training data}
+% Filename retained to preserve existing repository links.
+\subsection{RQ1: General approaches to synthetic data generation}
 \label{sec:rq1}
-\subsubsection{Task relevance, realism and similarity}
-\draftnote{Investigate geometry, textures, lighting, camera properties,
-object boundaries and scene context. Determine when photorealism helps
-and when variation matters more. Define the real target distribution;
-distinguish matching it from deliberate rare-case oversampling.}
+\subsubsection{Statistical, procedural and simulation approaches}
+\draftnote{Map statistical sampling, rule-based scene construction and
+physics-based simulation. Extract modelling assumptions, controllability,
+label availability, real-data dependence and generation cost. Keep
+non-LiDAR examples concise and explain what transfers to the focused review.}
 
-\subsubsection{Coverage and diversity}
-\draftnote{Extract requirements for classes, poses, viewpoints, object
-sizes, occlusion, environments and rare events. Consider combinations
-of conditions, redundancy and dataset size, not only marginal counts.}
+\subsubsection{Learned and hybrid generation}
+\draftnote{Compare GANs, variational autoencoders, diffusion or score-based
+models and hybrids with simulation. Separate model family from data
+representation and conditional from unconditional generation. Avoid
+claiming a universal ranking across incompatible tasks.}
 
-\subsubsection{Annotations, bias and provenance}
-\draftnote{Investigate label correctness and image--label consistency
-for classes, boxes and masks. Examine representation, spurious correlations
-and subgroup performance; distinguish imbalance from error disparities.
-Extract provenance, reproducibility and applicable privacy requirements.}
-
-\subsubsection{Requirements supported by downstream evidence}
-\draftnote{Relate each requirement to real-test utility and robustness.
-State conditions, supporting and contradicting studies, and strength of
-evidence. Avoid unsupported universal thresholds. End with an answer to RQ1.}
+\subsubsection{Trade-offs and bridge to LiDAR}
+\draftnote{Synthesize coverage, control, fidelity, annotation support,
+data dependence and compute. Identify which approaches appear in LiDAR
+studies and why. End with a direct answer to RQ1.}

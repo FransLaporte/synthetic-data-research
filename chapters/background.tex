@@ -1,18 +1,21 @@
 \section{Background and terminology}
 \label{sec:background}
-\subsection{Synthetic data for vision}
-\draftnote{Define synthetic images and labels, rendering/simulation, learned
-generation and augmentation. Introduce classification, detection and
-segmentation and their annotation needs. Define the intended real-world
-deployment population before discussing quality.}
+\subsection{Synthetic data generation for machine learning}
+\draftnote{Define fully synthetic data, simulation, learned generation and
+augmentation. Introduce statistical models, procedural or physics-based
+simulation, GANs, variational autoencoders, diffusion models and hybrids.
+Compare assumptions, control, real-data needs, labels and computational cost.
+Use general surveys for orientation and primary papers for method claims.}
 
-\subsection{Origins, context and relevance}
-\draftnote{Trace the development of synthetic vision training and its
-evaluation using primary sources. Explain the practical and scientific
-motivation, and compare major approaches rather than listing studies.}
+\subsection{From three-dimensional scenes to LiDAR scans}
+\draftnote{Explain the distinction between a complete 3D shape and a sensor
+observation. Introduce beam geometry, range, intensity, occlusion, missing
+returns, range-dependent sparsity and motion. Compare point sets, range
+images and voxel representations. Distinguish generating new scenes from
+rendering new viewpoints of a recorded scene and completing existing scans.}
 
-\subsection{Quality dimensions}
-For this review, realism denotes perceptual or physical plausibility;
+\subsection{Quality and downstream utility}
+For this review, realism denotes physical or perceptual plausibility;
 similarity denotes agreement with a specified reference distribution;
 coverage concerns representation of relevant classes and conditions;
 and bias concerns systematic imbalances and differences in errors across
@@ -22,7 +25,8 @@ performance on the intended task after training with synthetic data.
 
 \textcite{alaaHowFaithfulYour2022} distinguish fidelity, diversity and
 generalization using $\alpha$-Precision, $\beta$-Recall and Authenticity.
-This is a methodological starting point; vision-specific suitability
-remains a question for the synthesis.
-\draftnote{Distinguish image, annotation, dataset and trained-model
-properties, and a requirement from its metric and assessment resources.}
+This provides general evaluation concepts; their applicability to LiDAR
+representations and perception tasks must be assessed separately.
+\draftnote{Define the synthetic-to-real domain gap and distinguish
+distributional similarity, geometric reconstruction quality and
+real-test perception performance.}

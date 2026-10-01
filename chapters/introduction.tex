@@ -1,28 +1,33 @@
 \eyebrow{Context / Research direction}
 \section{Introduction}
 \label{sec:introduction}
-This review examines the requirements and assessment of \gls{synthetic-data}
-used to train \gls{machine-learning} algorithms for computer vision.
-It separates what a dataset should provide, how those properties can be
-measured, and what resources are needed to make an assessment meaningful.
+This review begins with methods for creating \gls{synthetic-data} for
+\gls{machine-learning}, then focuses on LiDAR point clouds for autonomous
+driving perception. The broad stage maps generation approaches; the focused
+stage examines sensor-specific requirements and usefulness on real data.
 
 \subsection{Motivation and scope}
-\draftnote{Develop the motivation with cited evidence about data collection,
-annotation, rare events and the gap between synthetic and real images.
-Focus on classification, object detection and semantic segmentation.
-Distinguish rendered/simulated images from learned generation, and
-synthetic-only training from mixing synthetic and real data.
-Use other modalities as methodological background only, explaining
-whether their conclusions transfer to vision.}
+\draftnote{Develop the motivation with evidence about collection and
+annotation costs, controllable scenarios and rare events. Use screened
+papers from the research notes; do not assume synthetic data improves utility.}
+The general overview covers statistical modelling, procedural and
+physics-based simulation, learned generative models, and hybrid approaches.
+It is a conceptual mapping, not an exhaustive review of every modality.
+The detailed synthesis concerns scene-level automotive LiDAR and training
+for 3D object detection and semantic segmentation. Separate new-scene
+generation, reconstruction-based novel-view simulation, and completion or
+augmentation of existing scans. Object-only shape generation is background
+unless a study connects it to driving-scene scans.
 
 \input{shared/question-block}
-The three subquestions operationalise the main research question: RQ1
-identifies what matters, RQ2 examines how to measure it, and RQ3 establishes
-what is needed to perform that assessment.
+RQ1 establishes the general generation landscape; RQ2 examines LiDAR
+methods and requirements; RQ3 evaluates dataset quality and transfer to
+real-world perception. Real data, priors, networks and computation remain
+part of the comparison as generation and assessment prerequisites.
 
 \subsection{Contribution and paper structure}
-The planned output is an evidence-backed mapping from requirements to
-metrics and assessment prerequisites.
+The planned output is a method--requirement--evidence matrix connecting
+generation choices to LiDAR properties, evaluation protocols and limitations.
 Section~\ref{sec:background} defines the concepts;
 Section~\ref{sec:methodology} specifies the review procedure;
 Section~\ref{sec:findings} organises findings by research question;
