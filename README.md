@@ -20,6 +20,7 @@ autonomous driving?
 
 The review moves from general generation approaches (RQ1), to LiDAR generation
 and its requirements (RQ2), to evaluation and real-world transfer (RQ3).
+Start with the [annotated reading path](research/lidar_reading_list.md).
 
 RQ1--RQ3 are its subquestions. Edit their canonical wording only in
 `shared/questions.tex`; all three documents load it. Article question layout
@@ -113,6 +114,9 @@ entries and unresolved references. Linux uses the template's TeX Gyre Heros font
 fallback when Arial is unavailable, so line breaks can differ from Windows.
 
 ### Bibliography collaboration
+
+All bibliography entries must come from the shared Zotero export. Do not add
+manual or supplementary `.bib` entries; import new sources into Zotero first.
 
 CI reads the committed `references.bib`; no shared URL or secret is needed.
 Keep citation keys stable and use the same Better BibLaTeX export settings.

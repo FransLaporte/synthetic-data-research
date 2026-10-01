@@ -1,5 +1,9 @@
 # Starting sources to screen
 
+For the revised broad-generation-to-LiDAR scope, start with the
+[annotated LiDAR reading path](lidar_reading_list.md) and its search log.
+The earlier evaluation leads below remain background rather than the main scope.
+
 These are verified source leads, not a completed search or a set of included
 studies. Read the full papers, apply the protocol and create study records
 before drawing conclusions. Import new sources through Zotero before citing
