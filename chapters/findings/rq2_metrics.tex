@@ -1,39 +1,233 @@
-\subsection{RQ2: Metrics for assessing dataset quality}
-\label{sec:rq2}
-\draftnote{For each retained candidate add its definition, direction,
-citation, implementation, assumptions, inputs and evidence of its
-relationship to downstream utility. This table is an extraction framework,
-not a recommendation to use every measure.}
+% !TeX root = ../main.tex
+%
+% Evaluation of synthetic LiDAR data.
+% Intended as a findings subsection: \input it from a chapter file, e.g. in
+% chapters/findings/rq2_metrics.tex (or a dedicated LiDAR section), with
+% \input{chapters/findings/lidar_evaluation.tex}
+%
+% Bibliography: references.bib is managed by Zotero (Better BibLaTeX export).
+% The keys below follow Better BibLaTeX naming; replace them with the exact
+% keys from your shared references.bib if they differ. Bib entries to import
+% into Zotero are provided separately.
+%
+% Glossary: use \gls{...} keys that exist in glossary.tex; the few used here
+% (e.g. miou, ap) are suggestions -- add them to glossary.tex if missing.
 
-\begin{table}[htbp]
-\caption{Candidate dimensions and measures to investigate.}
-\label{tab:dimensions}
-\small
-\renewcommand{\arraystretch}{1.2}
-\begin{tabularx}{\linewidth}{@{}p{25mm}YY@{}}
-\toprule
-\textbf{Dimension} & \textbf{Candidate measures} & \textbf{Interpretation questions} \\
-\midrule
-Realism & Human ratings; physical and semantic validity checks. & Are criteria explicit and raters consistent? \\
-Similarity & Fr\'echet Inception Distance (FID); Kernel Inception Distance (KID); class-conditional comparisons. & Which features, reference data and preprocessing? \\
-Coverage & Generative precision/recall; $\alpha$-Precision and $\beta$-Recall; scenario occupancy. & Are rare cases and joint conditions represented? \\
-Bias & Representation ratios; subgroup error gaps; worst-group performance. & Which population and group definitions? \\
-Labels & Audited label error; box/mask agreement. & Are reference annotations independently checked? \\
-Utility & Classification accuracy or macro-F1; detection mAP; segmentation mIoU. & Performance on independent real test data? \\
-Authenticity & Authenticity; duplicate and nearest-neighbour audits. & Is generator training data available? \\
-\bottomrule
-\end{tabularx}
-\end{table}
+\section{Evaluation of Synthetic LiDAR Data}
+\label{sec:lidar-evaluation}
 
-\subsubsection{Validity and limitations}
-\draftnote{Examine sample-size effects, feature dependence, uncertainty
-and implementation comparability. Distinguish generative precision/recall
-from classifier precision/recall. Investigate whether paired measures such
-as SSIM or PSNR fit the data; avoid arbitrary real/synthetic pairing.
-Distinguish authenticity diagnostics from formal privacy guarantees.}
+\subsection{Evaluation of neural networks}
+\label{sec:lidar-eval-networks}
 
-\subsubsection{Selecting complementary metrics}
-\draftnote{Use evidence to propose a task-dependent set of distributional,
-coverage, label, subgroup and utility measures. Explain what each adds
-and misses, and whether acceptance thresholds are supported.
-End with a direct answer to RQ2.}
+To evaluate the performance of an image processing network, in general a
+separate validation dataset is used. This separation is important because
+performance on the training or validation data does not necessarily
+represent performance on unseen data~\parencite{raschkaModelEvaluationModel2020}.
+In particular, repeatedly using the test set during model development can
+result in overly optimistic estimates of performance~\parencite{westphalImprovingModelSelection2019}.
+
+For supervised perception models, the evaluation metric depends on the task.
+Classification is commonly evaluated using parameters such as accuracy,
+precision, recall, or F1-score (combination of precision and recall), whereas
+object detection is commonly evaluated using average precision (AP) or mean
+average precision (mAP). For segmentation, Intersection over Union (IoU),
+often averaged over classes as mean IoU (mIoU), is commonly used. The
+evaluation is performed against annotations in data that are independent of
+the data used for model training.
+
+The validation dataset not being used for training is especially important
+when evaluating a model trained on synthetic data. A model achieving high
+performance on a synthetic validation set only demonstrates that it can
+perform well within the synthetic domain. It does not demonstrate that the
+model will generalise to real-world data. Therefore, when the purpose of
+synthetic data is to train a perception model for autonomous driving,
+evaluation on an independent real-world dataset provides stronger evidence of
+its utility.
+
+\subsection{Evaluation of synthetic LiDAR datasets}
+\label{sec:lidar-eval-datasets}
+
+Synthetic LiDAR datasets can be evaluated at several levels. An important
+approach is to train perception models using synthetic point clouds and
+subsequently evaluate these models on real-world LiDAR data. This establishes
+whether the synthetic dataset contains information that transfers from the
+simulated domain to the target real-world domain.
+
+LiDARsim~\parencite{manivasagamLiDARsimRealisticLiDAR2020} gives an example of this approach. The simulator is evaluated by
+training perception models using simulated LiDAR and testing them on
+real-world datasets. For segmentation, models trained with LiDARsim data are
+evaluated on SemanticKITTI, while for vehicle detection, simulated data are
+used to train a detector that is evaluated on KITTI. The authors compare
+LiDARsim against both real data and the CARLA simulator. Their experiments
+therefore evaluate the simulator not only according to the appearance of
+individual point clouds, but according to the downstream performance obtained
+when synthetic LiDAR is used as training data.
+
+This type of evaluation can be extended by combining synthetic and real data.
+The resulting performance can be compared with a real-only baseline. Such an
+experiment answers a different question from synthetic-only training: rather
+than asking whether synthetic data can replace real data, it investigates
+whether synthetic data provides additional information that improves the
+perception model. SynLiDAR~\parencite{xiaoTransferLearningSynthetic2022}, for example, investigates synthetic-to-real transfer
+for semantic segmentation. Their experiments include synthetic data
+augmentation, semi-supervised domain adaptation, and unsupervised domain
+adaptation. Adding SynLiDAR to the real training data improves the mIoU by
+2.2 and 2.6 percentage points on SemanticKITTI and SemanticPOSS,
+respectively, and adding SynLiDAR translated towards the real domain improves
+it by a further 2.2 and 2.6 percentage points (4.4 and 5.2 points above the
+real-only baseline).
+
+Consequently, downstream perception performance can be evaluated using
+metrics appropriate to the perception task. For 3D object detection, average
+precision is a principal metric. The KITTI benchmark, for example, evaluates
+3D detection using precision-recall curves and average precision~\parencite{geigerAreWeReady2012a}. Recent work
+on synthetic LiDAR similarly reports 3D AP, with some studies additionally
+reporting bird's-eye-view and 2D detection performance~\parencite{marcusSynthItKITTI2026}. For semantic
+segmentation, mean Intersection over Union (mIoU) is commonly used, as
+demonstrated by SynLiDAR~\parencite{xiaoTransferLearningSynthetic2022}.
+
+However, downstream perception metrics alone do not fully describe the
+simulator's domain gap. A paired-scenario evaluation methodology~\parencite{manivasagamZeroDomainGap2023} reconstructs
+a real-world scenario as a digital twin. LiDAR can then be simulated for the
+same scenario and directly compared with the corresponding real LiDAR
+measurement. This enables both sensor-level comparison and evaluation of the
+effect of simulated sensor phenomena on the autonomy system.
+
+An important finding of this paired-scenario work~\parencite{manivasagamZeroDomainGap2023} is that sensor-level realism and downstream
+system performance are not necessarily equivalent. Phenomena such as motion
+blur, material reflectance, multi-echo returns, and the geometric
+reconstruction of traffic participants can affect the domain gap.
+Furthermore, conventional perception metrics such as detection precision and
+recall are not necessarily strong indicators of the domain gap with respect to
+the final motion-planning task. Thus, the appropriate evaluation level depends
+on the intended use of the synthetic dataset.
+
+\subsection{Parameters important for synthetic data in general}
+\label{sec:lidar-eval-general}
+
+Several characteristics are relevant when evaluating synthetic data
+independently of the sensing modality. 
+The first is data diversity. A dataset must contain variation in the factors that influence the target task. In
+autonomous driving, these factors can include scene layouts, object
+configurations, environmental conditions, and traffic situations. Large
+synthetic datasets such as SynLiDAR~\parencite{xiaoTransferLearningSynthetic2022} demonstrate the potential advantage of
+synthetic environments in providing many annotated samples across diverse
+environments. Diversity is important because in real circumstances, the autonomous system will encounter a wide range of situations, and a model trained on a narrow distribution of data may fail to generalise to unseen scenarios.
+
+A second characteristic is distributional similarity between
+synthetic and real data. Synthetic data can contain systematic differences
+from the target domain, creating a domain gap. Such differences may concern
+the distribution of objects, scenes, appearances, or sensor observations.
+However, similarity alone should not be considered sufficient evidence of
+dataset quality. A synthetic dataset can exhibit a small statistical
+difference from real data while still failing to contain information that
+improves the target perception task.
+
+A third characteristic is annotation quality and availability. One
+of the principal advantages of synthetic data is that ground-truth annotations
+can be generated automatically together with the sensor data. SynLiDAR~\parencite{xiaoTransferLearningSynthetic2022}, for
+example, provides point-wise annotations for 32 semantic classes and more
+than 19 billion points. This allows large-scale training without the manual
+annotation effort required for equivalent real-world point clouds.
+
+Finally, the downstream utility of the synthetic data is a critical
+criterion. This can be measured by comparing models trained under different
+data regimes, for example:
+\begin{enumerate}
+    \item real data only;
+    \item synthetic data only;
+    \item synthetic data followed by real-data fine-tuning;
+    \item real data augmented with synthetic data.
+\end{enumerate}
+The resulting models should then be evaluated on the same independent
+real-world test set. The change in AP or mIoU relative to a real-only baseline
+provides direct evidence of whether synthetic data contributes useful
+information to the target task.
+
+\subsection{Parameters specifically important for synthetic LiDAR data}
+\label{sec:lidar-eval-lidar-specific}
+
+In addition to general synthetic-data characteristics, LiDAR simulation
+introduces sensor-specific requirements. A LiDAR simulator must reproduce not
+only the geometry of the scene but also the characteristics of the sensing
+process.
+
+Point density and sparsity are important because LiDAR sensors produce
+incomplete and non-uniform observations of the environment. The density of
+measurements varies with distance, viewing angle, object geometry, and sensor
+configuration. SynLiDAR explicitly identifies the synthetic-to-real gap as
+containing a sparsity component and develops a point-cloud translation method
+to address this difference~\parencite{xiaoTransferLearningSynthetic2022}.
+
+Sensor noise and measurement artefacts are another important factor. LiDAR
+measurements can contain noise, missing returns, spurious returns, and other
+deviations from ideal geometric surfaces. A purely geometric ray-casting
+simulation may therefore produce point clouds that are geometrically plausible
+but sensor-wise unrealistic. LiDARsim addresses this by combining
+physics-based ray casting with a learned model that generates deviations from
+the idealised simulation~\parencite{manivasagamLiDARsimRealisticLiDAR2020}.
+
+Intensity and material reflectance are also relevant. The response of LiDAR
+measurements depends on the physical properties of surfaces. Material
+modelling and reflectance are important factors affecting the domain gap~\parencite{manivasagamZeroDomainGap2023}.
+Consequently, accurately reproducing object geometry alone does not guarantee
+realistic LiDAR observations.
+
+Temporal and scanning effects are particularly important for automotive
+LiDAR. Since a point cloud is acquired over a period of time rather than
+instantaneously, moving objects can produce motion distortion or motion blur.
+Motion blur and other scanning effects can have an influence on the similarity
+between simulated and real LiDAR and consequently on autonomous-system
+behaviour~\parencite{manivasagamZeroDomainGap2023}.
+
+Multi-echo and return phenomena can also contribute to the sensor domain gap.
+Real LiDAR sensors can produce multiple returns from a single emitted pulse,
+whereas simplified simulators may generate only a single idealised return. The
+paired-scenario experiments~\parencite{manivasagamZeroDomainGap2023} demonstrate that such effects can influence the
+realism of simulated point clouds.
+
+Finally, scene and object geometry is important. Synthetic LiDAR depends
+directly on the geometry presented to the simulated sensor. Inaccurate
+representations of vehicles, pedestrians, or other traffic participants can
+therefore create differences between simulated and real observations.
+Accurate geometric reconstruction of traffic participants is one of the
+important factors affecting the domain gap~\parencite{manivasagamZeroDomainGap2023}.
+
+\subsection{Conclusion}
+\label{sec:lidar-eval-conclusion}
+
+The literature indicates that synthetic LiDAR should be evaluated at both the
+data level and the downstream model level. Data-level
+evaluation can assess characteristics such as point density, sparsity, sensor
+noise, intensity, reflectance, geometric accuracy, and other LiDAR-specific
+phenomena. These measurements are useful for determining whether a simulator
+reproduces relevant properties of a real sensor.
+
+However, the strongest evidence for the usefulness of a synthetic LiDAR
+dataset is obtained through downstream evaluation on independent
+real-world data. For 3D object detection, average precision (AP or mAP) is an
+important primary metric, whereas semantic segmentation is commonly evaluated
+using mIoU. The most informative experimental comparison is therefore not
+simply whether synthetic and real point clouds are similar, but whether a
+model trained using synthetic data maintains or improves its performance when
+evaluated on real LiDAR data.
+
+The literature suggests a hierarchy of evaluation.
+Downstream real-world perception performance should form the main
+criterion, while sensor realism and distributional similarity
+provide supporting evidence explaining why a synthetic dataset
+succeeds or fails. In particular, the sim-to-real performance gap and the
+change in real-world AP or mIoU when synthetic data are introduced provide
+direct evidence of the practical value of synthetic LiDAR. At the same time,
+the paired-scenario work~\parencite{manivasagamZeroDomainGap2023} demonstrates that conventional perception metrics do
+not necessarily capture all aspects of simulator quality, particularly when the
+objective extends beyond perception to the behaviour of the complete
+autonomous-driving system.
+
+Therefore, a comprehensive evaluation of synthetic LiDAR should combine
+(1) real-world downstream perception performance, (2) comparison
+against real-data baselines, (3) data-level measures of sensor realism and
+domain gap, and (4) evaluation under relevant variations and difficult
+scenarios. This combination distinguishes a dataset that merely resembles
+real LiDAR from one that provides useful information for training perception
+models intended for real autonomous-driving environments.
