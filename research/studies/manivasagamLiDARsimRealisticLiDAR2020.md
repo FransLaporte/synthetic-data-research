@@ -17,6 +17,18 @@
 | Ray casting is combined with learned ray-drop modelling. | Sections 4.1-4.2; PDF pp. 4-5. | Hybrid example; ray drop is not rain-drop simulation. |
 | Simplified materials and sensor modelling can create a domain gap. | Related work; PDF p. 3. | Authors' motivation. The RQ1 draft does not claim all simulators share identical limitations. |
 
+## Figures used in the review
+
+- `Images/IndividualLidarSweep to surfelmeshing.png`: user-supplied image
+  matching Figure 4, PDF page 4. Four panels show an individual sweep,
+  accumulated observations, symmetry completion and the refined surfel asset.
+  The original caption groups outlier removal and surfel meshing in its last stage.
+- `Images/RaycastvsLiDARsimvsRealLiDAR.png`: user-supplied image matching
+  Figure 7, PDF page 6. Qualitative comparison of ray-cast LiDAR, LiDARsim
+  and real LiDAR; discussed with the learned ray-drop method in Section 4.2.
+- Both figures are attributed in the review using the existing Zotero key.
+  Captions are paraphrased; no new bibliography entry or image alteration is used.
+
 ## Extraction limits
 
 No numerical effect sizes, compute benchmarks or uncertainty estimates are extracted
