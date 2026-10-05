@@ -1,5 +1,22 @@
-\begin{researchbox}{Abstract / to be written last}
-\draftnote{Summarise the broad-to-LiDAR scope, actual review method, main
-answers to RQ1 (generation), RQ2 (LiDAR methods) and RQ3 (evaluation and transfer),
-and implications and limitations. Complete this after the review.}
+\begin{researchbox}{Abstract}
+Synthetic LiDAR can expand training data for autonomous-driving perception,
+but realistic-looking scans do not necessarily improve performance on real
+measurements. This focused narrative review connects general generation
+methods to automotive LiDAR and its evaluation, using selected surveys and
+primary studies from the project's source collection. Statistical models,
+procedural simulation, learned generators and hybrid pipelines offer different
+balances of control, data dependence and coverage. LiDAR-specific synthesis
+must additionally account for beam geometry, occlusion, missing returns,
+intensity and annotation consistency. LiDARsim and SynLiDAR provide evidence
+of useful transfer in particular perception settings; LiDARGen demonstrates
+scan generation and completion, whose results answer different questions.
+The strongest direct evidence of training utility is task performance on
+held-out real data under comparable training conditions. Geometry and
+distributional metrics help diagnose discrepancies but cannot replace this
+assessment. We recommend connecting sensor diagnostics to class- and
+range-specific utility, while recording the real data, labels and computation
+required. The selected evidence supports targeted supplementation of real
+data, rather than a universal replacement strategy. Incomplete systematic
+screening and heterogeneous evaluation protocols limit the generality of
+the synthesis.
 \end{researchbox}

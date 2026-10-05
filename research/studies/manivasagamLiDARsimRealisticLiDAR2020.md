@@ -31,6 +31,26 @@
 
 ## Extraction limits
 
+### Follow-up for RQ2/RQ3, 5 October 2026
+
+AI-assisted targeted full-text check; author verification remains pending.
+See [completion checks](../searches/2026-10-05-review-completion.md).
+
+- Section 5.2 and Table 1: **vehicle/background** segmentation on SemanticKITTI
+  validation, trained with 5,000 examples per source. Not full multiclass mIoU.
+- Section 5.2 and Table 2: **BEV vehicle detection** on KITTI hard validation.
+  At IoU 0.7: modified CARLA 42.2, LiDARsim 73.7, real KITTI 80.0.
+  The table calls the score mAP; it is not evidence for full 3D detection.
+- Section 5.2: sensor height and azimuth resolution adapted to KITTI, and KITTI
+  labelled data used to build the dynamic object bank. Synthetic-only perception
+  training therefore does not mean no real data or annotations in the pipeline.
+- Sections 3.1--3.2: real asset reconstruction and vehicle symmetry; authors
+  distinguish rigid vehicles from future support for deformable participants.
+- Section 5.3: learned ray drop compared against no/random/ground-truth ray drop.
+
+The earlier extraction limits below apply to the original RQ1 notes; the
+specific numerical extraction above extends them for this revision.
+
 No numerical effect sizes, compute benchmarks or uncertainty estimates are extracted
 for RQ1. Dataset sizes, full split details, seeds and model settings are not fully
 extracted here and must be checked before using this study for an empirical RQ3

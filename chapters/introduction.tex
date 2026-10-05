@@ -1,35 +1,24 @@
-\eyebrow{Context / Research direction}
 \section{Introduction}
 \label{sec:introduction}
-This review begins with methods for creating \gls{synthetic-data} for
-\gls{machine-learning}, then focuses on \gls{lidar} \glspl{point-cloud} for autonomous
-driving perception. The broad stage maps generation approaches; the focused
-stage examines sensor-specific requirements and usefulness on real data.
+Collecting and annotating automotive \gls{lidar} \glspl{point-cloud} is costly,
+and uncommon traffic situations are difficult to capture at scale.
+\Gls{synthetic-data} offers scene control and generated labels, but differences
+from real measurements can limit transfer
+\parencite{hurlPreciseSyntheticImage2019,xiaoTransferLearningSynthetic2022}.
+Real benchmarks such as KITTI provide calibrated sensor recordings and
+object annotations against which perception methods can be assessed
+\parencite{geigerAreWeReady2012a}.
 
-\subsection{Motivation and scope}
-
-The general overview covers statistical modelling, procedural and
-physics-based simulation, learned generative models, and hybrid approaches.
-It is a conceptual mapping, not an exhaustive review of every modality.
-The detailed synthesis concerns scene-level automotive LiDAR and training
-for \gls{object-detection} and \gls{semantic-segmentation}. Separate new-scene
-generation, reconstruction-based novel-view simulation, and completion or
-augmentation of existing scans. Object-only shape generation is background
-unless a study connects it to driving-scene scans.
+This review connects general generation methods to scene-level automotive
+LiDAR for \gls{object-detection} and \gls{semantic-segmentation}. It separates
+new-scan generation, reconstruction-based simulation and completion of
+existing scans. The central concern is whether generated observations
+support learning that transfers to real driving data.
 
 \input{shared/question-block}
-RQ1 establishes the general generation landscape; RQ2 examines LiDAR
-methods and requirements; RQ3 evaluates dataset quality and transfer to
-real-world perception. Real data, priors, networks and computation remain
-part of the comparison as generation and assessment prerequisites.
-
-\subsection{Contribution and paper structure}
-The planned output is a method--requirement--evidence matrix connecting
-generation choices to LiDAR properties, evaluation protocols and limitations.
-Section~\ref{sec:background} defines the concepts;
-Section~\ref{sec:methodology} specifies the review procedure;
-Section~\ref{sec:findings} organises findings by research question;
-Section~\ref{sec:discussion} integrates the answers and discusses limitations.
-
-
-\newpage
+Figure~\ref{fig:generation-evaluation} connects the questions.
+Section~\ref{sec:background} defines the scope,
+Section~\ref{sec:methodology} explains the evidence base, and
+Sections~\ref{sec:findings}--\ref{sec:conclusion} synthesise findings and
+implications. Linked technical terms are defined in the glossary.
+\input{chapters/figures/generation_evaluation_pipeline}

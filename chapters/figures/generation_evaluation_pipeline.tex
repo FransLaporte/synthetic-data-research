@@ -1,0 +1,43 @@
+% Original vector diagram: editable and rendered directly by LaTeX.
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[x=1mm,y=1mm,
+  stage/.style={draw=ink,line width=.5pt,fill=papergray,rounded corners=1mm,
+    text width=23mm,minimum height=18mm,inner sep=1.5mm,align=center,
+    font=\fontsize{8}{10}\selectfont},
+  source/.style={draw=muted,line width=.5pt,rounded corners=1mm,
+    inner sep=2mm,align=center,font=\fontsize{8}{10}\selectfont},
+  flow/.style={-{Stealth[length=1.8mm]},line width=.7pt},
+  support/.style={flow,dashed,draw=muted}]
+  \node[stage] (scene) at (13,0) {\textbf{Scene}\\construction};
+  \node[stage] (generator) at (46,0) {\textbf{LiDAR}\\simulation /\\generation};
+  \node[stage] (data) at (79,0) {\textbf{Training data}\\synthetic scans\\and labels};
+  \node[stage] (training) at (112,0) {\textbf{Perception}\\model training};
+  \node[stage] (evaluation) at (145,0) {\textbf{Real-data}\\evaluation};
+  \draw[flow] (scene) -- (generator);
+  \draw[flow] (generator) -- (data);
+  \draw[flow] (data) -- (training);
+  \draw[flow] (training) -- (evaluation);
+
+  \node[source,text width=84mm] (development) at (62.5,28)
+    {\textbf{Real development data}\\recordings, assets, labels and sensor calibration};
+  \draw[support] ([xshift=-30mm]development.south) -- ++(0,-5) -| (scene.north);
+  \draw[support] (development.south) -- ++(0,-5) -| (generator.north);
+  \draw[support] (development.east) -| (training.north);
+
+  \node[source,text width=30mm] (heldout) at (141,-28)
+    {\textbf{Held-out real data}\\scans and\\reference labels};
+  \draw[flow] (heldout.north) -- (evaluation.south);
+  \node[anchor=west,align=left,font=\fontsize{8}{10}\selectfont,text=muted]
+    at (0,-25) {\textbf{RQ1:} generation choices\quad
+      \textbf{RQ2:} sensor and label requirements\\[1mm]
+      \textbf{RQ3:} training utility on real observations};
+\end{tikzpicture}
+\caption{From generation to evidence of utility: our synthesis of the review.
+Dashed arrows show possible uses of real development data, including mixed
+training or fine-tuning. Purely learned generation can bypass explicit scene
+construction. Labels must be produced or supplied consistently with the scans;
+they are not guaranteed by a generator. Held-out evaluation data remain
+separate from development.}
+\label{fig:generation-evaluation}
+\end{figure}

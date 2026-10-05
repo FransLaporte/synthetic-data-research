@@ -22,13 +22,6 @@
 Synthetic data\quad /\quad Machine learning\quad /\quad Data quality\quad /\quad Literature review
 \vspace{11mm}
 \tableofcontents
-\vfill
-\begin{researchbox}{About this working paper}
-Prepared for Academic Research Skills, Faculty of Electrical Engineering,
-Mathematics and Computer Science, University of Twente. This is a designed
-manuscript scaffold: proposed questions, review dimensions and workflows are
-starting points, not research findings.
-\end{researchbox}
 \clearpage
 \pagenumbering{arabic}
 \input{chapters/introduction}
@@ -43,7 +36,16 @@ starting points, not research findings.
 \printbibliography[heading=bibintoc,title={References}]
 \endgroup
 \clearpage
-\printnoidxglossary[title={Glossary},style=list]
+\begingroup
+% Compact list spacing keeps the expanded glossary readable without a short final page.
+\newglossarystyle{papercompact}{%
+  \setglossarystyle{list}%
+  \renewcommand*{\glsgroupskip}{}%
+  \renewenvironment{theglossary}{\begin{description}%
+    \setlength{\itemsep}{2pt}\setlength{\parsep}{0pt}}{\end{description}}%
+}
+\printnoidxglossary[title={Glossary},style=papercompact]
+\endgroup
 \clearpage
 \appendix
 \titleformat{\section}{\Large\bfseries}{\makebox[11mm][l]{\color{muted}\fontsize{11}{13}\selectfont\thesection}}{0pt}{}

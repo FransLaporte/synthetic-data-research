@@ -1,32 +1,22 @@
 \section{Background and terminology}
 \label{sec:background}
-\subsection{Synthetic data generation for machine learning}
-\draftnote{Define fully synthetic data, simulation, learned generation and
-augmentation. Introduce statistical models, procedural or physics-based
-simulation, GANs, variational autoencoders, diffusion models and hybrids.
-Compare assumptions, control, real-data needs, labels and computational cost.
-Use general surveys for orientation and primary papers for method claims.}
+Simulation models how a scene produces an observation; learned generation
+estimates a sampling process from examples; \gls{augmentation} transforms
+or recombines existing data. These categories overlap, and synthetic-only
+perception training can still depend on real assets or generator training
+data \parencite{nikolenkoSyntheticDataDeep2019,manivasagamLiDARsimRealisticLiDAR2020}.
 
-\subsection{From three-dimensional scenes to LiDAR scans}
-\draftnote{Explain the distinction between a complete 3D shape and a sensor
-observation. Introduce beam geometry, range, \gls{intensity}, \gls{occlusion}, missing
-returns, range-dependent sparsity and motion. Compare point sets, range
-images and voxel representations. Distinguish generating new scenes from
-rendering new viewpoints of a recorded scene and completing existing scans.}
+A LiDAR scan samples visible surfaces rather than complete geometry.
+Beam directions, \gls{occlusion}, \gls{intensity}, missing returns and
+motion shape the observation. Point sets, \glspl{range-image} and
+\glspl{voxel} expose different spatial structure; representation and
+sensor assumptions must accompany a generation claim
+\parencite{zyrianovLearningGenerateRealistic2022,manivasagamZeroDomainGap2023}.
 
-\subsection{Quality and downstream utility}
-For this review, realism denotes physical or perceptual plausibility;
-similarity denotes agreement with a specified reference distribution;
-coverage concerns representation of relevant classes and conditions;
-and bias concerns systematic imbalances and differences in errors across
-relevant groups or conditions. These are working definitions to refine
-against the selected literature. Downstream \gls{utility} concerns model
-performance on the intended task after training with synthetic data.
-
-\textcite{alaaHowFaithfulYour2022} distinguish \gls{fidelity}, diversity and
-generalization using $\alpha$-Precision, $\beta$-Recall and Authenticity.
-This provides general evaluation concepts; their applicability to LiDAR
-representations and perception tasks must be assessed separately.
-\draftnote{Define the synthetic-to-real \gls{domain-gap} and distinguish
-distributional similarity, geometric reconstruction quality and
-real-test perception performance.}
+Realism, coverage and downstream \gls{utility} are distinct.
+\Textcite{alaaHowFaithfulYour2022} distinguish fidelity, diversity and
+generalization, with Authenticity addressing copying of training data.
+The tabular evaluation survey by \textcite{achterbergMetricsThatMatter2026},
+available as a preprint, likewise makes metric choice depend on task and
+context. These frameworks motivate multiple assessment dimensions; they do
+not establish a LiDAR-specific proxy for real perception performance.

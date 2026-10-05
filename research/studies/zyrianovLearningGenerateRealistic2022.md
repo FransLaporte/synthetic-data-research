@@ -19,6 +19,28 @@
 
 ## Extraction limits
 
+### Follow-up for RQ2/RQ3, 5 October 2026
+
+AI-assisted targeted full-text check; author verification remains pending.
+See [completion checks](../searches/2026-10-05-review-completion.md).
+
+- Section 5.1: MMD uses 50 x 50 BEV histograms; JSD uses 100 x 100 BEV
+  histograms. Fréchet range distance uses pretrained RangeNet++ activations.
+- Table 1: ProjectedGAN MMD 3.47e-4 versus LiDARGen 3.87e-4 (lower better);
+  LiDARGen has lower range-feature distance and JSD. The review follows the
+  table, not the inconsistent numerical wording in Section 5.2.
+- Section 5.3 and supplement: nuScenes generation concentrates points nearer
+  the viewpoint, with worse BEV MMD despite favourable visual comparisons.
+- Section 5.4: RangeNet++ applied to densified 16-beam inputs **without
+  fine-tuning**. Reported IoU 0.394 for nearest-neighbour and 0.449 for LiDARGen;
+  these are not training-on-generated-data gains or a full benchmark mIoU claim.
+- Sections 4 and 5 distinguish unconditional sampling and conditional
+  densification. Generated range/intensity does not itself provide semantic
+  training labels.
+
+The earlier extraction limits below apply to the original RQ1 notes; the
+specific numerical extraction above extends them for this revision.
+
 No numerical effect sizes, compute benchmarks or uncertainty estimates are extracted
 for RQ1. Dataset sizes, full split details, seeds and model settings are not fully
 extracted here and must be checked before using this study for an empirical RQ3

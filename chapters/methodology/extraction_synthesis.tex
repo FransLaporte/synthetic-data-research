@@ -1,22 +1,6 @@
-\subsection{Evidence extraction and synthesis}
-Use one study record per source, extracted by one author and verified by
-the other. Record source locations for each claim. For RQ1, extract method
-family, assumptions, control and resource trade-offs. For RQ2, record the
-generation task, representation, sensor model, real-data or asset needs,
-conditioning, annotation production, scene diversity and compute.
-For RQ3, record metrics, reference data, feature networks, train/test splits,
-training regime, baselines, uncertainty and evidence on real driving data.
 
-Compare compatible tasks and settings using narrative synthesis and a
-method--requirement--evidence matrix. Separate source claims, reported
-results and our interpretation. Do not pool reconstruction, generation
-and downstream task scores, or results with incompatible datasets, feature
-extractors, preprocessing or training budgets. Report missing evidence,
-conflicting results and strength of support.
-
-\subsection{Review protocol versus experimental assessment}
-This project is a literature review, not a new training experiment.
-If an empirical extension is added, specify independent real-data splits,
-real-only, synthetic-only and mixed-data baselines, controlled architectures
-and budgets, multiple seeds, task and scenario metrics, uncertainty and
-safeguards against test-set tuning before running it.
+We compare generation task, representation, real-data requirements,
+annotations and evaluation setting. Results remain separate when class
+sets, sensors, models or training regimes differ: BEV detection is not full
+3D detection, and scan completion is not synthetic-data training. No new
+experiments, pooled effects or statistical significance claims are made.

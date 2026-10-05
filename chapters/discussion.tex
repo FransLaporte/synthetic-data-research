@@ -1,24 +1,31 @@
 \section{Discussion}
 \label{sec:discussion}
-\subsection{Integrating the three answers}
-\draftnote{Build an evidence-backed mapping: generation family, LiDAR task,
-sensor requirements, resources, metrics, real-test evidence and limitations.
-Trace recommendations to study records, not to the initial candidate list.}
+The evidence favours matching generation to the intended task. Scene-based
+methods offer scenario and label control; learned methods fit scan
+regularities or complete observations; hybrids combine these strengths
+while retaining real-data requirements. PreSIL, LiDARsim and SynLiDAR
+demonstrate transfer in different protocols, whereas LiDARGen's completion
+results cannot establish synthetic-training gains. These distinctions
+prevent a misleading cross-paper ranking.
 
-\subsection{Trade-offs and practical choices}
-\draftnote{Discuss realism versus useful variation, distribution matching
-versus rare-case coverage, overall utility versus subgroup errors, and
-assessment cost versus confidence. Explain consequences of missing real
-data, labels, suitable networks or priors. Separate findings from proposals.}
+Realism and useful variation are also different objectives. Improving sensor
+sampling can help within a pipeline, but LiDARGen's metric disagreements and
+the paired-scenario results undermine a universal realism-to-utility rule.
+Rare-case coverage deserves separate scrutiny: matching common observations
+may omit the very cases synthesis is intended to add.
+\Textcite{shumailovAIModelsCollapse2024} show loss of distribution tails in
+recursive training on generated data. Their language, VAE and mixture-model
+settings motivate preserving real-data provenance, but do not establish
+collapse in one-pass LiDAR augmentation.
 
-\subsection{Debates and research gaps}
-\draftnote{Compare contrasting theories and positions, including evidence
-about realism, useful variation and downstream utility. Identify what is
-unresolved and why it matters. Test the proposal's candidate gap against
-existing frameworks and revise it if already addressed; justify a focused
-direction for further research from the evidence.}
+A focused next study could vary ray drop or angular sparsity while fixing
+scenes, labels, model and training budget, then compare diagnostic changes
+with class- and range-specific real performance. This connects existing
+sensor and transfer evaluations rather than claiming evaluation methods
+are absent; its novelty still requires broader searching.
 
-\subsection{Limitations and future work}
-\draftnote{Report search and screening limitations, publication bias,
-heterogeneous tasks and measures, and limits of generalisation.
-Identify assessments requiring experiments beyond this review.}
+The review's selected collection, incomplete systematic screening and
+pending author verification limit generality. Sensor, label and protocol
+differences preclude pooled effects. Compute costs and uncertainty have
+not been systematically extracted, and reported validation gains are not
+guarantees of deployment performance.
