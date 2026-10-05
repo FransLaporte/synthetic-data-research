@@ -21,7 +21,7 @@ modelling quality for deformable road users.
 \vspace{2mm}
 \includegraphics[width=.60\linewidth]{Images/RaycastvsLiDARsimvsRealLiDAR.png}
 \caption{Two stages of LiDARsim. Top: sparse observations are accumulated,
-completed using symmetry and refined into a surfel asset. Bottom:
+completed using symmetry and refined into a \gls{surfel} asset. Bottom:
 ray-cast, learned-ray-drop and real vehicle scans (left to right).
 Reproduced from Figures~4 and~7 of
 \textcite{manivasagamLiDARsimRealisticLiDAR2020}. These examples illustrate
@@ -42,7 +42,7 @@ For transfer, source labels must also be mapped to the target class set.
 LiDARGen learns the distribution of range and intensity images, then
 generates scans by stochastic denoising. Its angular representation ties
 points to sensor rays and supports conditioning on partial observations.
-The experiments include unconditional generation and densification of
+The experiments include unconditional generation and \gls{densification} of
 sparse scans on KITTI-360, with further generation results on nuScenes
 \parencite{zyrianovLearningGenerateRealistic2022}.
 This avoids manually specifying every scene asset, but a plausible scan

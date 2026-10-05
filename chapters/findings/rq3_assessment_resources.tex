@@ -8,9 +8,9 @@ compatible alignment, visibility and sampling. For unpaired generation,
 matching an arbitrary real scan would penalise legitimate scene variation;
 distributional measures are more appropriate.
 
-LiDARGen reports maximum mean discrepancy (MMD) on bird's-eye-view
-histograms, Jensen--Shannon divergence on spatial distributions, and a
-Fr\'echet range distance using RangeNet++ features
+LiDARGen compares spatial distributions using \gls{mmd} and \gls{jsd}, and
+learned scan features using \gls{frd}. Its spatial metrics use
+bird's-eye-view (\gls{bev}) histograms; FRD uses RangeNet++ features
 \parencite{zyrianovLearningGenerateRealistic2022}.
 These measures capture different properties. On KITTI-360, ProjectedGAN
 has the lower MMD in Table~1, whereas LiDARGen has the lower range-feature
@@ -35,12 +35,12 @@ evaluation after selection
 Synthetic validation scores alone cannot demonstrate real-world transfer.
 For detection, report the relevant \gls{ap}, class, overlap threshold and
 whether boxes are evaluated in 2D, bird's-eye view or full 3D.
-For segmentation, \gls{miou} averages class intersection-over-union, so
-class mapping and ignored labels are essential.
+For segmentation, \gls{miou} summarises class overlap; class mapping and
+ignored labels are essential. Metric definitions are provided in the glossary.
 
 LiDARsim's public experiments use real validation data: Table~1 reports
 vehicle/background segmentation on SemanticKITTI, and Table~2 reports
-bird's-eye-view vehicle detection on KITTI's hard split. At IoU~0.7, the
+bird's-eye-view vehicle detection on KITTI's hard split. At \gls{iou}~0.7, the
 reported detection score is 73.7 for LiDARsim, 42.2 for modified CARLA and
 80.0 for real KITTI training
 \parencite{manivasagamLiDARsimRealisticLiDAR2020}.
@@ -76,7 +76,7 @@ Real + PCT-translated SynLiDAR & 64.7 (+4.4) & 55.8 (+5.2) \\
 \end{table}
 
 LiDARGen's downstream example instead runs an existing RangeNet++ on
-densified scans without fine-tuning. Its reported IoU increases from
+densified scans without \gls{fine-tuning}. Its reported IoU increases from
 0.394 with nearest-neighbour upsampling to 0.449 with LiDARGen
 \parencite{zyrianovLearningGenerateRealistic2022}.
 This supports its completion application, not the claim that training on

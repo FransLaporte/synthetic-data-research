@@ -33,12 +33,12 @@ learns through competition between a generator and discriminator. Both
 depend on training examples, model capacity and learning objectives;
 reconstruction quality or convincing individual samples alone does not
 demonstrate coverage. Conditional models expose selected attributes as
-controls, while mode collapse can restrict the variation a GAN produces
+controls, while \gls{mode-collapse} can restrict the variation a GAN produces
 \parencite{hernandezSyntheticDataGeneration2022,hansenReimaginingSyntheticTabular2023,
 breugelSyntheticDataReal2023}.
 
-Diffusion and score-based methods learn denoising behaviour or a
-\gls{score-function}. LiDARGen provides a concrete example: it learns from
+\Glspl{diffusion-model} learn denoising behaviour; score-based methods learn
+a \gls{score-function}. LiDARGen uses \gls{score-matching} on
 noisy range and intensity images and samples using repeated
 \gls{langevin-dynamics} updates
 \parencite{zyrianovLearningGenerateRealistic2022}.

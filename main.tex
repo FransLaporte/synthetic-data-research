@@ -36,7 +36,16 @@ Synthetic data\quad /\quad Machine learning\quad /\quad Data quality\quad /\quad
 \printbibliography[heading=bibintoc,title={References}]
 \endgroup
 \clearpage
-\printnoidxglossary[title={Glossary},style=list]
+\begingroup
+% Compact list spacing keeps the expanded glossary readable without a short final page.
+\newglossarystyle{papercompact}{%
+  \setglossarystyle{list}%
+  \renewcommand*{\glsgroupskip}{}%
+  \renewenvironment{theglossary}{\begin{description}%
+    \setlength{\itemsep}{2pt}\setlength{\parsep}{0pt}}{\end{description}}%
+}
+\printnoidxglossary[title={Glossary},style=papercompact]
+\endgroup
 \clearpage
 \appendix
 \titleformat{\section}{\Large\bfseries}{\makebox[11mm][l]{\color{muted}\fontsize{11}{13}\selectfont\thesection}}{0pt}{}

@@ -59,3 +59,23 @@ Arabic page 9. The full PDF has 14 pages (three front-matter pages, eight body
 pages, one reference page and two glossary pages). Font size, margins and body
 line spacing are unchanged. Citations and cross-references pass the repository
 checker; final pages were rendered for layout inspection.
+
+## Follow-up: glossary and overview figure
+
+At the user's request, added an original editable TikZ diagram connecting
+scene construction, LiDAR generation, labelled training data, perception
+training and real-data evaluation. It distinguishes possible real development
+inputs from held-out evaluation data and qualifies the scene and label stages
+for learned generators. The existing LiDARsim illustrations remain.
+
+Expanded and linked the glossary for MMD, JSD, FRD, BEV, IoU, voxels,
+score matching, densification, fine-tuning and domain adaptation; linked
+existing surfel, diffusion and mode-collapse entries. Kept brief explanations
+where needed to follow the argument. The diagram is a conceptual synthesis,
+not a new empirical result.
+
+The updated build has **9 body pages**, with references on Arabic page 10:
+15 PDF pages total (three front-matter, nine body, one references and two
+glossary). The paper, proposal and slides all passed the citation/reference
+checker after the shared glossary edit. Final diagram and glossary layouts
+were rendered and inspected; no overfull boxes or unresolved references remain.

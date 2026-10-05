@@ -21,9 +21,9 @@ sensor acquires its scan over time, so motion can distort geometry
 \parencite{manivasagamLiDARsimRealisticLiDAR2020,manivasagamZeroDomainGap2023}.
 Consequently, realistic object shapes alone do not establish realistic scans.
 
-Representations expose different structure. A point set stores measured
-coordinates and attributes; a \gls{range-image} arranges returns by angular
-direction; a voxel representation groups space into cells. Range images
+Representations expose different structure. Point sets retain coordinates,
+\glspl{range-image} organise returns by direction, and \glspl{voxel} group
+space into cells. Range images
 support regular image-like processing but depend on sensor projection and
 resolution. LiDARGen uses range and intensity channels, whereas SynLiDAR's
 segmentation experiments use voxel-based processing

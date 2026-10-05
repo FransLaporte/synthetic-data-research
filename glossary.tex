@@ -63,3 +63,23 @@
   description={Average precision: a summary of a precision--recall curve; object-detection results depend on the matching rules, thresholds and benchmark protocol}}
 \newglossaryentry{miou}{name={mIoU},
   description={Mean intersection over union: the average across evaluated classes of the overlap between predicted and reference segments divided by their union}}
+\newglossaryentry{voxel}{name={voxel},plural={voxels},
+  description={A cell in a three-dimensional spatial grid. Voxel-based methods group points by cell; the cell size determines spatial resolution and affects computation}}
+\newglossaryentry{bev}{name={BEV},
+  description={Bird's-eye view: a top-down projection onto the ground plane. BEV detection evaluates projected boxes rather than their full three-dimensional volumes}}
+\newglossaryentry{iou}{name={IoU},
+  description={Intersection over union: the size of the intersection of a prediction and its reference divided by the size of their union. The regions may be point sets, image regions or bounding boxes; the evaluation protocol must specify which}}
+\newglossaryentry{mmd}{name={MMD},
+  description={Maximum mean discrepancy: a distributional comparison based on differences between mean feature representations defined by a kernel. The representation and kernel determine which differences it captures; LiDARGen applies it to spatial histograms}}
+\newglossaryentry{jsd}{name={JSD},
+  description={Jensen--Shannon divergence: a symmetric comparison of probability distributions, formed by averaging their Kullback--Leibler divergences to their mixture. In histogram-based LiDAR evaluation, binning and projection affect the result}}
+\newglossaryentry{frd}{name={FRD},
+  description={Fr\'echet range distance: LiDARGen's comparison of Gaussian approximations to real and generated scan features from a pretrained RangeNet++ network. It uses feature means and covariances; its value depends on the network and preprocessing and is not a direct measure of training utility}}
+\newglossaryentry{score-matching}{name={score matching},
+  description={Training a model to estimate the gradient of a data distribution's log density. Denoising score matching learns this estimate using noise-corrupted observations; the learned score can guide iterative generation}}
+\newglossaryentry{densification}{name={densification},
+  description={Estimating additional points or returns from a sparse input scan. The output remains conditioned on that observation and is not an independently generated scene}}
+\newglossaryentry{fine-tuning}{name={fine-tuning},
+  description={Continuing the training of an existing model on another dataset or task, for example adapting a model pretrained on synthetic scans using real labelled scans}}
+\newglossaryentry{domain-adaptation}{name={domain adaptation},
+  description={Methods intended to reduce the effect of differences between source and target data, for example by translating observations or aligning learned features. Whether target labels are available is part of the experimental setting}}
