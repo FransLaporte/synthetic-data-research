@@ -53,8 +53,11 @@ overview; Arabic numbering restarts at the introduction. The formal title page
 uses the same title/subtitle as the cover and the shared contact definitions.
 
 The paper maps synthetic data generation broadly, then focuses on **automotive
-LiDAR for 3D detection and semantic segmentation**. It is a working
-review scaffold: candidate metrics and drafting prompts are not final findings.
+LiDAR for 3D detection and semantic segmentation**. It is a focused narrative
+review of selected sources; independent author verification and completion
+of the systematic search remain outstanding. The 5 October revision has an
+eight-page body (introduction through conclusion), within the confirmed
+ten-page limit. See [revision evidence notes](research/searches/2026-10-05-review-completion.md).
 Read [CONTRIBUTING.md](CONTRIBUTING.md) for the two-author Git workflow and
 [research/README.md](research/README.md) for shared evidence records.
 
@@ -62,7 +65,7 @@ Read [CONTRIBUTING.md](CONTRIBUTING.md) for the two-author Git workflow and
 | --- | --- | --- |
 | Cover | `cover.tex` | Illustrated outer cover. |
 | Title page | `titlepage.tex` | Full title, authors, contacts, institution, place and date. |
-| Abstract | `chapters/abstract.tex` | Write last, once the answers are known. |
+| Abstract | `chapters/abstract.tex` | Scope, method, answers and limitations. |
 | 1. Introduction | `chapters/introduction.tex` | Broad-to-LiDAR scope and three research questions. |
 | 2. Background | `chapters/background.tex` | Concepts and working definitions. |
 | 3. Methodology | `chapters/methodology/*.tex` | Search, selection, extraction and synthesis. |
@@ -77,9 +80,9 @@ Read [CONTRIBUTING.md](CONTRIBUTING.md) for the two-author Git workflow and
 Compile **main.tex**, not individual section files. The mathematical example
 appendix is retained as a writing aid but excluded from the paper by default.
 
-A University of Twente-inspired manuscript scaffold with a dedicated title page,
-the supplied UT logo, a generation-and-evaluation scaffold and a linked glossary.
-Draft prompts are explicitly marked. The background cites the Zotero-exported
+A University of Twente-inspired manuscript with a dedicated title page,
+the supplied UT logo, a generation-and-evaluation synthesis and a linked glossary.
+Search and evidence limitations are stated in the methodology. The background cites the Zotero-exported
 Alaa et al. paper as a starting point for evaluating synthetic data quality.
 
 ## Build

@@ -1,24 +1,90 @@
 \section{Discussion}
 \label{sec:discussion}
-\subsection{Integrating the three answers}
-\draftnote{Build an evidence-backed mapping: generation family, LiDAR task,
-sensor requirements, resources, metrics, real-test evidence and limitations.
-Trace recommendations to study records, not to the initial candidate list.}
+\subsection{Connecting method choice to evidence}
+The three questions form a chain: a generation family supplies assumptions
+and controls, a LiDAR pipeline converts them into labelled observations,
+and an evaluation protocol determines which utility claims are warranted.
+Table~\ref{tab:evidence-map} links the focused studies along this chain.
+It is an evidence map, not a league table: their tasks and resource
+requirements differ.
 
-\subsection{Trade-offs and practical choices}
-\draftnote{Discuss realism versus useful variation, distribution matching
-versus rare-case coverage, overall utility versus subgroup errors, and
-assessment cost versus confidence. Explain consequences of missing real
-data, labels, suitable networks or priors. Separate findings from proposals.}
+\begin{table}[htbp]
+\caption{Method--requirement--evidence synthesis of the focused studies.}
+\label{tab:evidence-map}
+\small
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{23mm}YYY@{}}
+\toprule
+\textbf{Example} & \textbf{Task and resources} &
+\textbf{Evidence} & \textbf{Limit of inference} \\
+\midrule
+LiDARsim \parencite{manivasagamLiDARsimRealisticLiDAR2020} &
+Reconstructed assets, labels and learned ray drop. &
+Real-data vehicle segmentation and BEV detection. &
+Task-specific transfer; requires real assets and sensor adaptation. \\
+SynLiDAR / PCT \parencite{xiaoTransferLearningSynthetic2022} &
+Virtual scenes and labels; real data for translation. &
+Real segmentation gains from augmentation and adaptation. &
+Generator and adaptation contributions must be separated. \\
+LiDARGen \parencite{zyrianovLearningGenerateRealistic2022} &
+Real scans, range/intensity model and iterative sampling. &
+Distributional generation tests and scan densification. &
+Completion utility is not synthetic-training utility. \\
+Paired scenarios \parencite{manivasagamZeroDomainGap2023} &
+Matched real scans, reconstructed scenes and autonomy stack. &
+Sensor-effect and system-output comparisons. &
+Oracle-based diagnosis, not proof of training gains. \\
+\bottomrule
+\end{tabularx}
+\end{table}
 
-\subsection{Debates and research gaps}
-\draftnote{Compare contrasting theories and positions, including evidence
-about realism, useful variation and downstream utility. Identify what is
-unresolved and why it matters. Test the proposal's candidate gap against
-existing frameworks and revise it if already addressed; justify a focused
-direction for further research from the evidence.}
+\subsection{Practical trade-offs and contrasting evidence}
+The evidence supports targeted supplementation of real data. When labels
+and scenario control are central, scene-based simulation has a structural
+advantage because object identity and placement are available before
+rendering. When the objective is scan completion, a learned conditional
+generator directly addresses the task. These are interpretations of the
+reviewed mechanisms, not measured cost rankings. Real recordings, asset
+construction, annotation mapping, trained networks and computation remain
+part of the cost even when generating additional scans is inexpensive.
 
-\subsection{Limitations and future work}
-\draftnote{Report search and screening limitations, publication bias,
-heterogeneous tasks and measures, and limits of generalisation.
-Identify assessments requiring experiments beyond this review.}
+Realism and useful variation are related but distinct objectives.
+LiDARsim supports the value of improving sensor sampling within its
+pipeline, while LiDARGen's metric disagreements show that visual quality
+and distributional matching can rank methods differently. SynLiDAR shows
+that adapting a synthetic domain can improve training utility, and the
+paired-scenario study shows that aggregate perception agreement does not
+fully explain downstream planning behaviour
+\parencite{manivasagamLiDARsimRealisticLiDAR2020,zyrianovLearningGenerateRealistic2022,
+xiaoTransferLearningSynthetic2022,manivasagamZeroDomainGap2023}.
+Together, these findings challenge a single realism score as a universal
+selection rule. They do not imply that physical accuracy is unnecessary.
+
+Coverage creates a further tension. Matching common real scenes can
+underrepresent the difficult cases that motivated synthesis. Conversely,
+oversampling rare scenarios changes the training distribution. We therefore
+propose reporting both aggregate utility and performance on the explicitly
+targeted conditions. An average improvement should not be assumed to
+benefit every class or distance range.
+
+\subsection{Research direction and limitations}
+A defensible next question is which inexpensive sensor or distributional
+diagnostics track real-data training gains under controlled LiDAR
+perturbations. Existing work already evaluates transfer and paired simulator
+realism, so the gap is not an absence of evaluation methods. The narrower
+opportunity is to connect their levels: vary one factor, such as ray drop
+or angular sparsity, keep scenes, labels, model and training budget fixed,
+and compare changes in diagnostics with class- and range-specific real
+performance. Multiple seeds and a separate real evaluation set would help
+distinguish systematic effects from training variation. This is a proposed
+extension; its novelty requires a broader literature search.
+
+The present review is limited by a selected source collection, incomplete
+database screening and pending independent author verification.
+It cannot establish exhaustive coverage, the latest best method or
+publication-bias estimates. The studies also differ in label sets, sensors,
+geography, training budgets and evaluation purpose. Their reported gains
+are not a pooled effect or a guarantee of deployment performance.
+Compute costs and uncertainty intervals have not been systematically
+extracted. Completing the search protocol, checking evidence records and
+evaluating the proposed diagnostic-to-utility connection remain necessary
+steps beyond this narrative synthesis.

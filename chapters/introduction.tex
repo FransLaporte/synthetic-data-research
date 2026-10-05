@@ -1,35 +1,28 @@
 \eyebrow{Context / Research direction}
 \section{Introduction}
 \label{sec:introduction}
-This review begins with methods for creating \gls{synthetic-data} for
-\gls{machine-learning}, then focuses on \gls{lidar} \glspl{point-cloud} for autonomous
-driving perception. The broad stage maps generation approaches; the focused
-stage examines sensor-specific requirements and usefulness on real data.
+Training perception models requires observations and labels that represent
+the conditions in which the models will operate. Collecting and annotating
+automotive \gls{lidar} \glspl{point-cloud} is costly, while uncommon traffic
+configurations are difficult to capture at scale. \Gls{synthetic-data}
+offers control over scene composition and access to simulated ground truth.
+However, differences between generated and real measurements can limit
+transfer to the intended task
+\parencite{manivasagamLiDARsimRealisticLiDAR2020,xiaoTransferLearningSynthetic2022}.
 
-\subsection{Motivation and scope}
-
-The general overview covers statistical modelling, procedural and
-physics-based simulation, learned generative models, and hybrid approaches.
-It is a conceptual mapping, not an exhaustive review of every modality.
-The detailed synthesis concerns scene-level automotive LiDAR and training
-for \gls{object-detection} and \gls{semantic-segmentation}. Separate new-scene
-generation, reconstruction-based novel-view simulation, and completion or
-augmentation of existing scans. Object-only shape generation is background
-unless a study connects it to driving-scene scans.
+This review first maps generation methods for \gls{machine-learning}, then
+focuses on scene-level automotive LiDAR for \gls{object-detection} and
+\gls{semantic-segmentation}. It distinguishes new-scan generation from
+reconstruction-based simulation and completion of an existing scan.
+Object-only shape generation is relevant only where it supports driving
+scenes. The broad survey literature provides context; the LiDAR studies
+provide the task-specific evidence.
 
 \input{shared/question-block}
-RQ1 establishes the general generation landscape; RQ2 examines LiDAR
-methods and requirements; RQ3 evaluates dataset quality and transfer to
-real-world perception. Real data, priors, networks and computation remain
-part of the comparison as generation and assessment prerequisites.
-
-\subsection{Contribution and paper structure}
-The planned output is a method--requirement--evidence matrix connecting
-generation choices to LiDAR properties, evaluation protocols and limitations.
-Section~\ref{sec:background} defines the concepts;
-Section~\ref{sec:methodology} specifies the review procedure;
-Section~\ref{sec:findings} organises findings by research question;
-Section~\ref{sec:discussion} integrates the answers and discusses limitations.
-
-
-\newpage
+The contribution is a compact mapping from generation choices to sensor
+requirements, evaluation resources and the conclusions that the reported
+experiments support. Section~\ref{sec:background} defines key concepts;
+Section~\ref{sec:methodology} states the review's evidence base and limits;
+Section~\ref{sec:findings} answers the three subquestions; and
+Section~\ref{sec:discussion} develops practical implications and a focused
+research direction.

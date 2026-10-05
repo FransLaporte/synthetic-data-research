@@ -1,26 +1,110 @@
-% Filename retained to preserve existing repository links.
 \subsection{RQ3: Evaluation and transfer to real driving data}
 \label{sec:rq3}
+\label{sec:lidar-evaluation}
 \subsubsection{Geometry, distributions and coverage}
-\draftnote{Extract geometric distances and range or intensity errors for
-paired reconstruction tasks; require meaningful alignment and correspondence.
-For unpaired generation, examine distributional metrics, feature-based
-distances, diversity and coverage. Record representations, feature networks,
-sample sizes and sensitivity to density. Do not assume image \gls{fid} or a
-geometric distance measures downstream LiDAR utility.}
+For paired reconstruction or completion, geometric or range errors compare
+a generated observation with its corresponding real scan. They require
+compatible alignment, visibility and sampling. For unpaired generation,
+matching an arbitrary real scan would penalise legitimate scene variation;
+distributional measures are more appropriate.
 
-\subsubsection{Labels and real-test perception performance}
-\draftnote{Examine annotation consistency, 3D detection \gls{ap} and segmentation
-\gls{miou} under explicitly stated protocols. Compare real-only, synthetic-only
-and mixed-data training where reported. Separate gains from extra training
-data, domain adaptation, architecture changes and compute. Extract
-class-, range- and scenario-specific errors and uncertainty.}
+LiDARGen reports maximum mean discrepancy (MMD) on bird's-eye-view
+histograms, Jensen--Shannon divergence on spatial distributions, and a
+Fr\'echet range distance using RangeNet++ features
+\parencite{zyrianovLearningGenerateRealistic2022}.
+These measures capture different properties. On KITTI-360, ProjectedGAN
+has the lower MMD in Table~1, whereas LiDARGen has the lower range-feature
+distance and divergence. On nuScenes, the authors report a concentration
+of generated points near the viewpoint despite favourable visual
+comparisons. This disagreement is evidence against treating a single
+similarity score as a complete quality judgement. Feature extraction,
+projection, sample size and density must accompany the metric; an
+image-based \gls{fid} cannot simply be assumed to measure LiDAR utility.
+
+Coverage additionally requires checking relevant classes, distances,
+occlusions and scenarios. Matching the average distribution can conceal
+rare-case omissions. Annotation consistency must be assessed after
+translation or augmentation as well as before it: a label is useful only
+if it still describes the generated observation.
+
+\subsubsection{What the real-data experiments establish}
+Performance should be reported on real observations excluded from training.
+Validation data support model selection; a final held-out test set supports
+evaluation after selection
+\parencite{raschkaModelEvaluationModel2020}.
+Synthetic validation scores alone cannot demonstrate real-world transfer.
+For detection, report the relevant \gls{ap}, class, overlap threshold and
+whether boxes are evaluated in 2D, bird's-eye view or full 3D.
+For segmentation, \gls{miou} averages class intersection-over-union, so
+class mapping and ignored labels are essential.
+
+LiDARsim's public experiments use real validation data: Table~1 reports
+vehicle/background segmentation on SemanticKITTI, and Table~2 reports
+bird's-eye-view vehicle detection on KITTI's hard split. At IoU~0.7, the
+reported detection score is 73.7 for LiDARsim, 42.2 for modified CARLA and
+80.0 for real KITTI training
+\parencite{manivasagamLiDARsimRealisticLiDAR2020}.
+These results support transfer for that protocol, not a full 3D detection
+or multiclass segmentation claim. The setup also adjusts sensor geometry
+and uses KITTI labels to build its dynamic object bank, which qualifies
+any interpretation of synthetic training as eliminating real-data costs.
+
+SynLiDAR provides a complementary augmentation comparison.
+Tables~2--3 report the scores reproduced in Table~\ref{tab:transfer}.
+The improvements establish utility in those experiments, while PCT's
+additional gains include a translation intervention and cannot be
+attributed to more synthetic samples alone
+\parencite{xiaoTransferLearningSynthetic2022}.
+
+\begin{table}[htbp]
+\caption{SynLiDAR augmentation results: mIoU (\%) reported by
+\textcite{xiaoTransferLearningSynthetic2022}, Tables~2--3, using
+MinkowskiNet, SemanticKITTI validation sequence 08 and SemanticPOSS
+validation sequence 03. Parentheses give
+percentage-point changes from the real-only baseline.}
+\label{tab:transfer}
+\small
+\begin{tabularx}{\linewidth}{@{}Yrr@{}}
+\toprule
+\textbf{Training data} & \textbf{SemanticKITTI} & \textbf{SemanticPOSS} \\
+\midrule
+Real only & 60.3 & 50.6 \\
+Real + SynLiDAR & 62.5 (+2.2) & 53.2 (+2.6) \\
+Real + PCT-translated SynLiDAR & 64.7 (+4.4) & 55.8 (+5.2) \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+LiDARGen's downstream example instead runs an existing RangeNet++ on
+densified scans without fine-tuning. Its reported IoU increases from
+0.394 with nearest-neighbour upsampling to 0.449 with LiDARGen
+\parencite{zyrianovLearningGenerateRealistic2022}.
+This supports its completion application, not the claim that training on
+unconditional generated scans improves a perception model. Keeping these
+settings separate prevents superficially similar scores from becoming
+a misleading generator ranking.
 
 \subsubsection{Assessment resources and validity}
-\draftnote{Record real reference scans, labels, sensor metadata, trained
-networks, compute and software versions. Check independence of generator
-training data, perception training data and real test sequences. Examine
-scene overlap, test-set tuning, sensor transfer, reproducibility and
-missing baselines. Distinguish reconstruction or completion results from
-evidence that generated scenes improve real-world perception.
-End with an evidence-qualified answer to RQ3.}
+A useful training comparison includes real-only, synthetic-only, mixed
+training, and synthetic pretraining followed by real fine-tuning where
+applicable, all evaluated on the same real data. Our proposed controls are
+a fixed model and training budget, documented real-label access, repeated
+seeds and class-, range- and scenario-specific results. Adjacent scans,
+reconstructed maps and source assets can introduce overlap, so independence
+must be checked at scene or sequence level across generator training,
+perception training and evaluation. Record sensor calibration, class
+mappings, feature-network checkpoints, preprocessing and computation;
+these are prerequisites for reproducing the comparison.
+
+Simulator evaluation has a separate objective. The paired-scenario work
+evaluates an already-trained autonomy system and finds that aggregate
+detection precision and recall need not closely indicate the motion-planning
+domain gap \parencite{manivasagamZeroDomainGap2023}.
+Sensor diagnostics and system-level testing are therefore complementary
+to perception utility, but neither demonstrates gains from retraining.
+
+In answer to RQ3, task-appropriate performance on held-out real data is
+the most direct indicator of training usefulness. Its change against a
+controlled real-only baseline should be the primary comparison.
+Distributional and geometric measures diagnose discrepancies and coverage;
+no universal proxy-to-utility relationship is established by this evidence.

@@ -1,22 +1,10 @@
-\subsection{Evidence extraction and synthesis}
-Use one study record per source, extracted by one author and verified by
-the other. Record source locations for each claim. For RQ1, extract method
-family, assumptions, control and resource trade-offs. For RQ2, record the
-generation task, representation, sensor model, real-data or asset needs,
-conditioning, annotation production, scene diversity and compute.
-For RQ3, record metrics, reference data, feature networks, train/test splits,
-training regime, baselines, uncertainty and evidence on real driving data.
-
-Compare compatible tasks and settings using narrative synthesis and a
-method--requirement--evidence matrix. Separate source claims, reported
-results and our interpretation. Do not pool reconstruction, generation
-and downstream task scores, or results with incompatible datasets, feature
-extractors, preprocessing or training budgets. Report missing evidence,
-conflicting results and strength of support.
-
-\subsection{Review protocol versus experimental assessment}
-This project is a literature review, not a new training experiment.
-If an empirical extension is added, specify independent real-data splits,
-real-only, synthetic-only and mixed-data baselines, controlled architectures
-and budgets, multiple seeds, task and scenario metrics, uncertainty and
-safeguards against test-set tuning before running it.
+\subsection{Extraction and synthesis}
+For each focused example, we connect the generation task and representation
+to its real-data or asset requirements, sensor modelling, labels and reported
+evaluation. Quantitative claims are tied to source tables and their training
+regime. We distinguish source findings from our interpretation and proposed
+assessment criteria. No effect sizes are pooled across incompatible tasks,
+class sets, models or datasets. In particular, bird's-eye-view detection is
+not treated as full 3D detection, and binary vehicle segmentation is not
+treated as full multiclass semantic segmentation. Uncertainty and resource
+information that have not been extracted are left unquantified.

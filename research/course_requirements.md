@@ -1,7 +1,9 @@
 # Course requirements and submission checklist
 
 Source: rubric and deadlines supplied by the authors on 22 September 2026.
-Deadline interpretation confirmed by the user. No page limit supplied.
+Deadline interpretation confirmed by the user. On 5 October 2026, the user
+confirmed a maximum of 10 pages from the introduction through the conclusion;
+front matter, references and glossary are outside that span.
 Times use Europe/Amsterdam local course time.
 
 ## Topic contact
@@ -50,7 +52,7 @@ This checklist is not a claim that the criteria have already been met.
 
 - Confirm the proposed English-language/2017-onward scope and database access.
 - Confirm institutional ethics procedures and course AI-assistance disclosure rules.
-- Confirm required student IDs, supervisor names, submission format or page limit.
+- Confirm required student IDs, supervisor names and submission format.
 - Assign section leads and reviewers in issues; jointly review the final argument.
 - Substantiate or revise the candidate gap; a template cannot establish originality.
 
