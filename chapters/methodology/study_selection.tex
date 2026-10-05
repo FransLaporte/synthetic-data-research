@@ -1,19 +1,22 @@
 \subsection{Eligibility, screening and study quality}
-Proposed inclusion criteria are studies evaluating synthetic visual
-training data, relevant evaluation methods, or requirements and assessment
-resources for vision tasks. Include domain-general metric papers as
-methodological sources, clearly distinguished from direct evidence about
-vision training. Exclude unrelated modalities unless that exception
-applies, studies without interpretable assessment details, and duplicate
-versions. Link related publications to avoid counting evidence twice.
+Include general synthetic-data surveys and foundational generation methods
+as background for RQ1. For the focused stage, include studies generating,
+simulating or translating automotive LiDAR point clouds, and studies
+evaluating their use for detection or semantic segmentation. Tag
+completion and novel-view reconstruction separately from new-scene generation.
+Do not exclude a generation paper merely because it lacks downstream
+experiments; record that absence as a limit on its utility evidence.
+
+Exclude unrelated applications and object-only shape synthesis from the
+focused synthesis unless their connection to driving scans is demonstrated.
+Exclude duplicate versions and sources without enough methodological detail
+to interpret their contribution. Link preprints to published versions and
+avoid counting the same study twice.
 
 Deduplicate by DOI and title, then screen titles and abstracts before
-full texts. Each author will record an independent decision and reason;
-discuss disagreements and retain the agreed decision alongside the
-original decisions. Report actual counts at each stage and full-text
-exclusion reasons.
-
-Assess task relevance, independent real test data, label and subgroup
-documentation, baseline comparability, uncertainty and reproducibility.
-Record limitations rather than assigning an unexplained total score.
-Use these judgements to qualify the strength of the synthesis.
+full texts. Each author records an independent decision and reason;
+discuss disagreements and preserve the agreed decision alongside them.
+Report actual counts and full-text exclusion reasons.
+Assess generation-task relevance, sensor and annotation documentation,
+independent real test data, comparable baselines, uncertainty and
+reproducibility. Use these judgements to qualify the synthesis.
