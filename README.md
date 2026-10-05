@@ -14,9 +14,13 @@ Outputs are `main.pdf`, `proposal.pdf` and `presentation.pdf`, excluded from Git
 For manual builds, replace `main` in the commands below with the desired root.
 Validate with `python scripts/check_latex.py proposal` (or `main`/`presentation`).
 
-The **main research question** is: How can the suitability of synthetic datasets
-for training computer vision models be assessed in terms of data requirements,
-quality metrics and assessment resources?
+The **main research question** is: How can synthetic data generation methods
+support the creation of LiDAR point clouds for training perception models in
+autonomous driving?
+
+The review moves from general generation approaches (RQ1), to LiDAR generation
+and its requirements (RQ2), to evaluation and real-world transfer (RQ3).
+Start with the [annotated reading path](research/lidar_reading_list.md).
 
 RQ1--RQ3 are its subquestions. Edit their canonical wording only in
 `shared/questions.tex`; all three documents load it. Article question layout
@@ -48,7 +52,8 @@ The cover and title page display no page numbers. Roman numbering starts at the
 overview; Arabic numbering restarts at the introduction. The formal title page
 uses the same title/subtitle as the cover and the shared contact definitions.
 
-The paper focuses on synthetic data for **computer vision**. It is a working
+The paper maps synthetic data generation broadly, then focuses on **automotive
+LiDAR for 3D detection and semantic segmentation**. It is a working
 review scaffold: candidate metrics and drafting prompts are not final findings.
 Read [CONTRIBUTING.md](CONTRIBUTING.md) for the two-author Git workflow and
 [research/README.md](research/README.md) for shared evidence records.
@@ -58,12 +63,12 @@ Read [CONTRIBUTING.md](CONTRIBUTING.md) for the two-author Git workflow and
 | Cover | `cover.tex` | Illustrated outer cover. |
 | Title page | `titlepage.tex` | Full title, authors, contacts, institution, place and date. |
 | Abstract | `chapters/abstract.tex` | Write last, once the answers are known. |
-| 1. Introduction | `chapters/introduction.tex` | Vision scope and three research questions. |
+| 1. Introduction | `chapters/introduction.tex` | Broad-to-LiDAR scope and three research questions. |
 | 2. Background | `chapters/background.tex` | Concepts and working definitions. |
 | 3. Methodology | `chapters/methodology/*.tex` | Search, selection, extraction and synthesis. |
-| 4. Findings: RQ1 | `chapters/findings/rq1_requirements.tex` | Requirements on synthetic vision data. |
-| 4. Findings: RQ2 | `chapters/findings/rq2_metrics.tex` | Metrics, validity and limitations. |
-| 4. Findings: RQ3 | `chapters/findings/rq3_assessment_resources.tex` | Real data, priors, networks and other inputs. |
+| 4. Findings: RQ1 | `chapters/findings/rq1_requirements.tex` | General generation methods and trade-offs. |
+| 4. Findings: RQ2 | `chapters/findings/rq2_metrics.tex` | LiDAR generation, requirements and resources. |
+| 4. Findings: RQ3 | `chapters/findings/rq3_assessment_resources.tex` | Evaluation and real-test perception evidence. |
 | 5. Discussion | `chapters/discussion.tex` | Integrate answers, trade-offs and limitations. |
 | 6. Conclusion | `chapters/conclusion.tex` | Concise answers to all three questions. |
 
@@ -73,7 +78,7 @@ Compile **main.tex**, not individual section files. The mathematical example
 appendix is retained as a writing aid but excluded from the paper by default.
 
 A University of Twente-inspired manuscript scaffold with a dedicated title page,
-the supplied UT logo, a candidate assessment table and a linked glossary.
+the supplied UT logo, a generation-and-evaluation scaffold and a linked glossary.
 Draft prompts are explicitly marked. The background cites the Zotero-exported
 Alaa et al. paper as a starting point for evaluating synthetic data quality.
 
@@ -109,6 +114,9 @@ entries and unresolved references. Linux uses the template's TeX Gyre Heros font
 fallback when Arial is unavailable, so line breaks can differ from Windows.
 
 ### Bibliography collaboration
+
+All bibliography entries must come from the shared Zotero export. Do not add
+manual or supplementary `.bib` entries; import new sources into Zotero first.
 
 CI reads the committed `references.bib`; no shared URL or secret is needed.
 Keep citation keys stable and use the same Better BibLaTeX export settings.

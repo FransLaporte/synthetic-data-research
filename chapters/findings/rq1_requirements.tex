@@ -1,23 +1,217 @@
-\subsection{RQ1: Requirements for synthetic vision training data}
+% Filename retained to preserve existing repository links.
+\subsection{RQ1: General approaches to synthetic data generation}
 \label{sec:rq1}
-\subsubsection{Task relevance, realism and similarity}
-\draftnote{Investigate geometry, textures, lighting, camera properties,
-object boundaries and scene context. Determine when photorealism helps
-and when variation matters more. Define the real target distribution;
-distinguish matching it from deliberate rare-case oversampling.}
+Synthetic data can be produced by specifying a model of a process, learning
+a distribution from observations, or combining these approaches. This
+section groups the selected literature into statistical models, procedural
+and physical simulation, learned neural generators, and hybrid methods.
+The groups describe how data are produced rather than which modality they
+represent; they can overlap. For example, a simulator can sample parameters
+from a learned distribution. This is a conceptual synthesis of selected
+sources, not an exhaustive ranking of generators
+\parencite{nikolenkoSyntheticDataDeep2019,hernandezSyntheticDataGeneration2022}.
 
-\subsubsection{Coverage and diversity}
-\draftnote{Extract requirements for classes, poses, viewpoints, object
-sizes, occlusion, environments and rare events. Consider combinations
-of conditions, redundancy and dataset size, not only marginal counts.}
+\subsubsection{Statistical models and conditional sampling}
+Statistical approaches generate observations by sampling a fitted
+probability model. The health-record review by
+\textcite{hernandezSyntheticDataGeneration2022} describes models that
+capture relationships between attributes and generate numerical or
+categorical records. \Glspl{bayesian-network} are one example: variables and
+their conditional dependencies define a joint distribution from which new
+records can be sampled. They are included alongside neural generators in
+the tabular benchmark of \textcite{hansenReimaginingSyntheticTabular2023}.
 
-\subsubsection{Annotations, bias and provenance}
-\draftnote{Investigate label correctness and image--label consistency
-for classes, boxes and masks. Examine representation, spurious correlations
-and subgroup performance; distinguish imbalance from error disparities.
-Extract provenance, reproducibility and applicable privacy requirements.}
+The central assumption is that the chosen distribution and dependency
+structure retain the relationships relevant to the intended task.
+This gives an explicit place to encode modelling choices, but relationships
+omitted or poorly estimated by the model need not reappear merely because
+more samples are drawn. Accordingly, generating a larger dataset and
+obtaining more information about the real population are different goals.
+This distinction is consistent with the analysis of generative uncertainty
+by \textcite{breugelSyntheticDataReal2023}. For this review, tabular studies
+illustrate general modelling choices; they do not establish how well those
+choices reproduce LiDAR geometry.
 
-\subsubsection{Requirements supported by downstream evidence}
-\draftnote{Relate each requirement to real-test utility and robustness.
-State conditions, supporting and contradicting studies, and strength of
-evidence. Avoid unsupported universal thresholds. End with an answer to RQ1.}
+\subsubsection{Procedural generation and physical simulation}
+\Gls{procedural-generation} constructs data through rules, assets and sampled
+parameters. For a virtual scene, these can specify which objects appear
+and how they are arranged. Physical simulation then models an observation
+or interaction with that scene. These are complementary stages: constructing
+a road layout is different from simulating a sensor's response to it.
+Nikolenko's survey discusses both virtual environments and procedural
+scene generation, including the difficulty of constructing plausible
+relationships between objects rather than placing them independently
+\parencite{nikolenkoSyntheticDataDeep2019}.
+
+Their attraction for supervised learning is control over the underlying
+scene and access to scene information from which labels can be derived.
+Their limitation is that the generated observations depend on the
+completeness of the assets, rules and observation model. LiDARsim provides
+a concrete example: its authors identify missing material and sensor effects
+as sources of discrepancy between simulated and real scans
+\parencite{manivasagamLiDARsimRealisticLiDAR2020}. Thus, control over a
+scenario does not by itself establish realistic sensor measurements.
+
+\Gls{domain-randomization} varies generation parameters to expose a trained
+model to a wider range of conditions. In this review it is treated as a
+strategy applied to a generator, rather than a separate generator family.
+Nikolenko describes both broad randomization and approaches constrained
+by scene structure \parencite{nikolenkoSyntheticDataDeep2019}.
+Our interpretation is that the sampling distribution is a substantive
+design choice: increasing variation can expand coverage, but variation
+must remain relevant to the deployment task. Detailed evidence about that
+trade-off for LiDAR belongs in RQ2 and RQ3.
+
+\subsubsection{Learned neural generators}
+Neural generators learn a distribution or a sampling procedure from
+training examples. Their appeal is that complicated relationships need
+not all be specified by hand. However, their outputs still depend on the
+training distribution, architecture and learning objective. The following
+families illustrate different ways to formulate this learning problem.
+
+\paragraph{Variational autoencoders.}
+Autoencoder-based methods use an encoder to obtain a compact representation
+and a decoder to reconstruct observations, as described by
+\textcite{hernandezSyntheticDataGeneration2022}. A variational autoencoder
+(\gls{vae}) is a probabilistic member of this family; Hansen et al.\ include its
+tabular variant, \gls{tvae}, among the evaluated generators
+\parencite{hansenReimaginingSyntheticTabular2023}.
+For the comparison here, the important distinction is that reconstructing
+an input and producing useful new samples are different objectives.
+The representation and the generation procedure must therefore be recorded
+alongside downstream evidence, rather than treating an autoencoder's
+reconstruction ability as sufficient evidence of synthetic-data utility.
+
+\paragraph{Generative adversarial networks.}
+A generative adversarial network (\gls{gan}) trains a generator against a
+discriminator that distinguishes generated from training samples.
+The generator learns to produce examples that challenge this discriminator
+\parencite{hernandezSyntheticDataGeneration2022}.
+Van Breugel et al.\ discuss \gls{mode-collapse} and poor coverage among the
+limitations of learned synthetic data
+\parencite{breugelSyntheticDataReal2023}.
+This makes diversity a separate concern from the plausibility of individual
+samples. A conditional generator can make selected attributes controllable,
+as illustrated by tabular conditional GANs (\gls{ctgan}) in
+\textcite{hansenReimaginingSyntheticTabular2023}; the available conditioning
+variables determine what is directly specified.
+
+\paragraph{Diffusion and score-based models.}
+Diffusion and score-based methods provide another route to learned
+generation. Hansen et al.\ include a tabular \gls{diffusion-model} in their
+benchmark \parencite{hansenReimaginingSyntheticTabular2023}.
+For a concrete sensor-data example, LiDARGen learns a \gls{score-function} from
+\glslink{range-image}{range} and \gls{intensity} images perturbed at different noise levels. Generation
+starts from noise and uses repeated updates through \gls{langevin-dynamics} \parencite{zyrianovLearningGenerateRealistic2022}.
+This iterative sampling makes the number and schedule of updates practical
+computational considerations. LiDARGen illustrates a score-based method;
+its particular sampler should not be assumed to describe every diffusion
+model or to establish a universal advantage over other generator families.
+
+These are not the only neural approaches. \Glspl{normalizing-flow} use invertible
+mappings between a reference distribution and observations and appear in
+the tabular comparison by Hansen et al.
+\parencite{hansenReimaginingSyntheticTabular2023}.
+The present synthesis concentrates on VAEs, GANs and denoising methods
+because they provide useful connections to the selected LiDAR literature,
+without asserting that the remaining families are unimportant.
+
+\subsubsection{Hybrid methods and augmentation}
+Hybrid pipelines combine explicit structure with learned components.
+LiDARsim reconstructs scene assets from real recordings, performs \gls{ray-casting}, and learns which simulated rays should be dropped. It therefore
+uses learning to model effects not adequately captured by the physical
+stage \parencite{manivasagamLiDARsimRealisticLiDAR2020}.
+This offers a way to retain scene control while fitting aspects of real
+sensor behaviour. The corresponding dependency is twofold: the pipeline
+needs both suitable scene assets and data for its learned component.
+Hybrid generation consequently does not eliminate real-data requirements.
+
+Figure~\ref{fig:lidarsim-object-reconstruction} illustrates the asset-building
+stage: multiple observations are combined, incomplete geometry is filled
+using vehicle symmetry, and the result is refined into a representation
+made of \glspl{surfel}. These reconstructed assets can then be placed in
+simulation scenes \parencite{manivasagamLiDARsimRealisticLiDAR2020}.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{Images/IndividualLidarSweep to surfelmeshing.png}
+\caption[Reconstructing vehicle assets for LiDAR simulation]{Reconstructing
+a vehicle asset from real LiDAR observations. From left to right: a single
+sparse sweep, accumulated observations, symmetry-based completion, and
+the refined surfel representation. Reproduced from Manivasagam et al.,
+Figure~4 \parencite{manivasagamLiDARsimRealisticLiDAR2020}.}
+\label{fig:lidarsim-object-reconstruction}
+\end{figure}
+
+The sensor-modelling stage is illustrated in
+Figure~\ref{fig:lidarsim-raydrop-comparison}. Ray casting determines where
+beams intersect the scene, while the learned \gls{ray-drop} component models
+which returns are absent. The example makes the change in sampling pattern
+visible; it is a qualitative illustration rather than a measure of
+downstream perception performance
+\parencite{manivasagamLiDARsimRealisticLiDAR2020}.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.85\linewidth]{Images/RaycastvsLiDARsimvsRealLiDAR.png}
+\caption[Ray casting, LiDARsim and real LiDAR]{A qualitative comparison of
+vehicle point clouds. Left: ray-cast LiDAR. Centre: LiDARsim with learned
+ray drop. Right: real LiDAR. The learned component changes which simulated
+returns are retained. Reproduced from Manivasagam et al., Figure~7
+\parencite{manivasagamLiDARsimRealisticLiDAR2020}.}
+\label{fig:lidarsim-raydrop-comparison}
+\end{figure}
+
+\Glslink{augmentation}{Augmentation} instead modifies available examples, for instance by
+transforming an image or inserting an object into a scan. Nikolenko
+distinguishes transformation-based augmentation from creating new data,
+while LiDARGen discusses object insertion as a form of LiDAR simulation
+\parencite{nikolenkoSyntheticDataDeep2019,zyrianovLearningGenerateRealistic2022}.
+The boundary is therefore partly task-dependent. This review records what
+is newly generated and what is reused, rather than assigning all
+augmentation methods to a separate, mutually exclusive family.
+
+\subsubsection{Comparison and answer to RQ1}
+Table~\ref{tab:rq1-generation} summarises the preceding synthesis.
+The entries describe dependencies to investigate, not measured rankings.
+In particular, synthetic sample count is not a substitute for evidence of
+utility. Hansen et al.\ distinguish statistical fidelity from several forms
+of downstream usefulness, and van Breugel et al.\ demonstrate that testing
+on synthetic data can misrepresent performance on real data in their
+studied settings
+\parencite{hansenReimaginingSyntheticTabular2023,breugelSyntheticDataReal2023}.
+
+\begin{table}[htbp]
+\caption{Conceptual comparison of generation approaches, synthesised from
+the sources discussed in Section~\ref{sec:rq1}.}
+\label{tab:rq1-generation}
+\small
+\renewcommand{\arraystretch}{1.15}
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{28mm}YY@{}}
+\toprule
+\textbf{Approach} & \textbf{Source of structure and control} &
+\textbf{Main dependency or trade-off} \\
+\midrule
+Statistical models & Specified probability families and conditional relationships. &
+Adequacy of the fitted dependencies and observations. \\
+Procedural and physical & Scene rules, assets and observation models. &
+Scenario control versus omitted world or sensor effects. \\
+VAE / GAN & Learned latent or adversarial generation; optional conditioning. &
+Representation and objective choices; reconstruction or plausibility is not coverage. \\
+Diffusion and score-based & Learned denoising or score functions. &
+Training-data coverage, representation and iterative sampling cost. \\
+Hybrid & Explicit simulation plus learned components. &
+Control and fitted realism require both assets and real-data support. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+In answer to RQ1, the main approaches differ in where their assumptions
+reside: explicit probability models, scene and physical rules, learned
+distributions, or combinations of these. Their practical trade-offs concern
+control, coverage, annotation support, dependence on real data and
+computational resources. The selected evidence does not support choosing
+one family as universally best for machine learning. For the LiDAR-focused
+review, this motivates comparing both how scenes are constructed and how
+sensor observations are generated. RQ2 examines those choices in detail;
+RQ3 examines whether the resulting data supports perception on real scans.

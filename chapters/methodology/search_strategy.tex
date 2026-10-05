@@ -1,22 +1,28 @@
 \subsection{Review design and search strategy}
-The proposed design is a structured scoping review addressing the main
-research question through RQ1--RQ3. It maps heterogeneous assessment concepts
-and evidence gaps rather than estimating one pooled effect.
-The proposal specifies English-language sources from 2017 to the final
-search date, with earlier foundational sources found through citation tracing.
-Confirm this scope before screening and record the actual final search date.
-Candidate sources are IEEE Xplore, ACM
-Digital Library, Scopus and CVF proceedings, supplemented by citation
-tracing and arXiv. Identify preprints separately from peer-reviewed work.
+The proposed design is a structured scoping review with two stages:
+a broad conceptual mapping of synthetic data generation for machine learning,
+followed by a focused synthesis of automotive LiDAR generation and evaluation.
+The proposed period is 2017 to the final search date, with earlier
+foundational sources identified through citation tracing. Record the actual
+final search date and any scope changes before final screening.
+Candidate databases are IEEE Xplore, ACM Digital Library, Scopus and
+CVF proceedings, supplemented by citation tracing and arXiv.
+Identify preprints separately from peer-reviewed work.
 
-A starting query combines (synthetic data OR synthetic images OR simulated
-data) AND (computer vision OR image classification OR object detection OR
-semantic segmentation) AND (quality OR evaluation OR realism OR fidelity
-OR diversity OR coverage OR bias OR sim-to-real).
-Companion queries will target requirements, named metrics and assessment
-prerequisites so that one query does not determine the entire review.
+The broad query combines (synthetic data OR data synthesis) AND
+(machine learning OR deep learning) AND (generation OR simulation OR survey).
+Use this stage to establish method families, not to claim
+exhaustive coverage of every application.
 
-Record each database-specific query, filters, date, result count and
-export location in a separate search log. Record citation searches with
-their seed papers and dates. Pilot the search against known relevant
-papers before freezing it, and document later changes.
+The focused query combines (LiDAR OR laser scanning) AND
+(point cloud OR range image) AND (synthetic OR generation OR
+simulation OR diffusion OR neural rendering) AND
+(autonomous driving OR automotive OR driving scene).
+Run a companion query for (synthetic-to-real OR domain adaptation
+OR evaluation OR detection OR segmentation) with LiDAR and synthetic data.
+Do not require an evaluation keyword in every generation search.
+
+Adapt phrase quoting and syntax to each database and pilot recall against
+the seed papers. Record exact queries, filters, date, result count and
+export location. The initial web-based seed search is exploratory, not
+a completed database search or a final set of included studies.

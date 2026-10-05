@@ -13,3 +13,53 @@
   description={The extent to which synthetic data reproduce relevant properties of the target data}}
 \newglossaryentry{utility}{name={utility},
   description={The usefulness of data for a specified downstream task and evaluation setting}}
+\newglossaryentry{lidar}{name={LiDAR},
+  description={Light detection and ranging: a sensing technique that uses laser light to measure distances to surfaces; scanning systems combine these measurements into a point cloud}}
+\newglossaryentry{point-cloud}{name={point cloud},plural={point clouds},
+  description={A collection of points in three-dimensional space, often with additional attributes such as return intensity; a sensor scan usually observes only part of a scene}}
+\newglossaryentry{range-image}{name={range image},plural={range images},
+  description={An image-like representation in which each pixel stores a measured distance for a viewing direction, such as a LiDAR beam direction}}
+\newglossaryentry{intensity}{name={intensity},
+  description={A sensor-reported measure of the strength of a returned LiDAR signal; its value depends on the surface, measurement geometry and sensor processing}}
+\newglossaryentry{ray-casting}{name={ray casting},
+  description={Computing intersections of simulated rays with scene geometry, for example to determine distances along LiDAR beam directions}}
+\newglossaryentry{ray-drop}{name={ray drop},
+  description={The absence of a recorded return for a LiDAR beam, for example because too little reflected light reaches the receiver}}
+\newglossaryentry{surfel}{name={surfel},plural={surfels},
+  description={Surface element: a small local surface patch, often represented by an oriented disk, used to approximate scene or object geometry}}
+\newglossaryentry{occlusion}{name={occlusion},
+  description={A nearer object or surface blocking a sensor's view of another part of a scene}}
+\newglossaryentry{object-detection}{name={3D object detection},
+  description={Identifying object categories and locating objects in three-dimensional space, commonly using oriented bounding boxes}}
+\newglossaryentry{semantic-segmentation}{name={semantic segmentation},
+  description={Assigning a semantic class, such as road or vehicle, to each pixel or point in an observation}}
+\newglossaryentry{domain-gap}{name={domain gap},
+  description={Differences between source and target data distributions, such as simulated and real sensor data, that can affect model transfer}}
+\newglossaryentry{domain-randomization}{name={domain randomization},
+  description={Varying generation or simulation parameters to expose a training model to a range of conditions and investigate transfer beyond a single simulated setting}}
+\newglossaryentry{procedural-generation}{name={procedural generation},
+  description={Constructing data or scene content through rules, algorithms and parameters rather than specifying every output individually}}
+\newglossaryentry{augmentation}{name={data augmentation},
+  description={Creating training variants by transforming or combining available examples, while maintaining or updating their labels as required}}
+\newglossaryentry{bayesian-network}{name={Bayesian network},plural={Bayesian networks},
+  description={A probabilistic model that represents variables and their conditional dependencies using a directed acyclic graph}}
+\newglossaryentry{vae}{name={VAE},plural={VAEs},
+  description={Variational autoencoder: a probabilistic generative model with a latent representation, a decoder and an encoder that approximates inference over the latent variables}}
+\newglossaryentry{tvae}{name={TVAE},
+  description={Tabular variational autoencoder: a VAE adapted to generating tabular records}}
+\newglossaryentry{diffusion-model}{name={diffusion model},plural={diffusion models},
+  description={A generative model trained to reverse a gradual corruption process, commonly producing samples through successive denoising steps}}
+\newglossaryentry{score-function}{name={score function},
+  description={In score-based generation, the gradient of the log probability density with respect to the data; a learned estimate guides sampling towards regions of higher probability}}
+\newglossaryentry{langevin-dynamics}{name={annealed Langevin dynamics},
+  description={An iterative sampling procedure combining score-guided updates with random noise across a sequence of decreasing noise levels}}
+\newglossaryentry{normalizing-flow}{name={normalizing flow},plural={normalizing flows},
+  description={A generative model that transforms a simple reference distribution through invertible mappings}}
+\newglossaryentry{mode-collapse}{name={mode collapse},
+  description={A failure of a generative model to represent parts of the target distribution, producing insufficiently varied samples}}
+\newglossaryentry{fid}{name={FID},
+  description={Fr\'echet Inception Distance: a comparison of Gaussian approximations to feature distributions from real and generated images; the feature representation matters and suitability for LiDAR is not automatic}}
+\newglossaryentry{ap}{name={AP},
+  description={Average precision: a summary of a precision--recall curve; object-detection results depend on the matching rules, thresholds and benchmark protocol}}
+\newglossaryentry{miou}{name={mIoU},
+  description={Mean intersection over union: the average across evaluated classes of the overlap between predicted and reference segments divided by their union}}
