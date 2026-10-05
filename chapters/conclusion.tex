@@ -1,22 +1,12 @@
 \section{Conclusion}
 \label{sec:conclusion}
-Synthetic generation can support autonomous-driving perception by producing
-controlled, labelled scenes, fitting the statistics of measured scans, or
-combining explicit simulation with learned sensor effects. RQ1 identifies
-statistical, procedural/physical, learned and hybrid approaches, whose
-trade-offs concern control, coverage, real-data dependence and computation.
-RQ2 shows that LiDAR generation additionally requires an observation model:
-geometry, beam sampling, visibility, missing returns and annotation
-consistency must be considered together.
-
-For RQ3, performance on held-out real data is the most direct evidence of
-training utility. The selected studies demonstrate useful transfer in
-specific settings, while also showing why similarity scores, completion
-results and simulator testing cannot be substituted for that evidence.
-A practical assessment should combine controlled real-data baselines with
-sensor diagnostics and class- or scenario-specific analysis. The review
-therefore supports targeted use of synthetic data alongside real data,
-with method selection guided by the intended task and available resources.
-Establishing which diagnostics reliably predict such gains remains a
-focused research direction, subject to broader literature verification
-and controlled experiments.
+Synthetic generation supports LiDAR perception through controlled scenes,
+learned scan distributions and hybrid sensor models. RQ1 identifies their
+trade-offs in control, coverage, labels and resources; RQ2 shows why sensor
+sampling and annotation consistency must accompany geometry. For RQ3,
+controlled evaluation on held-out real data is the most direct evidence of
+training utility. Distributional metrics, completion results and simulator
+testing provide complementary evidence rather than substitutes.
+The reviewed studies support targeted supplementation of real data, with
+method choice guided by task and available resources. Connecting inexpensive
+diagnostics to reliable real-data gains remains a useful research direction.

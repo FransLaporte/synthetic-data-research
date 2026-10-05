@@ -79,3 +79,42 @@ The updated build has **9 body pages**, with references on Arabic page 10:
 glossary). The paper, proposal and slides all passed the citation/reference
 checker after the shared glossary edit. Final diagram and glossary layouts
 were rendered and inspected; no overfull boxes or unresolved references remain.
+
+## Corrected requirement: 4--6 pages and approximately 15 references
+
+The user subsequently corrected the requirement to 4--6 pages and approximately
+15 used references, retaining the introduction-through-conclusion counting span.
+This supersedes the earlier limits recorded above.
+
+The final shortened revision contains **5 body pages and 15 distinct cited
+references**. The complete PDF is 12 pages: three front-matter pages, five body
+pages, two reference pages and two glossary pages. It retains the original
+overview diagram and combined LiDARsim illustration. The font, margins and
+body line spacing are unchanged. Repetitive explanations and overlapping
+comparison tables were removed; the SynLiDAR results table remains.
+
+Five additional existing bibliography entries were checked against their
+local Zotero full texts: PreSIL, KITTI (2012), Shumailov et al. (2024),
+Westphal and Brannath (2019), and Achterberg et al. (2026). Each now has a
+separate study record. These references have specific roles: generation and
+transfer, real benchmark context, recursive-training coverage risk,
+selection-induced optimism, and task-aware metric selection respectively.
+The latter is identified as a tabular preprint; recursive-training findings
+are not extrapolated into a claim of collapse from one-pass LiDAR augmentation.
+
+Direct web record checks were made at arXiv 1905.00160, the PMLR Westphal
+landing page, the Nature Shumailov landing page and the EngrXiv Achterberg
+record. The latter two could not be retrieved by the web tool, so locally
+available full texts supplied the evidence. No new database search or
+screening counts are claimed.
+
+PreSIL Section IV.B revealed selection of the best checkpoint on its real
+evaluation split. The manuscript explicitly records this limitation instead
+of presenting its gain as an untouched-test result. All 15 keys exist in
+the already-committed bibliography; the user's local bibliography edits remain
+byte-for-byte unchanged and are not needed to resolve these citations.
+
+Validation: full XeLaTeX/Biber build; repository citation/reference checker;
+15 unique bibliography entries; introduction on Arabic page 1 and conclusion
+on page 5; references beginning on page 6; rendered-page inspection;
+no unresolved references or overfull boxes.

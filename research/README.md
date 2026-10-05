@@ -2,7 +2,7 @@
 
 These notes support the paper but are not included in the PDF automatically.
 
-The review has eight targeted study records under `studies/`, awaiting author
+The review has thirteen targeted study records under `studies/`, awaiting author
 verification. The [5 October completion checks](searches/2026-10-05-review-completion.md)
 extend the RQ1 notes with LiDAR generation and evaluation evidence.
 See [the branch and PR plan](pr_plan.md) for the original five-part split.

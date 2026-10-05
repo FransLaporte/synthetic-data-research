@@ -1,47 +1,22 @@
 \section{Background and terminology}
 \label{sec:background}
-\subsection{Generation, simulation and augmentation}
-Synthetic data are observations produced by a computational process rather
-than directly recorded for the dataset. A generated sample can nevertheless
-depend on real training data or reconstructed assets. Simulation specifies
-how a scene produces an observation; learned generation estimates a sampling
-process from examples. \Glslink{augmentation}{Augmentation} modifies or
-recombines existing observations. These categories overlap: a reconstructed
-vehicle can be inserted into a new scene and rendered with a learned sensor
-component \parencite{nikolenkoSyntheticDataDeep2019,manivasagamLiDARsimRealisticLiDAR2020}.
-Here, synthetic-only training describes the perception model's inputs,
-not the absence of real data anywhere in their production.
+Simulation models how a scene produces an observation; learned generation
+estimates a sampling process from examples; \gls{augmentation} transforms
+or recombines existing data. These categories overlap, and synthetic-only
+perception training can still depend on real assets or generator training
+data \parencite{nikolenkoSyntheticDataDeep2019,manivasagamLiDARsimRealisticLiDAR2020}.
 
-\subsection{A scene is not a sensor observation}
-A LiDAR scan samples visible surfaces along emitted beams. It does not
-represent a complete three-dimensional scene: \gls{occlusion}, the angular
-sampling pattern, range and missing returns determine which surfaces appear.
-\Gls{intensity} also depends on surface and sensor response. A spinning
-sensor acquires its scan over time, so motion can distort geometry
-\parencite{manivasagamLiDARsimRealisticLiDAR2020,manivasagamZeroDomainGap2023}.
-Consequently, realistic object shapes alone do not establish realistic scans.
+A LiDAR scan samples visible surfaces rather than complete geometry.
+Beam directions, \gls{occlusion}, \gls{intensity}, missing returns and
+motion shape the observation. Point sets, \glspl{range-image} and
+\glspl{voxel} expose different spatial structure; representation and
+sensor assumptions must accompany a generation claim
+\parencite{zyrianovLearningGenerateRealistic2022,manivasagamZeroDomainGap2023}.
 
-Representations expose different structure. Point sets retain coordinates,
-\glspl{range-image} organise returns by direction, and \glspl{voxel} group
-space into cells. Range images
-support regular image-like processing but depend on sensor projection and
-resolution. LiDARGen uses range and intensity channels, whereas SynLiDAR's
-segmentation experiments use voxel-based processing
-\parencite{zyrianovLearningGenerateRealistic2022,xiaoTransferLearningSynthetic2022}.
-New-scene generation, rendering another viewpoint of a reconstructed scene,
-and filling gaps in an existing observation must therefore be assessed as
-distinct tasks.
-
-\subsection{Realism, coverage and utility}
-We use realism for physical plausibility, similarity for agreement under
-a specified distributional measure, and coverage for representation of
-relevant classes and conditions. \Textcite{alaaHowFaithfulYour2022}
-separate fidelity, diversity and generalization through $\alpha$-Precision,
-$\beta$-Recall and Authenticity; the last concerns copying training data,
-not downstream perception generalization. These concepts motivate multiple
-evaluation dimensions without establishing a validated LiDAR metric.
-\Gls{utility} denotes performance on the intended downstream task.
-The synthetic-to-real \gls{domain-gap} is a difference between generated
-and target data that may affect that performance. Distribution matching,
-paired geometric accuracy and real-data utility consequently answer
-related but non-equivalent questions.
+Realism, coverage and downstream \gls{utility} are distinct.
+\Textcite{alaaHowFaithfulYour2022} distinguish fidelity, diversity and
+generalization, with Authenticity addressing copying of training data.
+The tabular evaluation survey by \textcite{achterbergMetricsThatMatter2026},
+available as a preprint, likewise makes metric choice depend on task and
+context. These frameworks motivate multiple assessment dimensions; they do
+not establish a LiDAR-specific proxy for real perception performance.

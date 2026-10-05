@@ -1,74 +1,52 @@
-% Filename retained to preserve repository links.
-\subsection{RQ2: LiDAR generation and sensor requirements}
+\subsection{RQ2: LiDAR generation and requirements}
 \label{sec:rq2}
-\subsubsection{Scene-based and hybrid simulation}
-LiDARsim separates asset construction, scene composition and sensor
-rendering. Static maps and vehicle assets are reconstructed from repeated
-real observations; objects and sensor poses can then be arranged into
-scenarios. Ray casting determines surface intersections, while learned
-\gls{ray-drop} models missing returns
+\textbf{Virtual-scene simulation.} PreSIL produces annotated scans from
+GTA~V, avoiding simplified collision geometry through its depth-based
+simulation. Its released point clouds have a forward-facing field of view
+and omit reflectance and motion distortion
+\parencite{hurlPreciseSyntheticImage2019}. This provides scalable labels
+without reproducing every sensor property. SynLiDAR supplies virtual scenes
+with 32 semantic classes; its intensity model uses real SemanticKITTI data.
+Its point cloud translator (PCT) treats appearance and sparsity differences
+separately \parencite{xiaoTransferLearningSynthetic2022}.
+Consequently, automatic synthetic labels do not eliminate all real-data
+requirements, and source classes must be mapped to the target task.
+
+\textbf{Reconstruction and hybrids.} LiDARsim composes scenes from real
+maps and vehicle assets, renders them and learns missing returns
+(Figure~\ref{fig:lidarsim-pipeline}). It offers geometric control but inherits
+asset coverage and reconstruction limitations; its vehicle construction
+does not establish equivalent support for deformable road users
 \parencite{manivasagamLiDARsimRealisticLiDAR2020}.
-Figure~\ref{fig:lidarsim-pipeline} illustrates these two dependencies.
-The approach supplies geometric control and object information for labels,
-but inherits the coverage and reconstruction limits of the recordings.
-Its vehicle-focused object construction does not establish equivalent
-modelling quality for deformable road users.
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=.78\linewidth]{Images/IndividualLidarSweep to surfelmeshing.png}
+\includegraphics[width=.68\linewidth]{Images/IndividualLidarSweep to surfelmeshing.png}
 
-\vspace{2mm}
-\includegraphics[width=.60\linewidth]{Images/RaycastvsLiDARsimvsRealLiDAR.png}
-\caption{Two stages of LiDARsim. Top: sparse observations are accumulated,
-completed using symmetry and refined into a \gls{surfel} asset. Bottom:
-ray-cast, learned-ray-drop and real vehicle scans (left to right).
+\vspace{1mm}
+\includegraphics[width=.50\linewidth]{Images/RaycastvsLiDARsimvsRealLiDAR.png}
+\caption{LiDARsim: top, observations accumulated and refined into a
+\gls{surfel} asset; bottom, ray-cast, learned-ray-drop and real scans.
 Reproduced from Figures~4 and~7 of
-\textcite{manivasagamLiDARsimRealisticLiDAR2020}. These examples illustrate
-construction and sampling, not quantitative transfer performance.}
+\textcite{manivasagamLiDARsimRealisticLiDAR2020}. Qualitative examples
+illustrate construction and sampling, not transfer performance.}
 \label{fig:lidarsim-pipeline}
 \end{figure}
 
-SynLiDAR instead collects scans from virtual environments, providing
-point-wise labels for 32 semantic classes and over 19 billion points.
-Its intensity prediction uses real SemanticKITTI data, and its point
-cloud translator (PCT) treats appearance and sparsity differences separately
-\parencite{xiaoTransferLearningSynthetic2022}.
-Thus, simulated labels can reduce manual annotation of generated scans,
-but the full pipeline is not necessarily independent of real data.
-For transfer, source labels must also be mapped to the target class set.
-
-\subsubsection{Learned scan generation and completion}
-LiDARGen learns the distribution of range and intensity images, then
-generates scans by stochastic denoising. Its angular representation ties
-points to sensor rays and supports conditioning on partial observations.
-The experiments include unconditional generation and \gls{densification} of
-sparse scans on KITTI-360, with further generation results on nuScenes
+\textbf{Learned scan generation.} LiDARGen generates range and intensity
+images through stochastic denoising and supports conditional
+\gls{densification}. Its KITTI-360 and nuScenes experiments connect
+generation to sensor-specific angular representations
 \parencite{zyrianovLearningGenerateRealistic2022}.
-This avoids manually specifying every scene asset, but a plausible scan
-does not automatically supply semantic ground truth or an editable scene.
-Densification also retains information from its input scan; success there
-cannot be counted as evidence that independently generated scenes improve
-training. Training-data coverage and iterative sampling remain resource
-constraints.
+However, plausible scans do not automatically provide semantic labels,
+editable scenes or independently generated training examples when inputs
+are reused.
 
-\subsubsection{Which requirements matter?}
-The paired-scenario study by
-\textcite{manivasagamZeroDomainGap2023} examines sensor effects using
-reconstructions of recorded scenarios. It identifies motion blur, material
-response and traffic-participant geometry as important contributors to
-simulation discrepancies, and examines missing and multiple returns.
-Its use of real observations as an oracle diagnoses what a simulator
-should reproduce; it is not itself a general-purpose generator requiring
-no reference scan.
-
-Across these examples, sensor realism requires more than matching point
-count: angular sampling, range-dependent sparsity, visibility, material
-response and motion determine where measurements occur. Scene diversity
-concerns the configurations observed, whereas sensor diversity concerns
-how they are sampled. Our synthesis is that both must be specified.
-Procedural scenes offer direct scenario and label control; learned scans
-fit observed regularities; hybrids connect explicit geometry with
-data-driven sensor effects. RQ2 is therefore answered by a division of
-responsibility between scene construction, observation modelling and
-annotation production. None alone guarantees the other two.
+Across these approaches, RQ2 requires scene construction, observation
+modelling and annotation production to be considered together. Geometry
+alone is insufficient: paired-scenario experiments identify material
+response, scanning motion and traffic-participant geometry as contributors
+to the \gls{domain-gap}
+\parencite{manivasagamZeroDomainGap2023}.
+Scene diversity describes what is observed; sensor diversity describes
+how it is sampled. Neither can substitute for the other.

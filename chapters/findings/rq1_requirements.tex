@@ -1,89 +1,33 @@
-% Filename retained to preserve repository links.
-\subsection{RQ1: General approaches to synthetic data generation}
+\subsection{RQ1: General generation approaches}
 \label{sec:rq1}
-Generation methods differ in where they obtain structure: explicit
-probability models, scene and physical rules, learned distributions, or
-combinations of these. The categories overlap and do not imply a ranking
-\parencite{nikolenkoSyntheticDataDeep2019,hernandezSyntheticDataGeneration2022}.
-
-\subsubsection{Statistical models and simulation}
-Statistical methods sample fitted distributions and conditional
-relationships. \Glspl{bayesian-network}, for example, represent dependencies
-among variables. Their usefulness depends on whether those dependencies
-retain the information needed for the target task
+\textbf{Statistical models} sample fitted distributions and dependencies,
+for example through \glspl{bayesian-network}. Their usefulness depends on
+whether those assumptions retain task-relevant relationships
 \parencite{hernandezSyntheticDataGeneration2022,hansenReimaginingSyntheticTabular2023}.
-Drawing more observations from a fitted model does not automatically
-remove uncertainty in that model
-\parencite{breugelSyntheticDataReal2023}. Tabular evidence illustrates this
-principle but does not establish LiDAR geometry or sensor realism.
+More samples from a fitted generator do not automatically remove uncertainty
+in that generator \parencite{breugelSyntheticDataReal2023}.
 
-\Gls{procedural-generation} builds scenes through rules, assets and sampled
-parameters; physical simulation models their observation. These stages
-provide scenario control and access to scene labels, but their assumptions
-limit what can be represented. \Gls{domain-randomization} varies parameters
-within such a pipeline. It can expand the range of training conditions, yet
-its sampling choices still determine whether that variation is relevant
-\parencite{nikolenkoSyntheticDataDeep2019}. Sensor effects absent from the
-observation model remain absent even in a diverse scene collection.
-
-\subsubsection{Learned neural generators}
-A variational autoencoder (\gls{vae}) learns a probabilistic latent
-representation and decoder. A generative adversarial network (\gls{gan})
-learns through competition between a generator and discriminator. Both
-depend on training examples, model capacity and learning objectives;
-reconstruction quality or convincing individual samples alone does not
-demonstrate coverage. Conditional models expose selected attributes as
-controls, while \gls{mode-collapse} can restrict the variation a GAN produces
-\parencite{hernandezSyntheticDataGeneration2022,hansenReimaginingSyntheticTabular2023,
-breugelSyntheticDataReal2023}.
-
-\Glspl{diffusion-model} learn denoising behaviour; score-based methods learn
-a \gls{score-function}. LiDARGen uses \gls{score-matching} on
-noisy range and intensity images and samples using repeated
-\gls{langevin-dynamics} updates
-\parencite{zyrianovLearningGenerateRealistic2022}.
-Iterative sampling makes the update schedule part of the computation
-budget. Other families, including \glspl{normalizing-flow}, also occur in
-the broader literature \parencite{hansenReimaginingSyntheticTabular2023}.
-The selected studies do not justify transferring a tabular method ranking
-to automotive LiDAR.
-
-\subsubsection{Hybrids, augmentation and trade-offs}
-Hybrid methods combine explicit structure with learned corrections.
-LiDARsim reconstructs assets from real recordings, uses \gls{ray-casting}
-to render them, and learns which returns to remove
-\parencite{manivasagamLiDARsimRealisticLiDAR2020}.
-This retains scene control while fitting sensor behaviour, at the cost of
-requiring both assets and training data. Augmentation instead transforms
-or recombines existing samples; the distinction depends on how much of the
-scene and observation is reused
+\textbf{Procedural and physical simulation} constructs scenes from rules
+and assets, then models their observation. It offers scenario control and
+access to labels, but omitted assets or sensor effects remain limitations.
+\Gls{domain-randomization} varies parameters to broaden training conditions;
+the chosen sampling distribution determines whether that variation is useful
 \parencite{nikolenkoSyntheticDataDeep2019}.
 
-\begin{table}[htbp]
-\caption{Generation families: conceptual trade-offs from the RQ1 sources,
-not measured rankings.}
-\label{tab:rq1-generation}
-\small
-\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{28mm}YY@{}}
-\toprule
-\textbf{Family} & \textbf{Control and structure} & \textbf{Main dependency} \\
-\midrule
-Statistical & Specified probability model and dependencies. &
-Adequate model assumptions and fitted observations. \\
-Procedural / physical & Scene rules, assets and sensor model; labels from the scene. &
-Asset coverage and omitted physical effects. \\
-VAE / GAN & Learned latent or adversarial model; optional conditioning. &
-Training distribution, coverage and label availability. \\
-Denoising / score & Learned iterative sampling of observations. &
-Representation, data coverage and sampling cost. \\
-Hybrid & Explicit simulation with learned components. &
-Both scene assets and real-data support. \\
-\bottomrule
-\end{tabularx}
-\end{table}
+\textbf{Learned generators} include \glspl{vae}, \glspl{gan} and
+\glspl{diffusion-model}. They learn structure from examples, with different
+latent, adversarial or denoising objectives. Conditional generation exposes
+selected controls, while coverage and \gls{mode-collapse} remain concerns
+\parencite{hernandezSyntheticDataGeneration2022,hansenReimaginingSyntheticTabular2023}.
+LiDARGen uses \gls{score-matching} and iterative
+\gls{langevin-dynamics}; its representation and sampling schedule are
+therefore practical design choices
+\parencite{zyrianovLearningGenerateRealistic2022}.
 
-In answer to RQ1, no family is universally preferable. The relevant
-trade-offs are control, coverage, annotation support, real-data dependence
-and computation (Table~\ref{tab:rq1-generation}). These choices must be
-revisited at the sensor level before synthetic observations can be treated
-as useful perception training data.
+\textbf{Hybrids} combine explicit structure with learned corrections.
+LiDARsim, for example, couples reconstructed assets and \gls{ray-casting}
+with learned \gls{ray-drop}
+\parencite{manivasagamLiDARsimRealisticLiDAR2020}.
+RQ1 thus identifies a trade-off between explicit control and learned
+regularities, qualified by coverage, annotation support, real-data dependence
+and computation. The evidence does not establish a universally best family.

@@ -56,9 +56,10 @@ The paper maps synthetic data generation broadly, then focuses on **automotive
 LiDAR for 3D detection and semantic segmentation**. It is a focused narrative
 review of selected sources; independent author verification and completion
 of the systematic search remain outstanding. The 5 October revision has an
-nine-page body (introduction through conclusion), including the generation-to-evaluation
-overview diagram and linked technical glossary, within the confirmed
-ten-page limit. See [revision evidence notes](research/searches/2026-10-05-review-completion.md).
+five-page body (introduction through conclusion), with 15 cited references,
+the generation-to-evaluation overview and a linked technical glossary.
+This meets the corrected requirement of 4--6 body pages and approximately
+15 references. See [revision evidence notes](research/searches/2026-10-05-review-completion.md).
 Read [CONTRIBUTING.md](CONTRIBUTING.md) for the two-author Git workflow and
 [research/README.md](research/README.md) for shared evidence records.
 

@@ -1,32 +1,24 @@
-\eyebrow{Context / Research direction}
 \section{Introduction}
 \label{sec:introduction}
-Training perception models requires observations and labels that represent
-the conditions in which the models will operate. Collecting and annotating
-automotive \gls{lidar} \glspl{point-cloud} is costly, while uncommon traffic
-configurations are difficult to capture at scale. \Gls{synthetic-data}
-offers control over scene composition and access to simulated ground truth.
-However, differences between generated and real measurements can limit
-transfer to the intended task
-\parencite{manivasagamLiDARsimRealisticLiDAR2020,xiaoTransferLearningSynthetic2022}.
+Collecting and annotating automotive \gls{lidar} \glspl{point-cloud} is costly,
+and uncommon traffic situations are difficult to capture at scale.
+\Gls{synthetic-data} offers scene control and generated labels, but differences
+from real measurements can limit transfer
+\parencite{hurlPreciseSyntheticImage2019,xiaoTransferLearningSynthetic2022}.
+Real benchmarks such as KITTI provide calibrated sensor recordings and
+object annotations against which perception methods can be assessed
+\parencite{geigerAreWeReady2012a}.
 
-This review first maps generation methods for \gls{machine-learning}, then
-focuses on scene-level automotive LiDAR for \gls{object-detection} and
-\gls{semantic-segmentation}. It distinguishes new-scan generation from
-reconstruction-based simulation and completion of an existing scan.
-Object-only shape generation is relevant only where it supports driving
-scenes. The broad survey literature provides context; the LiDAR studies
-provide the task-specific evidence.
+This review connects general generation methods to scene-level automotive
+LiDAR for \gls{object-detection} and \gls{semantic-segmentation}. It separates
+new-scan generation, reconstruction-based simulation and completion of
+existing scans. The central concern is whether generated observations
+support learning that transfers to real driving data.
 
 \input{shared/question-block}
-The contribution is a compact mapping from generation choices to sensor
-requirements, evaluation resources and the conclusions that the reported
-experiments support. Section~\ref{sec:background} defines key concepts;
-Section~\ref{sec:methodology} states the review's evidence base and limits;
-Section~\ref{sec:findings} answers the three subquestions; and
-Section~\ref{sec:discussion} develops practical implications and a focused
-research direction.
-Figure~\ref{fig:generation-evaluation} connects these stages and shows where
-real data remain necessary. Linked technical terms lead to the glossary.
-
+Figure~\ref{fig:generation-evaluation} connects the questions.
+Section~\ref{sec:background} defines the scope,
+Section~\ref{sec:methodology} explains the evidence base, and
+Sections~\ref{sec:findings}--\ref{sec:conclusion} synthesise findings and
+implications. Linked technical terms are defined in the glossary.
 \input{chapters/figures/generation_evaluation_pipeline}

@@ -2,8 +2,10 @@
 
 Source: rubric and deadlines supplied by the authors on 22 September 2026.
 Deadline interpretation confirmed by the user. On 5 October 2026, the user
-confirmed a maximum of 10 pages from the introduction through the conclusion;
-front matter, references and glossary are outside that span.
+corrected the literature-review requirement to **4--6 pages with approximately
+15 references used**, superseding the earlier 10-page limit. The previously
+confirmed span is introduction through conclusion; front matter, references
+and glossary are outside that span.
 Times use Europe/Amsterdam local course time.
 
 ## Topic contact
