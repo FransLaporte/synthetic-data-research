@@ -1,0 +1,13 @@
+\section{Objective, scope and research questions}\label{sec:questions}
+\textbf{Objective.} To determine how far a sensor property of synthetic LiDAR data must degrade before data-level diagnostics register the change, compared with the point where the real-data performance of a model trained on that data drops.
+
+\textbf{Scope.} The study concerns scene-level LiDAR semantic segmentation with synthetic-only training and evaluation on real data. One sensor property (ray drop) is varied in two forms, while scenes, labels, class mapping, model and training budget stay fixed. The diagnostics are FRD, BEV MMD and JSD, as used by LiDARGen~\cite{zyrianovLearningGenerateRealistic2022}. Out of scope are 3D object detection, planning-level evaluation, new diagnostics and comparisons between generators.
+
+\subsection{Research questions}
+\textbf{Main question.} At what level of sensor degradation do data-level diagnostics (FRD, BEV MMD, JSD) register a change, compared with the point where the real-data performance of a segmentation model trained on that data drops?
+
+\begin{enumerate}
+    \item[\textbf{SQ1}] How do FRD, MMD and JSD change as one sensor property (ray drop) is increased in steps?
+    \item[\textbf{SQ2}] How does real-data mIoU change over the same steps, overall and per class and distance range?
+    \item[\textbf{SQ3}] Where do the two disagree: where does mIoU drop while the diagnostics barely move, or the reverse?
+\end{enumerate}

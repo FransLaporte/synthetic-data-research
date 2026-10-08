@@ -1,21 +1,30 @@
-% Compile from repository root: build.bat proposal
 \documentclass[10pt,a4paper]{article}
 \usepackage{twente-paper}
+% Needed by the proposal chapters; remove any line twente-paper already loads.
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{tabularx}
 % A compact proposal uses the same identity with tighter section spacing.
 \titlespacing*{\section}{0pt}{5mm}{2mm}
 \titlespacing*{\subsection}{0pt}{3mm}{1mm}
 \addbibresource{references.bib}
-\input{shared/questions}
+% shared/questions only defines the literature review's questions; the proposal
+% writes its own questions in proposal/chapters/problem_questions.tex.
+% \input{shared/questions}
 \input{shared/contact}
-\hypersetup{pdftitle={Research Proposal: Synthetic Data Generation for LiDAR Perception},pdfauthor={Frans Laporte and Florent Kegler}}
+\hypersetup{pdftitle={Research Proposal: Sensitivity of Data-Level Diagnostics for Synthetic LiDAR},pdfauthor={Frans Laporte and Florent Kegler}}
 \fancyhead[L]{\fontsize{7.5}{9}\selectfont\bfseries SYNTHETIC DATA / RESEARCH PROPOSAL}
 \begin{document}
 \input{proposal/title}
-\input{proposal/problem_questions}
-\input{proposal/methodology}
-\input{proposal/plan}
+\input{proposal/chapters/introduction}
+\input{proposal/chapters/problem}
+\input{proposal/chapters/problem_questions}
+\input{proposal/chapters/hypothesis}
+\input{proposal/chapters/methodology}
+\input{proposal/chapters/plan}
+\input{proposal/chapters/conditions}
 \begingroup
-\small\raggedright
+\small\raggedright 
 \printbibliography[heading=bibintoc,title={References}]
 \endgroup
 \end{document}
