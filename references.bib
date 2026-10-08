@@ -429,3 +429,39 @@
   keywords = {Computer Science - Computer Vision and Pattern Recognition},
   file = {C\:\\Users\\kegle\\Zotero\\storage\\LYEGGNBY\\Zyrianov et al. - 2022 - Learning to Generate Realistic LiDAR Point Clouds.pdf;C\:\\Users\\kegle\\Zotero\\storage\\ICDF5D7D\\2209.html}
 }
+
+@online{behleySemanticKITTIDatasetSemantic2019,
+  title = {{{SemanticKITTI}}: {{A Dataset}} for {{Semantic Scene Understanding}} of {{LiDAR Sequences}}},
+  shorttitle = {{{SemanticKITTI}}},
+  author = {Behley, Jens and Garbade, Martin and Milioto, Andres and Quenzel, Jan and Behnke, Sven and Stachniss, Cyrill and Gall, Juergen},
+  date = {2019-08-16},
+  eprint = {1904.01416},
+  eprinttype = {arXiv},
+  eprintclass = {cs.CV},
+  doi = {10.48550/arXiv.1904.01416},
+  url = {http://arxiv.org/abs/1904.01416},
+  urldate = {2026-10-08},
+  abstract = {Semantic scene understanding is important for various applications. In particular, self-driving cars need a fine-grained understanding of the surfaces and objects in their vicinity. Light detection and ranging (LiDAR) provides precise geometric information about the environment and is thus a part of the sensor suites of almost all self-driving cars. Despite the relevance of semantic scene understanding for this application, there is a lack of a large dataset for this task which is based on an automotive LiDAR. In this paper, we introduce a large dataset to propel research on laser-based semantic segmentation. We annotated all sequences of the KITTI Vision Odometry Benchmark and provide dense point-wise annotations for the complete \$360\textasciicircum\{o\}\$ field-of-view of the employed automotive LiDAR. We propose three benchmark tasks based on this dataset: (i) semantic segmentation of point clouds using a single scan, (ii) semantic segmentation using multiple past scans, and (iii) semantic scene completion, which requires to anticipate the semantic scene in the future. We provide baseline experiments and show that there is a need for more sophisticated models to efficiently tackle these tasks. Our dataset opens the door for the development of more advanced methods, but also provides plentiful data to investigate new research directions.},
+  pubstate = {prepublished},
+  keywords = {Computer Science - Computer Vision and Pattern Recognition,Computer Science - Robotics},
+  file = {C\:\\Users\\kegle\\Zotero\\storage\\M5MEFLT7\\Behley et al. - 2019 - SemanticKITTI A Dataset for Semantic Scene Understanding of LiDAR Sequences.pdf;C\:\\Users\\kegle\\Zotero\\storage\\I8FQ67PD\\1904.html}
+}
+
+@inproceedings{miliotoRangeNet++Fast2019,
+  title = {{{RangeNet}} ++: {{Fast}} and {{Accurate LiDAR Semantic Segmentation}}},
+  shorttitle = {{{RangeNet}} ++},
+  booktitle = {2019 {{IEEE}}/{{RSJ International Conference}} on {{Intelligent Robots}} and {{Systems}} ({{IROS}})},
+  author = {Milioto, Andres and Vizzo, Ignacio and Behley, Jens and Stachniss, Cyrill},
+  date = {2019-11},
+  pages = {4213--4220},
+  publisher = {IEEE},
+  location = {Macau, China},
+  doi = {10.1109/IROS40897.2019.8967762},
+  url = {https://ieeexplore.ieee.org/document/8967762/},
+  urldate = {2026-10-08},
+  abstract = {Perception in autonomous vehicles is often carried out through a suite of different sensing modalities. Given the massive amount of openly available labeled RGB data and the advent of high-quality deep learning algorithms for image-based recognition, high-level semantic perception tasks are pre-dominantly solved using high-resolution cameras. As a result of that, other sensor modalities potentially useful for this task are often ignored. In this paper, we push the state of the art in LiDAR-only semantic segmentation forward in order to provide another independent source of semantic information to the vehicle. Our approach can accurately perform full semantic segmentation of LiDAR point clouds at sensor frame rate. We exploit range images as an intermediate representation in combination with a Convolutional Neural Network (CNN) exploiting the rotating LiDAR sensor model. To obtain accurate results, we propose a novel postprocessing algorithm that deals with problems arising from this intermediate representation such as discretization errors and blurry CNN outputs. We implemented and thoroughly evaluated our approach including several comparisons to the state of the art. Our experiments show that our approach outperforms state-of-the-art approaches, while still running online on a single embedded GPU. The code can be accessed at https://github.com/PRBonn/lidar-bonnetal.},
+  eventtitle = {2019 {{IEEE}}/{{RSJ International Conference}} on {{Intelligent Robots}} and {{Systems}} ({{IROS}})},
+  isbn = {978-1-7281-4004-9},
+  langid = {english},
+  file = {C:\Users\kegle\Zotero\storage\S6IGKEIS\Milioto et al. - 2019 - RangeNet ++ Fast and Accurate LiDAR Semantic Segmentation.pdf}
+}
