@@ -1,0 +1,8 @@
+\section{Hypotheses}\label{sec:hypotheses}
+We compare two points on the degradation scale: where a model's real-data mIoU starts to drop, and where each diagnostic (FRD, MMD, JSD) starts to change beyond its normal variation. Both are defined precisely in Section~\ref{sec:method}.
+
+The hypotheses build on three observations. The scores in LiDARGen's comparison rank methods differently~\cite{zyrianovLearningGenerateRealistic2022}. Aggregate detection scores need not track system-level outcomes~\cite{manivasagamZeroDomainGap2023}. Our literature review also argued that matching common observations can hide rare cases.
+
+\textbf{H1.} The diagnostics react later than mIoU: mIoU drops at a lower degradation level than the level at which FRD, MMD or JSD change noticeably. H1 is refuted for a diagnostic if it reacts at the same level as mIoU or earlier.
+
+\textbf{H2.} The mIoU of small and distant objects (for example person, bicyclist, pole, and the far-range band) drops at a lower degradation level than overall mIoU. Because the diagnostics are computed over whole scans, they cannot show this difference. H2 is refuted if small and distant objects drop at the same level as, or later than, overall mIoU.

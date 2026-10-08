@@ -1,0 +1,29 @@
+\section{Methodology}\label{sec:method}
+\subsection{Design}
+We use a controlled degradation experiment. One synthetic dataset is degraded in steps along one sensor property, and everything else (scenes, labels, class mapping, model, training budget) is held fixed. For every degraded version we compute the diagnostics against real scans and train a segmentation model whose real-data performance is then measured. The point where mIoU drops and the point where each diagnostic reacts (Section~\ref{sec:hypotheses}) are compared. Our review argues that sensor, label and protocol differences prevent pooling results across papers; varying a single factor avoids this problem.
+
+\subsection{Data and degradation}
+The base data is a labelled synthetic dataset such as SynLiDAR~\cite{xiaoTransferLearningSynthetic2022} (a subset of fixed size; CARLA is the alternative if the class mapping is problematic). Its classes are mapped to the evaluated SemanticKITTI classes~\cite{behleySemanticKITTIDatasetSemantic2019}, and unmapped classes are ignored. The mapping is documented and identical for all runs.
+
+Ray drop is applied as post-processing to the synthetic scans in two forms, each at levels $d\in\{5,10,20,30,40\}\%$ of removed points plus the undegraded $d=0$ (11 datasets in total):
+\begin{itemize}
+    \item \emph{Uniform}: every point is removed with the same probability $d$.
+    \item \emph{Range-dependent}: the removal probability grows linearly with range, scaled so that the expected overall removed fraction is $d$.
+\end{itemize}
+
+\subsection{Diagnostics}
+For each dataset, FRD (RangeNet++ features~\cite{miliotoRangeNet++Fast2019}), BEV MMD and BEV JSD are computed against the same fixed set of real SemanticKITTI training scans, using the LiDARGen implementation and settings~\cite{zyrianovLearningGenerateRealistic2022} with identical numbers of real and synthetic scans. The 95\% interval used for the diagnostic reaction point comes from 1000 bootstrap resamples of the scans. The diagnostics are not zero at $d=0$, because a synthetic--real gap already exists; only their change matters.
+
+\subsection{Model, training and outcome measures}
+One fixed segmentation architecture is trained from scratch on each dataset with the same training budget and a fixed number of epochs (the final choice depends on the available compute), with three seeds. Models are trained on synthetic data only. No real labels are used for training or checkpoint selection, which avoids the selection-induced optimism discussed in our review. Evaluation uses an untouched real validation sequence (SemanticKITTI sequence 08), reporting mIoU overall, per class, and per range band (0--20\,m, 20--40\,m, $>$40\,m).
+
+\subsection{Analysis}
+For each degradation form we determine two reaction points.
+\begin{itemize}
+    \item \emph{mIoU drop point} $d_P$: the lowest degradation level at which the mean mIoU over seeds is at least $\delta$ (relative) below its value at $d=0$. This is done overall, per class and per range band. $\delta$ is set before looking at degraded runs: $\delta=\max(5\%,\,2\times\mathrm{CV}_0)$, with $\mathrm{CV}_0$ the coefficient of variation of mIoU across the seeds at $d=0$, so that normal seed-to-seed variation is not mistaken for a drop.
+    \item \emph{Diagnostic reaction point} $d_{M}$, for each of FRD, MMD and JSD: the lowest level at which its value falls outside the 95\% bootstrap interval of its value at $d=0$.
+\end{itemize}
+The lag $\Delta=d_M-d_P$ is positive when the diagnostic reacts later than mIoU (a miss) and negative when it reacts earlier (a false alarm). Because the grid has only five non-zero levels, reaction points are localised to intervals; if time allows, the grid is refined around them. The Spearman correlation between each diagnostic and mIoU is given as a supporting number only. With so few levels, correlations and per-class results are descriptive and are not treated as independent evidence.
+
+\subsection{Validity}
+Seeds, class mapping, preprocessing, model, training budget and code are recorded in the repository. Scene or sequence independence is kept between the synthetic training data and the real reference and evaluation scans. Findings apply to the chosen architecture, sensor type and degradation forms, and are not claimed to generalise beyond them.

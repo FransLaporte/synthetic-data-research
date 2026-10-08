@@ -1,0 +1,32 @@
+\section{Contributions, plan and risks}\label{sec:plan}
+\textbf{Expected contributions.} (1) A quantified answer to how sensitive FRD, MMD and JSD are to ray drop, compared with real-data mIoU. (2) A reusable protocol for comparing cheap diagnostics with downstream performance under controlled degradation. (3) Practical guidance on when a good diagnostic score is a safe reason to skip real-data evaluation. A null result (the diagnostics react in step with mIoU) is also informative, since it supports using them as a shortcut.
+
+\subsection{Provisional schedule}
+\begin{table}[h]
+\centering\small
+\renewcommand{\arraystretch}{1.15}
+\begin{tabularx}{\linewidth}{@{}l>{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Weeks} & \textbf{Activity}\\
+\midrule
+1--2 & Class mapping, data subset, degradation pipeline\\
+3 & Diagnostics for all 11 datasets against real scans\\
+4--6 & Training runs (11 datasets $\times$ 3 seeds) and evaluation\\
+7 & Analysis of reaction points, per class and range\\
+8 & Reporting and review\\
+\bottomrule
+\end{tabularx}
+\end{table}
+The weeks are relative and will be aligned with the confirmed course milestones.
+
+\subsection{Collaboration}
+Frans Laporte builds the degradation pipeline and computes the diagnostics. Florent Kegler sets up training and the per-class and per-range evaluation. Analysis, writing and review are shared, and each author checks the other's work.
+
+\subsection{Risks and fallbacks}
+\begin{itemize}
+    \item \emph{Noisy or low synthetic-only baseline mIoU:} more seeds, the $\delta$ rule above, or optionally mixed synthetic and real training as an extension.
+    \item \emph{Compute:} 33 training runs may be too many. Reduce the number of scans or epochs, use two seeds, or keep only one degradation form.
+    \item \emph{Diagnostics depend on pretrained RangeNet++ and preprocessing:} use the released weights and settings unchanged.
+    \item \emph{Class mapping mismatch:} restrict to classes that map cleanly and report the exclusions.
+    \item \emph{Novelty not confirmed:} complete the documented literature search before the study starts.
+\end{itemize}
