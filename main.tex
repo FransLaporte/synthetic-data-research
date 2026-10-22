@@ -14,14 +14,14 @@
 \pagenumbering{roman}
 \hypersetup{pageanchor=true}
 \eyebrow{Literature review / Research overview}
-\section*{At a glance}
+% \section*{At a glance} got a question mark in the review so comment out
 \vspace{3mm}
 \input{chapters/abstract}
 \vspace{5mm}
 \eyebrow{Keywords}
 Synthetic data\quad /\quad Machine learning\quad /\quad Data quality\quad /\quad Literature review
 \vspace{11mm}
-\tableofcontents
+% \tableofcontents was not needed in the review so comment out
 \clearpage
 \pagenumbering{arabic}
 \input{chapters/introduction}
@@ -33,6 +33,11 @@ Synthetic data\quad /\quad Machine learning\quad /\quad Data quality\quad /\quad
 \clearpage
 \begingroup
 \raggedright
+\eyebrow{Acknowledgement of AI assistance}
+\vspace{2mm}
+{\small\color{muted}OpenAI ChatGPT was used to draft and rephrase text, review structure, and help identify candidate academic sources.
+	The authors remain responsible for verifying sources, assessing the evidence
+	and approving the final text.\par}
 \printbibliography[heading=bibintoc,title={References}]
 \endgroup
 \clearpage
