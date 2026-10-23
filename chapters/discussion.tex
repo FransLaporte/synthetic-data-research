@@ -1,31 +1,44 @@
 \section{Discussion}
 \label{sec:discussion}
-The evidence favours matching generation to the intended task. Scene-based
-methods offer scenario and label control; learned methods fit scan
-regularities or complete observations; hybrids combine these strengths
-while retaining real-data requirements. PreSIL, LiDARsim and SynLiDAR
-demonstrate transfer in different protocols, whereas LiDARGen's completion
-results cannot establish synthetic-training gains. These distinctions
-prevent a misleading cross-paper ranking.
 
-Realism and useful variation are also different objectives. Improving sensor
-sampling can help within a pipeline, but LiDARGen's metric disagreements and
-the paired-scenario results undermine a universal realism-to-utility rule.
-Rare-case coverage deserves separate scrutiny: matching common observations
-may omit the very cases synthesis is intended to add.
-\Textcite{shumailovAIModelsCollapse2024} show loss of distribution tails in
-recursive training on generated data. Their language, VAE and mixture-model
-settings motivate preserving real-data provenance, but do not establish
-collapse in one-pass LiDAR augmentation.
+PreSIL, LiDARsim and SynLiDAR demonstrate benefits under different training
+protocols, supporting method selection around a defined task
+\parencite{hurlPreciseSyntheticImage2019,manivasagamLiDARsimRealisticLiDAR2020,
+xiaoTransferLearningSynthetic2022}.
+Scene-based methods provide object and annotation control, learned models
+capture scan patterns, and hybrids connect these capabilities. Their
+real-data dependencies and output labels must therefore be considered
+alongside visual realism when choosing a training pipeline.
 
-A focused next study could vary ray drop or angular sparsity while fixing
-scenes, labels, model and training budget, then compare diagnostic changes
-with class- and range-specific real performance. This connects existing
-sensor and transfer evaluations rather than claiming evaluation methods
-are absent; its novelty still requires broader searching.
+\subsection{Coverage and further research}
 
-The review's selected collection, incomplete systematic screening and
-pending author verification limit generality. Sensor, label and protocol
-differences preclude pooled effects. Compute costs and uncertainty have
-not been systematically extracted, and reported validation gains are not
-guarantees of deployment performance.
+Average similarity does not establish rare-case coverage. Shumailov et al.
+show loss of distribution tails during recursive synthetic-data training
+in language, VAE and mixture-model settings
+\parencite{shumailovAIModelsCollapse2024}.
+This motivates tracking provenance and uncommon scenarios, but does not
+establish collapse in one-pass LiDAR augmentation. Scenario-specific real
+evaluation remains necessary to substantiate coverage claims.
+
+A useful research direction is to connect sensor diagnostics to training
+outcomes. LiDARGen's metric disagreement and paired-scenario analyses do
+not establish a general diagnostic-to-utility relationship
+\parencite{zyrianovLearningGenerateRealistic2022,manivasagamZeroDomainGap2023}.
+Varying ray drop or angular sparsity while fixing scenes, labels, model and
+training budget could reveal which changes improve class- and
+range-specific performance on independent real data. Broader searching
+is required before claiming novelty, and any result would remain qualified
+by the sensors and tasks tested.
+
+\subsection{Limitations and implications}
+
+The selected collection, incomplete systematic screening and pending
+independent author verification mean that relevant or contradictory work
+may be missing. Differences in sensors, tasks and protocols prevent pooling
+scores, while incomplete extraction of resource costs and repeated-run
+uncertainty prevents reliable efficiency or robustness rankings.
+Several studies also report validation outcomes rather than independent
+final tests. These limitations constrain generalisation without negating
+benefits in the reported experiments. The resulting conclusion is that
+synthetic data can provide targeted support when its contribution and
+real-data dependencies are explicitly evaluated.

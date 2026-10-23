@@ -1,55 +1,33 @@
 \section{LiDAR generation and requirements}
 \label{sec:rq2}
 
-Applying generation methods to automotive LiDAR requires reproducing an
-observation of a scene, rather than its geometry alone. The sensor samples
-visible surfaces, so beam directions, \gls{occlusion} and missing returns
-influence the resulting \gls{point-cloud}. Training data must also associate
-these measurements with annotations appropriate to the perception task
-\parencite{manivasagamLiDARsimRealisticLiDAR2020,
-xiaoTransferLearningSynthetic2022}.
-The following comparison examines how virtual environments, reconstructed
-assets and learned scan models address these requirements, and where each
-approach retains dependence on real data.
+LiDAR generation must connect scene construction, sensor observation and
+annotations. Table~\ref{tab:lidar-generation-comparison} summarises how the
+reviewed pipelines address these requirements. Their differences explain
+why visually plausible outputs are not interchangeable training resources.
 
-\subsection{Virtual scenes and generated annotations}
+\subsection{Virtual scenes and reconstructed assets}
 
-Virtual environments provide access to scene geometry and object identity,
-which can be used to generate measurements together with annotations.
-PreSIL illustrates this approach by deriving scans from GTA~V depth data,
-avoiding the simplified collision geometry used by the game. However, its
-released point clouds have a forward-facing field of view and omit
-reflectance and motion distortion
-\parencite{hurlPreciseSyntheticImage2019}.
-These choices show that access to detailed virtual geometry does not ensure
-that all properties of the target sensor are reproduced. Their relevance
-depends on the intended use, particularly whether the perception model
-requires intensity information or observations outside that field of view.
+PreSIL derives annotated scans from GTA~V depth data, avoiding simplified
+game collision geometry. Its forward-facing scans nevertheless omit
+reflectance and motion distortion \parencite{hurlPreciseSyntheticImage2019}.
+SynLiDAR provides virtual scenes with 32 semantic classes, but uses real
+SemanticKITTI data for intensity modelling. Its point cloud translator
+(PCT) separately addresses appearance and sparsity differences
+\parencite{xiaoTransferLearningSynthetic2022}.
+These examples show that generated labels do not eliminate sensor-model
+limitations or real-data requirements. Source classes must also be mapped
+to those of the target perception task.
 
-SynLiDAR extends the virtual-scene approach to semantic segmentation with
-32 annotated classes. Its intensity model uses real SemanticKITTI data,
-while its point cloud translator (PCT) separately addresses differences in
-appearance and sparsity \parencite{xiaoTransferLearningSynthetic2022}.
-Thus, generated annotations can reduce manual labelling without removing
-real-data requirements from the complete pipeline. Moreover, source labels
-must be mapped to the target dataset's classes before training and
-comparison. PreSIL and SynLiDAR therefore illustrate complementary
-requirements: the observation model must supply suitable sensor features,
-and the annotation scheme must match the learning task.
-
-\subsection{Reconstructed scenes and hybrid sensor modelling}
-
-Reconstruction-based simulation obtains scene assets from real recordings
-rather than relying entirely on virtual assets. LiDARsim reconstructs maps
-and vehicles, composes scenes from these assets, and combines
-\gls{ray-casting} with learned \gls{ray-drop}
-\parencite{manivasagamLiDARsimRealisticLiDAR2020}.
-Figure~\ref{fig:lidarsim-pipeline} illustrates the two stages. The upper
-panels show how accumulated observations are completed and refined into a
-\gls{surfel} asset. The lower panels compare ray-cast measurements,
-measurements after learned ray drop, and a real scan. Together, they
-explain why reconstructing an object's surface and modelling which returns
-a sensor records are separate parts of the generation process.
+LiDARsim instead reconstructs maps and vehicles from real recordings.
+Figure~\ref{fig:lidarsim-pipeline} separates asset construction from sensor
+modelling: the upper panels show accumulated observations refined into a
+\gls{surfel} asset, while the lower panels compare ray-cast, learned-ray-drop
+and real measurements \parencite{manivasagamLiDARsimRealisticLiDAR2020}.
+The distinction matters because reconstructing a surface does not determine
+which returns a sensor records. Scene coverage also remains constrained by
+the available assets, and demonstrated vehicle reconstruction does not
+establish equivalent support for deformable road users.
 
 \begin{figure}[htbp]
 \centering
@@ -68,38 +46,16 @@ requires separate evaluation on real data.}
 \label{fig:lidarsim-pipeline}
 \end{figure}
 
-This approach permits controlled scene composition while retaining
-geometric detail from real observations. Its coverage nevertheless depends
-on the reconstructed assets, and the demonstrated vehicle reconstruction
-does not establish equivalent support for deformable road users
-\parencite{manivasagamLiDARsimRealisticLiDAR2020}.
-Consequently, realistic individual assets should not be equated with
-coverage of all relevant traffic participants or configurations.
+\subsection{Learned scans and shared requirements}
 
-\subsection{Learned scans and conditional completion}
-
-Learned scan generation shifts the modelling emphasis from explicit scene
-assets to the distribution of sensor observations. LiDARGen represents
-range and intensity in \glspl{range-image}, using stochastic denoising to
-generate scans and conditional \gls{densification} to complete sparse
-inputs. Its KITTI-360 and nuScenes experiments use sensor-specific angular
-representations \parencite{zyrianovLearningGenerateRealistic2022}.
-This representation captures the organisation of measurements, but does
-not itself provide object identities, semantic labels or an editable scene.
-Furthermore, completing an existing scan retains information from that
-input, whereas unconditional generation samples a new observation.
-These capabilities serve different purposes, so evidence for completion
-must be distinguished from evidence that generated scans can train a
-perception model.
-
-\subsection{Requirements across generation pipelines}
-
-Table~\ref{tab:lidar-generation-comparison} summarises the practical
-consequences of these design choices. Scene-based methods provide access
-to geometry and annotations, but require suitable observation models.
-Learned methods capture scan patterns, while labels and scene control
-remain additional requirements. Hybrid methods connect these capabilities
-without eliminating dependence on real recordings.
+LiDARGen learns range and intensity distributions in \glspl{range-image}
+and supports conditional \gls{densification}. Its KITTI-360 and nuScenes
+experiments use sensor-specific angular representations
+\parencite{zyrianovLearningGenerateRealistic2022}.
+This captures measurement structure without automatically supplying
+semantic labels or editable objects. Completion also retains information
+from an input scan, so it must be distinguished from generating new
+training examples.
 
 \begin{table}[htbp]
 \caption{Comparison of the reviewed LiDAR generation pipelines.
@@ -127,14 +83,11 @@ LiDARGen \parencite{zyrianovLearningGenerateRealistic2022}
 \end{tabularx}
 \end{table}
 
-Across these pipelines, scene diversity describes what is observed,
+Across these pipelines, scene diversity determines what is observed,
 whereas sensor modelling determines how it is sampled. Paired-scenario
-experiments identify material response, scanning motion and
-traffic-participant geometry as contributors to the \gls{domain-gap}
+experiments identify material response, scanning motion and participant
+geometry as contributors to the \gls{domain-gap}
 \parencite{manivasagamZeroDomainGap2023}.
-The implication is that scene coverage, sensor behaviour and annotation
-consistency must be assessed together. Visual similarity can reveal
-sampling differences, as the LiDARsim example illustrates, but cannot
-establish whether generated data improves perception on real measurements.
-The next section therefore examines how evaluation connects these data
-properties to performance on real perception tasks.
+Scene coverage, sensor behaviour and annotation consistency must therefore
+be assessed together. The next section examines how these properties are
+related to useful perception performance on real measurements.

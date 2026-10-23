@@ -1,110 +1,50 @@
 \section{Synthetic data generation approaches}
 \label{sec:rq1}
 
-Synthetic data generation methods differ in how they represent the process
-that produces an observation. Statistical and learned models infer
-relationships from examples, whereas simulation explicitly describes
-scenes and their observation. Hybrid approaches combine these strategies.
-This review uses these four groups to organise the literature, rather than
-as mutually exclusive categories. They provide a basis for comparing how
-generation methods control the resulting data, represent variation and
-depend on real observations
-\parencite{hernandezSyntheticDataGeneration2022,
-nikolenkoSyntheticDataDeep2019,manivasagamLiDARsimRealisticLiDAR2020}.
-Related \gls{augmentation} techniques transform or recombine existing
-examples, so their contribution depends on both the original data and
-whether the transformations preserve the required labels
+Generation methods differ in whether they fit relationships from examples
+or explicitly describe scenes and their observation. This review organises
+them into statistical models, simulation, learned generators and hybrids.
+These overlapping groups help compare control and data dependence
+\parencite{hernandezSyntheticDataGeneration2022,nikolenkoSyntheticDataDeep2019}.
+Related \gls{augmentation} methods transform or recombine existing examples,
+with usefulness depending on whether the required labels remain valid
 \parencite{nikolenkoSyntheticDataDeep2019}.
 
-\subsection{Statistical models}
+\subsection{Statistical models and simulation}
 
-Statistical generators produce samples from fitted distributions that
-describe relationships between variables. For example,
-\glspl{bayesian-network} represent conditional dependencies, allowing new
-records to be sampled from the fitted model. The review by Hernandez et al.
-and the benchmark by Hansen et al. discuss such methods for tabular data,
-where observations consist of numerical or categorical attributes
-\parencite{hernandezSyntheticDataGeneration2022,
-hansenReimaginingSyntheticTabular2023}.
-These studies establish a general approach to modelling data dependencies,
-but do not demonstrate that tabular generators reproduce the spatial
-structure of automotive LiDAR scans. Their relevance here is the underlying
-principle that generated samples reflect the relationships represented by
-the model. Increasing the number of samples cannot by itself recover
-relationships that were omitted or poorly estimated, and uncertainty in
-the fitted generator therefore remains relevant when synthetic datasets
-are enlarged \parencite{breugelSyntheticDataReal2023}.
+Statistical generators sample fitted distributions, for example using
+\glspl{bayesian-network} to represent conditional dependencies.
+Hernandez et al. and Hansen et al. discuss such methods for tabular data
+\parencite{hernandezSyntheticDataGeneration2022,hansenReimaginingSyntheticTabular2023}.
+Their relevance here is the principle that generated samples reflect the
+relationships captured by a model, rather than direct evidence of LiDAR
+performance. More samples do not automatically resolve uncertainty in the
+fitted generator \parencite{breugelSyntheticDataReal2023}.
 
-\subsection{Procedural and physical simulation}
+Simulation instead specifies scene content and how a sensor observes it.
+Procedural rules provide control over objects and configurations, while
+observation models convert geometry into measurements. This supports
+annotation generation but retains limitations from available assets and
+omitted sensor effects. \Gls{domain-randomization} broadens selected
+conditions, although its usefulness depends on which parameters are varied
+and how they are sampled \parencite{nikolenkoSyntheticDataDeep2019}.
+Scene variation therefore cannot by itself correct an inadequate sensor model.
 
-Simulation provides a different form of control by specifying how scenes
-are constructed and how a sensor observes them. Procedural rules define
-scene content and variation, while the observation model converts that
-content into measurements. This separation allows scene configurations to
-be varied deliberately and annotations to be derived from known scene
-properties. However, the generated observations remain constrained by the
-available assets and the effects represented in the simulator
-\parencite{nikolenkoSyntheticDataDeep2019,
-manivasagamLiDARsimRealisticLiDAR2020}.
-\Gls{domain-randomization} broadens the generated conditions by varying
-selected parameters. Its usefulness consequently depends on which
-parameters are varied and how their values are sampled, rather than on
-variation alone \parencite{nikolenkoSyntheticDataDeep2019}.
-For LiDAR perception, this distinction motivates examining scene diversity
-and sensor modelling separately: changing the objects in a scene does not
-necessarily correct how the simulated sensor samples their surfaces.
+\subsection{Learned generators and hybrids}
 
-\subsection{Learned generators}
-
-Learned generators model patterns in example data without requiring every
-relationship to be specified explicitly. Approaches include
-\glspl{vae}, which generate through a learned latent representation,
-\glspl{gan}, which use adversarial training, and
-\glspl{diffusion-model}, which learn a denoising process.
-Hansen et al. compare representatives of these families in a tabular
-setting, illustrating the range of available modelling approaches rather
-than establishing a preferred method for LiDAR
+Learned approaches include \glspl{vae}, which use latent representations,
+\glspl{gan}, which use adversarial training, and \glspl{diffusion-model},
+which learn denoising processes. Hansen et al. compare representatives in
+a tabular setting, without establishing a preferred family for LiDAR
 \parencite{hansenReimaginingSyntheticTabular2023}.
-Their flexibility also makes the training examples important: plausible
-individual samples do not establish that a generator covers the full
-distribution, and effects such as \gls{mode-collapse} can restrict the
-variation represented \parencite{breugelSyntheticDataReal2023}.
+Their dependence on examples makes coverage important: plausible samples
+can coexist with missing variation or \gls{mode-collapse}
+\parencite{breugelSyntheticDataReal2023}.
 
-LiDARGen provides a sensor-specific example of learned generation. It
-represents scans as range and intensity images, learns through
-\gls{score-matching}, and generates samples using iterative
-\gls{langevin-dynamics}. It also supports conditional scan densification
-\parencite{zyrianovLearningGenerateRealistic2022}.
-This demonstrates how a learned model can represent scan structure, but
-does not make scan generation equivalent to constructing an annotated
-training dataset. Semantic labels and explicit control of scene objects
-are additional requirements that cannot be inferred from plausible range
-and intensity values alone. Learned generation must therefore be assessed
-against the intended use of its outputs, including the annotations and
-controls needed by the perception task.
-
-\subsection{Hybrid approaches and implications for LiDAR}
-
-Hybrid pipelines retain explicit scene or sensor structure while learning
-components that are difficult to describe analytically. LiDARsim combines
-assets reconstructed from real recordings with \gls{ray-casting} and a
-learned \gls{ray-drop} model. The geometric model determines potential
-surface returns, while the learned component models missing returns
-\parencite{manivasagamLiDARsimRealisticLiDAR2020}.
-This combination connects controllable scene construction with
-data-dependent sensor modelling. It also shows why synthetic perception
-training should not be interpreted as independence from real data:
-recordings and annotations can still be required to reconstruct assets or
-fit parts of the generator.
-
-Together, these approaches reveal a recurring trade-off between explicit
-control and dependence on observed examples. Statistical and learned
-models reproduce relationships captured during fitting, simulation
-exposes scene and sensor parameters, and hybrids combine explicit models
-with learned components. These differences make control, coverage,
-annotation availability and real-data requirements more informative
-comparison criteria than dataset size alone. Applying this comparison to
-automotive LiDAR requires considering how each approach constructs a
-scene, samples visible surfaces and associates measurements with labels.
-The next section examines these requirements in concrete LiDAR generation
-pipelines.
+Hybrids combine explicit structure with learned components. LiDARsim, for
+example, couples reconstructed geometry and \gls{ray-casting} with learned
+\gls{ray-drop} \parencite{manivasagamLiDARsimRealisticLiDAR2020}.
+Such combinations offer geometric control while retaining dependence on
+real recordings. Across these approaches, control, coverage and annotation
+availability are therefore more informative than dataset size alone.
+The next section examines these trade-offs in concrete LiDAR pipelines.
