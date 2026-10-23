@@ -1,27 +1,78 @@
 \section{Introduction}
 \label{sec:introduction}
-Collecting and annotating automotive \gls{lidar} \glspl{point-cloud} is costly,
-and uncommon traffic situations are difficult to capture at scale.
-\Gls{synthetic-data} offers scene control and generated labels, but differences
-from real measurements can limit transfer
-\parencite{hurlPreciseSyntheticImage2019,xiaoTransferLearningSynthetic2022}.
-Real benchmarks such as KITTI provide calibrated sensor recordings and
-object annotations against which perception methods can be assessed
-\parencite{geigerAreWeReady2012a}.
 
-This review connects general generation methods to scene-level automotive
-LiDAR for \gls{object-detection} and \gls{semantic-segmentation}. It separates
-new-scan generation, reconstruction-based simulation and completion of
-existing scans. The central concern is whether generated observations
-support learning that transfers to real driving data.
+Autonomous-driving perception requires an understanding of the objects
+and surfaces surrounding a vehicle. \Gls{lidar} provides
+three-dimensional measurements of the environment that support tasks
+such as \gls{object-detection} and \gls{semantic-segmentation}
+\parencite{geigerAreWeReady2012a,behleySemanticKITTIDatasetSemantic2019}.
+Developing learning-based methods for these tasks requires annotated
+data, but collecting and labelling automotive \glspl{point-cloud} is
+intensive. Furthermore, uncommon traffic situations are difficult
+to capture in sufficient numbers through ordinary data collection.
+These constraints motivate the generation of \gls{synthetic-data},
+which offers opportunities to produce annotated observations and
+construct controlled scenarios
+\parencite{hurlPreciseSyntheticImage2019,
+	manivasagamLiDARsimRealisticLiDAR2020,xiaoTransferLearningSynthetic2022}.
 
-% Review comment stated that research questions do not belong inside a LR so removed it
-% Also the figure of the methology didnt belong here so also removed
+The potential of synthetic data depends on how the data is
+generated. Virtual environments can provide scene control and automatic
+annotations, as demonstrated by PreSIL and SynLiDAR
+\parencite{hurlPreciseSyntheticImage2019,
+	xiaoTransferLearningSynthetic2022}.
+Other approaches draw more directly on real observations. LiDARsim
+combines reconstructed scenes with physical simulation and a learned
+model of missing returns, while LiDARGen learns to generate scans from
+examples
+\parencite{manivasagamLiDARsimRealisticLiDAR2020,
+	zyrianovLearningGenerateRealistic2022}.
+Together, these approaches show different balances between
+explicit control over the scene and dependence on data observed in the real world.
+Understanding these differences provides a basis for assessing which
+generation approaches can meet the requirements of a particular
+perception task.
 
-%\input{shared/question-block}
-%Figure~\ref{fig:generation-evaluation} connects the questions.
-%Section~\ref{sec:background} defines the scope,
-%Section~\ref{sec:methodology} explains the evidence base, and
-%Sections~\ref{sec:findings}--\ref{sec:conclusion} synthesise findings and
-%implications. Linked technical terms are defined in the glossary.
-%\input{chapters/figures/generation_evaluation_pipeline}
+For automotive LiDAR, those requirements extend beyond the geometry of
+the scene. A scan samples visible surfaces from a particular viewpoint,
+and its structure depends on sensor sampling, \gls{occlusion} and
+missing returns. LiDARsim illustrates the importance of modelling this
+observation process, while SynLiDAR identifies differences in appearance
+and sparsity as components of the \gls{domain-gap} between synthetic
+and real point clouds
+\parencite{manivasagamLiDARsimRealisticLiDAR2020,
+	xiaoTransferLearningSynthetic2022}.
+Consequently, the assessment of synthetic data must connect the
+properties of generated scans with their intended use. LiDARGen
+evaluates scan generation and completion, whereas PreSIL and SynLiDAR
+also investigate the contribution of synthetic data to training
+perception models
+\parencite{zyrianovLearningGenerateRealistic2022,
+	hurlPreciseSyntheticImage2019,xiaoTransferLearningSynthetic2022}.
+These evaluations provide different forms of evidence, making it
+necessary to distinguish similarity to real world observations from
+demonstrated benefits for learning on real world data.
+
+This narrative review examines that connection through selected
+literature on synthetic-data generation and its application to
+scene level automotive LiDAR perception. General generation approaches
+provide the conceptual foundation, while LiDAR-specific studies form
+the basis for discussing object detection and semantic segmentation.
+The scope includes virtual-scene simulation, reconstruction-based
+simulation and learned scan generation. Scan completion is considered
+where it clarifies the capabilities of a method, while its results are
+distinguished from evidence obtained by training with newly generated
+data. This scope supports a comparison of generation capabilities,
+sensor-specific requirements and evaluation practices without assuming
+that results from different tasks and datasets are directly comparable.
+
+The review first examines the principal generation approaches and
+their implications for control, coverage and dependence on real data.
+It then considers their application to automotive LiDAR, focusing on
+scene construction, sensor modelling and annotation consistency.
+These requirements provide the basis for examining evaluation metrics
+and evidence of transfer to real perception tasks. The discussion
+subsequently brings these findings together to identify limitations
+and directions for further investigation. The review therefore begins
+with the generation approaches that underpin the construction and
+assessment of synthetic LiDAR data.
