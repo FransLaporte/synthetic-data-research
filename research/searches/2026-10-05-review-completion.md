@@ -33,7 +33,7 @@ Earlier RQ1 source records remain the basis of the compressed general overview.
 
 ## Editorial decisions
 
-- The inherited `rq2_metrics.tex` primarily answered evaluation/RQ3. Its supported
+- The inherited `lidar_generation.tex` primarily answered evaluation/RQ3. Its supported
   arguments and SynLiDAR numerical results were condensed into RQ3; RQ2 now
   discusses generation and sensor requirements. Canonical questions are unchanged.
 - LiDARsim's KITTI result is **BEV vehicle detection**, not a demonstrated full
