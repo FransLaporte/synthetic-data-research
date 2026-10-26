@@ -1,13 +1,23 @@
 \section{Objective, scope and research questions}\label{sec:questions}
-\textbf{Objective.} To determine how far a sensor property of synthetic LiDAR data must degrade before data-level diagnostics register the change, compared with the point where the real-data performance of a model trained on that data drops.
+This section translates the problem described in Section~\ref{sec:problem} into a research objective, a delimited scope and a set of research questions that can each be answered with the experiment described in Section~\ref{sec:method}.
 
-\textbf{Scope.} The study concerns scene-level LiDAR semantic segmentation with synthetic-only training and evaluation on real data. One sensor property (ray drop) is varied in two forms, while scenes, labels, class mapping, model and training budget stay fixed. The diagnostics are FRD, BEV MMD and JSD, as used by LiDARGen~\cite{zyrianovLearningGenerateRealistic2022}. Out of scope are 3D object detection, planning-level evaluation, new diagnostics and comparisons between generators.
+\subsection{Objective}\label{sec:objective}
+The objective of this study is to determine how far a sensor characteristic of synthetic LiDAR data can deviate before the data-level diagnostics FRD, BEV MMD and BEV JSD register a change. This level is then compared with the degradation level at which the real-data performance of a segmentation model trained on the same data starts to decline. Determining both levels for the same data makes it possible to establish whether the diagnostics react earlier than, later than or at the same point as downstream performance.
 
-\subsection{Research questions}
-\textbf{Main question.} At what level of sensor degradation do data-level diagnostics (FRD, BEV MMD, JSD) register a change, compared with the point where the real-data performance of a segmentation model trained on that data drops?
+\subsection{Scope}\label{sec:scope}
+The study is limited to scene-level semantic segmentation of LiDAR scans, using models that are trained exclusively on synthetic data and evaluated on real data. Training exclusively on synthetic data is a deliberate choice, since adding real training data would partly compensate for the degradation and thereby obscure its effect on downstream performance. Semantic segmentation is chosen because labelled synthetic datasets such as SynLiDAR~\cite{xiaoTransferLearningSynthetic2022} can be mapped onto the classes of the real SemanticKITTI benchmark~\cite{behleySemanticKITTIDatasetSemantic2019}, and because per-point labels allow performance to be reported per class and per distance range.
 
-\begin{enumerate}
-    \item[\textbf{SQ1}] How do FRD, MMD and JSD change as one sensor property (ray drop) is increased in steps?
-    \item[\textbf{SQ2}] How does real-data mIoU change over the same steps, overall and per class and distance range?
-    \item[\textbf{SQ3}] Where do the two disagree: where does mIoU drop while the diagnostics barely move, or the reverse?
-\end{enumerate}
+A single sensor characteristic is varied, namely ray drop. Real sensors lose returns because of factors such as large distances, low surface reflectivity and specular surfaces, whereas a basic ray-casting simulator returns a point for every ray that hits a surface. Ray drop is therefore a known contributor to the domain gap, and LiDARsim models it explicitly to increase the realism of simulated scans~\cite{manivasagamLiDARsimRealisticLiDAR2020}. Ray drop is applied in a uniform and a range-dependent form. In the uniform form, every point is removed with the same probability, which serves as a reference case. In the range-dependent form, the removal probability increases with distance, which more closely resembles the behaviour of a real sensor.
+
+All other factors are kept fixed, including the scenes, labels, class mapping, model and training budget, so that changes in the outcomes can be attributed to ray drop alone. The diagnostics are FRD, BEV MMD and BEV JSD as implemented in LiDARGen~\cite{zyrianovLearningGenerateRealistic2022}. 3D object detection, planning-level evaluation, the development of new diagnostics and comparisons between generators fall outside the scope, since each would introduce factors that cannot be controlled within a single degradation experiment.
+
+\subsection{Research questions}\label{sec:rq}
+\textbf{Main question.} How does the degradation level at which FRD, BEV MMD and BEV JSD register ray drop in synthetic LiDAR data compare with the level at which the real-data segmentation performance of a model trained on that data declines?
+
+\begin{itemize}
+    \item[\textbf{SQ1}] How do FRD, BEV MMD and BEV JSD change as ray drop increases, and does this response differ between uniform and range-dependent ray drop?
+    \item[\textbf{SQ2}] How does the real-data mIoU of a model trained on the degraded data change as ray drop increases, both overall and per class and distance range?
+    \item[\textbf{SQ3}] At which degradation levels, and for which classes and distance ranges, do the diagnostics and the mIoU diverge, such that the mIoU declines while the diagnostics remain within their normal variation, or the reverse?
+\end{itemize}
+
+SQ1 and SQ2 each describe one side of the comparison, namely the response of the diagnostics and the response of downstream performance, and SQ3 combines both to answer the main question. Each sub-question is linked to a hypothesis in Section~\ref{sec:hypotheses}, and the reaction points used to answer them are defined in Section~\ref{sec:analysis}.
