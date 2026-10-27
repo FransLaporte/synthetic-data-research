@@ -10,15 +10,16 @@ coverage of their variation, and training utility concerns the resulting
 perception performance. Alaa et al. distinguish fidelity, diversity and
 generalization in a general evaluation framework
 \parencite{alaaHowFaithfulYour2022}. These dimensions help organise the
-assessment, but do not establish a LiDAR-specific substitute for real-data
-evaluation.
+assessment, with real-data evaluation providing the task-specific evidence.
 
 \subsection{Scan diagnostics and training evidence}
 
 Geometric errors require aligned, corresponding observations, whereas
 unpaired generation needs distributional comparisons. LiDARGen uses
 \gls{mmd} and \gls{jsd} on bird's-eye-view (\gls{bev}) histograms and
-\gls{frd} on RangeNet++ features. On KITTI-360, ProjectedGAN obtains better
+\gls{frd} on features from RangeNet++, a range-image segmentation network.
+On KITTI-360, ProjectedGAN, an adversarial image generator used as a
+range-image baseline, obtains better
 MMD, while LiDARGen obtains better FRD and JSD
 \parencite{zyrianovLearningGenerateRealistic2022}.
 The histogram measures compare projected point distributions, whereas FRD
@@ -27,30 +28,36 @@ retains different information about the scans.
 The disagreement shows that conclusions depend on the representation used
 for comparison. These metrics diagnose differences but do not establish
 which generated dataset provides better training data.
+LiDARGen instead applies an existing segmenter to densified scans without
+retraining, supporting completion utility rather than synthetic-training
+gains \parencite{zyrianovLearningGenerateRealistic2022}.
 
-Training protocols provide complementary evidence. PreSIL reports improved
+Training evidence can instead be ordered by the role of synthetic data:
+pretraining, synthetic-only model training and mixed training. PreSIL reports improved
 KITTI pedestrian detection after synthetic pretraining and real
 \gls{fine-tuning}. However, selecting its best checkpoint on the evaluation
 split can produce optimistic results relative to independent final testing
 \parencite{hurlPreciseSyntheticImage2019}.
 LiDARsim reports a KITTI hard BEV score of 73.7 at \gls{iou}~0.7, compared
-with 42.2 for modified CARLA and 80.0 for real training
+with 42.2 for a modified version of CARLA, an open urban-driving
+simulator \parencite{dosovitskiyCARLAOpenUrban2017}, and 80.0 for real training
 \parencite{manivasagamLiDARsimRealisticLiDAR2020}.
-This narrows the simulation-to-real difference in that setting, but uses
-sensor adaptation and a KITTI-labelled object bank. It is consequently
-neither evidence of independence from real data nor a full 3D detection result.
+Relative to that baseline, LiDARsim closes approximately 83\,\% of the
+reported gap, $(73.7-42.2)/(80.0-42.2)$. This substantial improvement
+supports the combined pipeline in this setting, which includes sensor
+adaptation and a KITTI-labelled object bank; it is not a full 3D detection
+result or evidence of independence from real data.
 
 SynLiDAR's mixed-training results (Table~\ref{tab:transfer}) show gains of
 2.2 and 2.6 percentage points over real-only training. PCT increases those
 gains to 4.4 and 5.2 points \parencite{xiaoTransferLearningSynthetic2022}.
-Thus, supplementation helps in the reported settings, while the additional
-improvement with translation cannot be attributed to sample quantity alone.
-These are differences in reported validation scores. Without repeated-run
-uncertainty estimates, they do not establish statistical significance or
-consistent improvements across new datasets.
-LiDARGen instead applies an existing segmenter to densified scans without
-retraining, supporting completion utility rather than synthetic-training
-gains \parencite{zyrianovLearningGenerateRealistic2022}.
+At the reported precision, PCT therefore doubles the gain over real-only
+training on both benchmarks, rather than doubling overall mIoU. Translating
+the same source dataset supports the importance of appearance and sparsity
+alignment alongside data quantity. These validation point estimates indicate
+benefits in the tested settings; repeated runs would be needed to quantify
+their uncertainty.
+
 
 \begin{table}[htbp]
 \caption{SynLiDAR mIoU (\%) reported by Xiao et al., Tables~2--3
@@ -75,16 +82,14 @@ Real + PCT-translated SynLiDAR & 64.7 & 55.8 \\
 Validation supports model selection, while independent real test data
 support final performance estimates
 \parencite{raschkaModelEvaluationModel2020}.
-Westphal and Brannath address selection-induced optimism with a specialised
-multiple-testing correction, which does not justify ordinary repeated
-test-set tuning \parencite{westphalImprovingModelSelection2019}.
 For LiDAR, independence must also extend to generator inputs and
 reconstructed assets. Comparisons should document scene splits, sensor
 settings, class mappings, training budgets and access to real labels.
 
 Task-appropriate real-data \gls{ap} or \gls{miou}, supported by repeated
 runs and class- and range-specific analysis, then provides direct evidence
-of training utility. Sensor diagnostics help explain the result.
+of training utility, while sensor diagnostics help explain the observed
+performance differences.
 Evaluation of an already-trained autonomy system is a different objective:
 aggregate perception scores need not track planning discrepancies
 \parencite{manivasagamZeroDomainGap2023}.

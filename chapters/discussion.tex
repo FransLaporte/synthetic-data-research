@@ -1,44 +1,65 @@
 \section{Discussion}
 \label{sec:discussion}
 
+This section weighs sensor fidelity against scenario coverage, identifies
+an unresolved evaluation problem and considers the limits of the evidence.
 PreSIL, LiDARsim and SynLiDAR demonstrate benefits under different training
 protocols, supporting method selection around a defined task
 \parencite{hurlPreciseSyntheticImage2019,manivasagamLiDARsimRealisticLiDAR2020,
-xiaoTransferLearningSynthetic2022}.
-Scene-based methods provide object and annotation control, learned models
-capture scan patterns, and hybrids connect these capabilities. Their
-real-data dependencies and output labels must therefore be considered
-alongside visual realism when choosing a training pipeline.
+xiaoTransferLearningSynthetic2022}. Scene-based methods provide object and
+annotation control, learned models capture scan patterns, and hybrids connect
+these capabilities; their real-data dependencies remain part of that choice.
 
-\subsection{Coverage and further research}
+\subsection{Sensor fidelity and scenario coverage}
 
-Average similarity does not establish rare-case coverage. Shumailov et al.
-show loss of distribution tails during recursive synthetic-data training
-in language, VAE and mixture-model settings
-\parencite{shumailovAIModelsCollapse2024}.
-This motivates tracking provenance and uncommon scenarios, but does not
-establish collapse in one-pass LiDAR augmentation. Scenario-specific real
-evaluation remains necessary to substantiate coverage claims.
+Two complementary strategies address the domain gap: matching real sensor
+behaviour and expanding the variation observed during training. LiDARsim's
+learned ray drop and SynLiDAR's PCT support fidelity improvements in their
+respective settings, whereas domain randomisation aims to broaden conditions
+rather than reproduce each observation precisely
+\parencite{manivasagamLiDARsimRealisticLiDAR2020,xiaoTransferLearningSynthetic2022,
+nikolenkoSyntheticDataDeep2019}. The reviewed evidence is more direct for
+these particular fidelity interventions than for an automotive LiDAR
+comparison of fidelity against randomisation. It therefore supports combining
+coverage with sensor modelling, without identifying a universally preferable
+balance or treating realistic scans as sufficient evidence of useful training.
 
-A useful research direction is to connect sensor diagnostics to training
-outcomes. LiDARGen's metric disagreement and paired-scenario analyses do
-not establish a general diagnostic-to-utility relationship
+Coverage also requires attention to rare cases. Shumailov et al. show loss
+of distribution tails during recursive synthetic-data training in language,
+VAE and mixture-model settings \parencite{shumailovAIModelsCollapse2024}.
+This motivates provenance tracking and scenario-specific evaluation; its
+recursive setting differs from one-pass LiDAR augmentation. The practical
+question is which measurement changes matter for performance within the
+scenarios that a dataset actually covers.
+
+\subsection{Research gap: diagnostic sensitivity and training utility}
+\label{sec:research-gap}
+
+The selected studies leave unresolved how sensitive data-level diagnostics
+are to sensor changes relative to the training utility of the same data.
+LiDARGen reports disagreement between similarity metrics, while paired-scenario
+analyses examine sensor discrepancies and autonomy-system outcomes
 \parencite{zyrianovLearningGenerateRealistic2022,manivasagamZeroDomainGap2023}.
-Varying ray drop or angular sparsity while fixing scenes, labels, model and
-training budget could reveal which changes improve class- and
-range-specific performance on independent real data. Broader searching
-is required before claiming novelty, and any result would remain qualified
-by the sensors and tasks tested.
+Neither comparison, as used here, measures the ray-drop level at which FRD,
+BEV MMD or JSD reacts against the level at which a model trained on those
+scans loses class- or range-specific performance on real data.
+
+A controlled experiment could vary uniform and range-dependent ray drop
+while fixing scenes, labels, model and training budget, then compare diagnostic
+changes with real-data segmentation outcomes. This connects the review to
+the research proposal and would identify sensitivity or blind spots within
+the tested conditions. The gap is bounded by the selected literature rather
+than a claim of exhaustive novelty; diagnostic agreement would still require
+validation before replacing downstream evaluation.
 
 \subsection{Limitations and implications}
 
-The selected collection, incomplete systematic screening and pending
-independent author verification mean that relevant or contradictory work
-may be missing. Differences in sensors, tasks and protocols prevent pooling
-scores, while incomplete extraction of resource costs and repeated-run
-uncertainty prevents reliable efficiency or robustness rankings.
-Several studies also report validation outcomes rather than independent
-final tests. These limitations constrain generalisation without negating
-benefits in the reported experiments. The resulting conclusion is that
-synthetic data can provide targeted support when its contribution and
-real-data dependencies are explicitly evaluated.
+The focused source selection and incomplete systematic screening leave
+uncertainty about coverage of relevant or contradictory studies. Differences
+in sensors, tasks and protocols prevent pooling scores, while incomplete
+resource-cost and repeated-run reporting limits efficiency and robustness
+comparisons. Several studies also report validation outcomes rather than
+independent final tests. Targeted source checks are documented in Appendix~\ref{sec:methodology};
+these are distinct from a systematic review with independent duplicate screening.
+Within these limits, the evidence supports targeted supplementation whose
+contribution is measured on real data, leading to the conclusions below.

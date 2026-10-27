@@ -28,7 +28,9 @@ annotation generation but retains limitations from available assets and
 omitted sensor effects. \Gls{domain-randomization} broadens selected
 conditions, although its usefulness depends on which parameters are varied
 and how they are sampled \parencite{nikolenkoSyntheticDataDeep2019}.
-Scene variation therefore cannot by itself correct an inadequate sensor model.
+Scene variation therefore needs a suitable observation model; PreSIL and
+SynLiDAR illustrate how virtual scenes yield annotated automotive scans
+\parencite{hurlPreciseSyntheticImage2019,xiaoTransferLearningSynthetic2022}.
 
 \subsection{Learned generators and hybrids}
 
@@ -39,7 +41,9 @@ a tabular setting, without establishing a preferred family for LiDAR
 \parencite{hansenReimaginingSyntheticTabular2023}.
 Their dependence on examples makes coverage important: plausible samples
 can coexist with missing variation or \gls{mode-collapse}
-\parencite{breugelSyntheticDataReal2023}.
+\parencite{breugelSyntheticDataReal2023}. For LiDAR, LiDARGen implements
+this family through learned range-image generation
+\parencite{zyrianovLearningGenerateRealistic2022}.
 
 Hybrids combine explicit structure with learned components. LiDARsim, for
 example, couples reconstructed geometry and \gls{ray-casting} with learned

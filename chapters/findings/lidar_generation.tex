@@ -8,6 +8,8 @@ why visually plausible outputs are not interchangeable training resources.
 
 \subsection{Virtual scenes and reconstructed assets}
 
+Virtual-scene pipelines generate labels alongside geometry, whereas
+reconstruction-based pipelines reuse recorded assets and their coverage.
 PreSIL derives annotated scans from GTA~V depth data, avoiding simplified
 game collision geometry. Its forward-facing scans nevertheless omit
 reflectance and motion distortion \parencite{hurlPreciseSyntheticImage2019}.
@@ -26,8 +28,8 @@ modelling: the upper panels show accumulated observations refined into a
 and real measurements \parencite{manivasagamLiDARsimRealisticLiDAR2020}.
 The distinction matters because reconstructing a surface does not determine
 which returns a sensor records. Scene coverage also remains constrained by
-the available assets, and demonstrated vehicle reconstruction does not
-establish equivalent support for deformable road users.
+the available assets; the demonstrated reconstruction supports rigid
+vehicles, with deformable road users requiring further modelling.
 
 \begin{figure}[htbp]
 \centering
@@ -46,6 +48,8 @@ Reproduced from Figures~4 and~7 of Manivasagam et al.
 
 \subsection{Learned scans and shared requirements}
 
+Learned scan models capture measurement patterns rather than explicitly
+assembling labelled objects, which changes their control and annotation support.
 LiDARGen learns range and intensity distributions in \glspl{range-image}
 and supports conditional \gls{densification}. Its KITTI-360 and nuScenes
 experiments use sensor-specific angular representations
