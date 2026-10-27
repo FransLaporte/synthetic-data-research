@@ -176,6 +176,7 @@
   file = {C\:\\Users\\kegle\\Zotero\\storage\\TEXQ59UI\\Hurl et al. - 2019 - Precise Synthetic Image and LiDAR (PreSIL) Dataset for Autonomous Vehicle Perception.pdf;C\:\\Users\\kegle\\Zotero\\storage\\TN2NSAL4\\1905.html}
 }
 
+  file = {C:\Users\frans\Zotero\storage\9JGGNN5D\Manivasagam et al. - 2020 - LiDARsim Realistic LiDAR Simulation by Leveraging the Real World.pdf;C:\Users\kegle\Zotero\storage\9JGGNN5D\Manivasagam et al. - 2020 - LiDARsim Realistic LiDAR Simulation by Leveraging the Real World.pdf}
 @online{manivasagamLiDARsimRealisticLiDAR2020a,
   title = {{{LiDARsim}}: {{Realistic LiDAR Simulation}} by {{Leveraging}} the {{Real World}}},
   shorttitle = {{{LiDARsim}}},
@@ -240,24 +241,7 @@
   urldate = {2026-10-24},
   abstract = {Perception in autonomous vehicles is often carried out through a suite of different sensing modalities. Given the massive amount of openly available labeled RGB data and the advent of high-quality deep learning algorithms for image-based recognition, high-level semantic perception tasks are pre-dominantly solved using high-resolution cameras. As a result of that, other sensor modalities potentially useful for this task are often ignored. In this paper, we push the state of the art in LiDAR-only semantic segmentation forward in order to provide another independent source of semantic information to the vehicle. Our approach can accurately perform full semantic segmentation of LiDAR point clouds at sensor frame rate. We exploit range images as an intermediate representation in combination with a Convolutional Neural Network (CNN) exploiting the rotating LiDAR sensor model. To obtain accurate results, we propose a novel post-processing algorithm that deals with problems arising from this intermediate representation such as discretization errors and blurry CNN outputs. We implemented and thoroughly evaluated our approach including several comparisons to the state of the art. Our experiments show that our approach outperforms state-of-the-art approaches, while still running online on a single embedded GPU. The code can be accessed at https://github.com/PRBonn/lidar-bonnetal.},
   eventtitle = {2019 {{IEEE}}/{{RSJ International Conference}} on {{Intelligent Robots}} and {{Systems}} ({{IROS}})},
-  keywords = {Accuracy,Autonomous vehicles,Convolutional neural networks,Laser radar,Point cloud compression,Robot sensing systems,Runtime,Semantic segmentation,Semantics,Sensors},
-  file = {C:\Users\kegle\Zotero\storage\J6M3LG3L\8967762.html}
-}
-
-@online{nikolenkoSyntheticDataDeep2019,
-  title = {Synthetic {{Data}} for {{Deep Learning}}},
-  author = {Nikolenko, Sergey I.},
-  date = {2019-09-25},
-  eprint = {1909.11512},
-  eprinttype = {arXiv},
-  eprintclass = {cs.LG},
-  doi = {10.48550/arXiv.1909.11512},
-  url = {http://arxiv.org/abs/1909.11512},
-  urldate = {2026-10-01},
-  abstract = {Synthetic data is an increasingly popular tool for training deep learning models, especially in computer vision but also in other areas. In this work, we attempt to provide a comprehensive survey of the various directions in the development and application of synthetic data. First, we discuss synthetic datasets for basic computer vision problems, both low-level (e.g., optical flow estimation) and high-level (e.g., semantic segmentation), synthetic environments and datasets for outdoor and urban scenes (autonomous driving), indoor scenes (indoor navigation), aerial navigation, simulation environments for robotics, applications of synthetic data outside computer vision (in neural programming, bioinformatics, NLP, and more); we also survey the work on improving synthetic data development and alternative ways to produce it such as GANs. Second, we discuss in detail the synthetic-to-real domain adaptation problem that inevitably arises in applications of synthetic data, including synthetic-to-real refinement with GAN-based models and domain adaptation at the feature/model level without explicit data transformations. Third, we turn to privacy-related applications of synthetic data and review the work on generating synthetic datasets with differential privacy guarantees. We conclude by highlighting the most promising directions for further work in synthetic data studies.},
-  pubstate = {prepublished},
-  keywords = {Computer Science - Computer Vision and Pattern Recognition,Computer Science - Cryptography and Security,Computer Science - Machine Learning},
-  file = {C\:\\Users\\kegle\\Zotero\\storage\\KVQ5379N\\Nikolenko - 2019 - Synthetic Data for Deep Learning.pdf;C\:\\Users\\kegle\\Zotero\\storage\\84LKSV93\\1909.html}
+  file = {C\:\\Users\\frans\\Zotero\\storage\\KVQ5379N\\Nikolenko - 2019 - Synthetic Data for Deep Learning.pdf;C\:\\Users\\frans\\Zotero\\storage\\84LKSV93\\1909.html;C\:\\Users\\kegle\\Zotero\\storage\\KVQ5379N\\Nikolenko - 2019 - Synthetic Data for Deep Learning.pdf;C\:\\Users\\kegle\\Zotero\\storage\\84LKSV93\\1909.html}
 }
 
 @inproceedings{ohExploringImageBasedApproaches2025,
@@ -376,18 +360,64 @@
   file = {C:\Users\kegle\Zotero\storage\VRIZJ5D7\Zhang - 2026 - The Impact of Synthetic Data Generation on Machine Learning Performance A Study on the Titanic Data.pdf}
 }
 
-@online{zyrianovLearningGenerateRealistic2022,
+@inproceedings{zyrianovLearningGenerateRealistic2022,
+  booktitle = {Computer Vision -- ECCV 2022},
+  date = {2022},
+  pages = {17--35},
+  series = {Lecture Notes in Computer Science},
+  volume = {13683},
+  publisher = {Springer},
+  doi = {10.1007/978-3-031-20050-2_2},
+  url = {https://link.springer.com/chapter/10.1007/978-3-031-20050-2_2},
   title = {Learning to {{Generate Realistic LiDAR Point Clouds}}},
   author = {Zyrianov, Vlas and Zhu, Xiyue and Wang, Shenlong},
-  date = {2022-09-24},
-  eprint = {2209.03954},
-  eprinttype = {arXiv},
-  eprintclass = {cs.CV},
-  doi = {10.48550/arXiv.2209.03954},
-  url = {http://arxiv.org/abs/2209.03954},
   urldate = {2026-10-01},
   abstract = {We present LiDARGen, a novel, effective, and controllable generative model that produces realistic LiDAR point cloud sensory readings. Our method leverages the powerful score-matching energy-based model and formulates the point cloud generation process as a stochastic denoising process in the equirectangular view. This model allows us to sample diverse and high-quality point cloud samples with guaranteed physical feasibility and controllability. We validate the effectiveness of our method on the challenging KITTI-360 and NuScenes datasets. The quantitative and qualitative results show that our approach produces more realistic samples than other generative models. Furthermore, LiDARGen can sample point clouds conditioned on inputs without retraining. We demonstrate that our proposed generative model could be directly used to densify LiDAR point clouds. Our code is available at: https://www.zyrianov.org/lidargen/},
-  pubstate = {prepublished},
   keywords = {Computer Science - Computer Vision and Pattern Recognition},
   file = {C\:\\Users\\kegle\\Zotero\\storage\\LYEGGNBY\\Zyrianov et al. - 2022 - Learning to Generate Realistic LiDAR Point Clouds.pdf;C\:\\Users\\kegle\\Zotero\\storage\\ICDF5D7D\\2209.html}
+}
+
+@inproceedings{behleySemanticKITTIDatasetSemantic2019,
+  booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
+  date = {2019-10},
+  pages = {9297--9307},
+  url = {https://openaccess.thecvf.com/content_ICCV_2019/html/Behley_SemanticKITTI_A_Dataset_for_Semantic_Scene_Understanding_of_LiDAR_Sequences_ICCV_2019_paper.html},
+  title = {{{SemanticKITTI}}: {{A Dataset}} for {{Semantic Scene Understanding}} of {{LiDAR Sequences}}},
+  shorttitle = {{{SemanticKITTI}}},
+  author = {Behley, Jens and Garbade, Martin and Milioto, Andres and Quenzel, Jan and Behnke, Sven and Stachniss, Cyrill and Gall, Juergen},
+  urldate = {2026-10-08},
+  abstract = {Semantic scene understanding is important for various applications. In particular, self-driving cars need a fine-grained understanding of the surfaces and objects in their vicinity. Light detection and ranging (LiDAR) provides precise geometric information about the environment and is thus a part of the sensor suites of almost all self-driving cars. Despite the relevance of semantic scene understanding for this application, there is a lack of a large dataset for this task which is based on an automotive LiDAR. In this paper, we introduce a large dataset to propel research on laser-based semantic segmentation. We annotated all sequences of the KITTI Vision Odometry Benchmark and provide dense point-wise annotations for the complete \$360\textasciicircum\{o\}\$ field-of-view of the employed automotive LiDAR. We propose three benchmark tasks based on this dataset: (i) semantic segmentation of point clouds using a single scan, (ii) semantic segmentation using multiple past scans, and (iii) semantic scene completion, which requires to anticipate the semantic scene in the future. We provide baseline experiments and show that there is a need for more sophisticated models to efficiently tackle these tasks. Our dataset opens the door for the development of more advanced methods, but also provides plentiful data to investigate new research directions.},
+  keywords = {Computer Science - Computer Vision and Pattern Recognition,Computer Science - Robotics},
+  file = {C\:\\Users\\kegle\\Zotero\\storage\\M5MEFLT7\\Behley et al. - 2019 - SemanticKITTI A Dataset for Semantic Scene Understanding of LiDAR Sequences.pdf;C\:\\Users\\kegle\\Zotero\\storage\\I8FQ67PD\\1904.html}
+}
+
+@inproceedings{miliotoRangeNet++Fast2019,
+  title = {{{RangeNet}} ++: {{Fast}} and {{Accurate LiDAR Semantic Segmentation}}},
+  shorttitle = {{{RangeNet}} ++},
+  booktitle = {2019 {{IEEE}}/{{RSJ International Conference}} on {{Intelligent Robots}} and {{Systems}} ({{IROS}})},
+  author = {Milioto, Andres and Vizzo, Ignacio and Behley, Jens and Stachniss, Cyrill},
+  date = {2019-11},
+  pages = {4213--4220},
+  publisher = {IEEE},
+  location = {Macau, China},
+  doi = {10.1109/IROS40897.2019.8967762},
+  url = {https://ieeexplore.ieee.org/document/8967762/},
+  urldate = {2026-10-08},
+  abstract = {Perception in autonomous vehicles is often carried out through a suite of different sensing modalities. Given the massive amount of openly available labeled RGB data and the advent of high-quality deep learning algorithms for image-based recognition, high-level semantic perception tasks are pre-dominantly solved using high-resolution cameras. As a result of that, other sensor modalities potentially useful for this task are often ignored. In this paper, we push the state of the art in LiDAR-only semantic segmentation forward in order to provide another independent source of semantic information to the vehicle. Our approach can accurately perform full semantic segmentation of LiDAR point clouds at sensor frame rate. We exploit range images as an intermediate representation in combination with a Convolutional Neural Network (CNN) exploiting the rotating LiDAR sensor model. To obtain accurate results, we propose a novel postprocessing algorithm that deals with problems arising from this intermediate representation such as discretization errors and blurry CNN outputs. We implemented and thoroughly evaluated our approach including several comparisons to the state of the art. Our experiments show that our approach outperforms state-of-the-art approaches, while still running online on a single embedded GPU. The code can be accessed at https://github.com/PRBonn/lidar-bonnetal.},
+  eventtitle = {2019 {{IEEE}}/{{RSJ International Conference}} on {{Intelligent Robots}} and {{Systems}} ({{IROS}})},
+  isbn = {978-1-7281-4004-9},
+  langid = {english},
+  file = {C:\Users\kegle\Zotero\storage\S6IGKEIS\Milioto et al. - 2019 - RangeNet ++ Fast and Accurate LiDAR Semantic Segmentation.pdf}
+}
+
+@inproceedings{dosovitskiyCARLAOpenUrban2017,
+  title = {{CARLA}: An Open Urban Driving Simulator},
+  author = {Dosovitskiy, Alexey and Ros, German and Codevilla, Felipe and Lopez, Antonio and Koltun, Vladlen},
+  booktitle = {Proceedings of the 1st Annual Conference on Robot Learning},
+  series = {Proceedings of Machine Learning Research},
+  volume = {78},
+  pages = {1--16},
+  date = {2017},
+  publisher = {PMLR},
+  url = {https://proceedings.mlr.press/v78/dosovitskiy17a.html}
 }

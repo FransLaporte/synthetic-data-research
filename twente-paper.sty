@@ -11,6 +11,12 @@
 \RequirePackage{caption}
 \RequirePackage{amsmath,amssymb,bm}
 \RequirePackage[backend=biber,style=numeric-comp,sorting=nyt,maxcitenames=2]{biblatex}
+% Display Zotero access dates as dd/mm/yyyy in both paper and proposal.
+\DeclareFieldFormat{urldate}{%
+  \mkbibparens{\bibstring{urlseen}\space
+    \iffieldundef{urlday}{}{\mkdayzeros{\thefield{urlday}}/}%
+    \iffieldundef{urlmonth}{}{\mkmonthzeros{\thefield{urlmonth}}/}%
+    \thefield{urlyear}}}
 \RequirePackage{hyperref}
 \hypersetup{colorlinks=true,allcolors=ink,bookmarksnumbered=true}
 \RequirePackage[toc,nonumberlist]{glossaries}

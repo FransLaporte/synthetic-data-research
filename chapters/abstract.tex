@@ -1,22 +1,3 @@
 \begin{researchbox}{Abstract}
-Synthetic LiDAR can expand training data for autonomous-driving perception,
-but realistic-looking scans do not necessarily improve performance on real
-measurements. This focused narrative review connects general generation
-methods to automotive LiDAR and its evaluation, using selected surveys and
-primary studies from the project's source collection. Statistical models,
-procedural simulation, learned generators and hybrid pipelines offer different
-balances of control, data dependence and coverage. LiDAR-specific synthesis
-must additionally account for beam geometry, occlusion, missing returns,
-intensity and annotation consistency. LiDARsim and SynLiDAR provide evidence
-of useful transfer in particular perception settings; LiDARGen demonstrates
-scan generation and completion, whose results answer different questions.
-The strongest direct evidence of training utility is task performance on
-held-out real data under comparable training conditions. Geometry and
-distributional metrics help diagnose discrepancies but cannot replace this
-assessment. We recommend connecting sensor diagnostics to class- and
-range-specific utility, while recording the real data, labels and computation
-required. The selected evidence supports targeted supplementation of real
-data, rather than a universal replacement strategy. Incomplete systematic
-screening and heterogeneous evaluation protocols limit the generality of
-the synthesis.
+Synthetic data offers a means of expanding training datasets for automotive LiDAR perception while providing control over scene composition and annotations. However, differences between generated scans and real measurements can limit the transfer of trained perception models, making their training utility an important evaluation concern. This narrative review connects general synthetic-data generation approaches with their application to automotive LiDAR object detection and semantic segmentation. Statistical models, procedural simulation, learned generators and hybrid approaches are examined in terms of scene control, coverage, annotation support and dependence on data observed in the real world. The review then considers how sensor sampling, occlusion, missing returns and intensity influence the generated observations, before assessing the evidence provided by similarity metrics and downstream perception experiments. The selected studies demonstrate benefits in particular training settings, but differences in datasets, tasks and evaluation protocols prevent a general ranking of generation methods. Their findings indicate that geometric or distributional similarity alone does not establish training utility, which requires evaluation on independent real data under comparable training conditions. Synthetic LiDAR therefore has demonstrated value as a targeted supplement to real world training data, while the relationship between sensor fidelity, scenario coverage and downstream performance remains an area for further investigation.
 \end{researchbox}

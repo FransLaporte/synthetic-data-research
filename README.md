@@ -71,9 +71,9 @@ Read [CONTRIBUTING.md](CONTRIBUTING.md) for the two-author Git workflow and
 | 1. Introduction | `chapters/introduction.tex` | Broad-to-LiDAR scope and three research questions. |
 | 2. Background | `chapters/background.tex` | Concepts and working definitions. |
 | 3. Methodology | `chapters/methodology/*.tex` | Search, selection, extraction and synthesis. |
-| 4. Findings: RQ1 | `chapters/findings/rq1_requirements.tex` | General generation methods and trade-offs. |
-| 4. Findings: RQ2 | `chapters/findings/rq2_metrics.tex` | LiDAR generation, requirements and resources. |
-| 4. Findings: RQ3 | `chapters/findings/rq3_assessment_resources.tex` | Evaluation and real-test perception evidence. |
+| 4. Findings: RQ1 | `chapters/findings/generation_approaches.tex` | General generation methods and trade-offs. |
+| 4. Findings: RQ2 | `chapters/findings/lidar_generation.tex` | LiDAR generation, requirements and resources. |
+| 4. Findings: RQ3 | `chapters/findings/evaluation_and_transfer.tex` | Evaluation and real-test perception evidence. |
 | 5. Discussion | `chapters/discussion.tex` | Integrate answers, trade-offs and limitations. |
 | 6. Conclusion | `chapters/conclusion.tex` | Concise answers to all three questions. |
 
