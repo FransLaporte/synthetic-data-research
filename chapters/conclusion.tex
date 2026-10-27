@@ -1,12 +1,17 @@
 \section{Conclusion}
 \label{sec:conclusion}
-Synthetic generation supports LiDAR perception through controlled scenes,
-learned scan distributions and hybrid sensor models. RQ1 identifies their
-trade-offs in control, coverage, labels and resources; RQ2 shows why sensor
-sampling and annotation consistency must accompany geometry. For RQ3,
-controlled evaluation on held-out real data is the most direct evidence of
-training utility. Distributional metrics, completion results and simulator
-testing provide complementary evidence rather than substitutes.
-The reviewed studies support targeted supplementation of real data, with
-method choice guided by task and available resources. Connecting inexpensive
-diagnostics to reliable real-data gains remains a useful research direction.
+
+This review connected general generation approaches to automotive LiDAR
+and its evaluation. Simulation, learned generators and hybrids offer
+different balances of scene control, coverage and dependence on real data.
+Useful training datasets require sensor sampling and annotation consistency
+in addition to plausible geometry.
+
+The selected studies support synthetic pretraining and supplementation in
+particular perception settings, but do not establish a universal ranking
+or replacement for real data. Similarity and completion evaluations provide
+complementary evidence, while controlled assessment on independent real
+observations most directly establishes training utility. Connecting sensor
+diagnostics and scenario coverage to consistent downstream gains could
+help identify which aspects of synthesis merit improvement and where real
+measurements remain necessary.

@@ -40,7 +40,7 @@ git switch -c writing/rq1-requirements
 python scripts/check_latex.py
 git diff --check
 git diff
-git add chapters/findings/rq1_requirements.tex
+git add chapters/findings/generation_approaches.tex
 # Also stage specific evidence files and bibliography updates you reviewed.
 git commit -m "Draft vision data requirements with supporting evidence"
 git push -u origin writing/rq1-requirements

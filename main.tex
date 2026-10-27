@@ -5,7 +5,7 @@
 \input{glossary}
 \input{shared/questions}
 \input{shared/contact}
-\hypersetup{pdftitle={Synthetic Data Generation: From General Methods to LiDAR Perception},pdfauthor={Frans Laporte and Florent Kegler}}
+\hypersetup{pdftitle={Synthetic LiDAR Point Cloud Generation: Methods and Evaluation for Autonomous Driving},pdfauthor={Frans Laporte and Florent Kegler}}
 \begin{document}
 % Avoid duplicate PDF page destinations on the two unnumbered title pages.
 \hypersetup{pageanchor=false}
@@ -14,25 +14,29 @@
 \pagenumbering{roman}
 \hypersetup{pageanchor=true}
 \eyebrow{Literature review / Research overview}
-\section*{At a glance}
+% \section*{At a glance} got a question mark in the review so comment out
 \vspace{3mm}
 \input{chapters/abstract}
 \vspace{5mm}
 \eyebrow{Keywords}
-Synthetic data\quad /\quad Machine learning\quad /\quad Data quality\quad /\quad Literature review
+Synthetic data\quad /\quad Machine learning\quad /\quad Data quality\quad /\quad Literature review\quad /\quad LiDAR simulation
 \vspace{11mm}
-\tableofcontents
+% \tableofcontents was not needed in the review so comment out
 \clearpage
 \pagenumbering{arabic}
 \input{chapters/introduction}
-\input{chapters/background}
-\input{chapters/methodology}
+% Background concepts are introduced in context rather than a separate section.
 \input{chapters/literature_review}
 \input{chapters/discussion}
 \input{chapters/conclusion}
 \clearpage
 \begingroup
 \raggedright
+\eyebrow{Acknowledgement of AI assistance}
+\vspace{2mm}
+{\small\color{muted}OpenAI ChatGPT was used to rephrase text, review the structure of the document, and help identify academic sources.
+	The authors remain responsible for verifying sources, assessing the evidence
+	and approving the final text.\par}
 \printbibliography[heading=bibintoc,title={References}]
 \endgroup
 \clearpage
@@ -49,6 +53,7 @@ Synthetic data\quad /\quad Machine learning\quad /\quad Data quality\quad /\quad
 \clearpage
 \appendix
 \titleformat{\section}{\Large\bfseries}{\makebox[11mm][l]{\color{muted}\fontsize{11}{13}\selectfont\thesection}}{0pt}{}
+\input{chapters/methodology}
 % Retained as writing examples, excluded from the research paper by default.
 % \input{chapters/mathematical_examples}
 \end{document}

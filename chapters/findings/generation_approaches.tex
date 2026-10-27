@@ -1,0 +1,54 @@
+\section{Synthetic data generation approaches}
+\label{sec:rq1}
+
+Generation methods differ in whether they fit relationships from examples
+or explicitly describe scenes and their observation. This review organises
+them into statistical models, simulation, learned generators and hybrids.
+These overlapping groups help compare control and data dependence
+\parencite{hernandezSyntheticDataGeneration2022,nikolenkoSyntheticDataDeep2019}.
+Related \gls{augmentation} methods transform or recombine existing examples,
+with usefulness depending on whether the required labels remain valid
+\parencite{nikolenkoSyntheticDataDeep2019}.
+
+\subsection{Statistical models and simulation}
+
+Statistical generators sample fitted distributions, for example using
+\glspl{bayesian-network} to represent conditional dependencies.
+Hernandez et al. and Hansen et al. discuss such methods for tabular data
+\parencite{hernandezSyntheticDataGeneration2022,hansenReimaginingSyntheticTabular2023}.
+Their relevance here is the principle that generated samples reflect the
+relationships captured by a model, rather than direct evidence of LiDAR
+performance. More samples do not automatically resolve uncertainty in the
+fitted generator \parencite{breugelSyntheticDataReal2023}.
+
+Simulation instead specifies scene content and how a sensor observes it.
+Procedural rules provide control over objects and configurations, while
+observation models convert geometry into measurements. This supports
+annotation generation but retains limitations from available assets and
+omitted sensor effects. \Gls{domain-randomization} broadens selected
+conditions, although its usefulness depends on which parameters are varied
+and how they are sampled \parencite{nikolenkoSyntheticDataDeep2019}.
+Scene variation therefore needs a suitable observation model; PreSIL and
+SynLiDAR illustrate how virtual scenes yield annotated automotive scans
+\parencite{hurlPreciseSyntheticImage2019,xiaoTransferLearningSynthetic2022}.
+
+\subsection{Learned generators and hybrids}
+
+Learned approaches include \glspl{vae}, which use latent representations,
+\glspl{gan}, which use adversarial training, and \glspl{diffusion-model},
+which learn denoising processes. Hansen et al. compare representatives in
+a tabular setting, without establishing a preferred family for LiDAR
+\parencite{hansenReimaginingSyntheticTabular2023}.
+Their dependence on examples makes coverage important: plausible samples
+can coexist with missing variation or \gls{mode-collapse}
+\parencite{breugelSyntheticDataReal2023}. For LiDAR, LiDARGen implements
+this family through learned range-image generation
+\parencite{zyrianovLearningGenerateRealistic2022}.
+
+Hybrids combine explicit structure with learned components. LiDARsim, for
+example, couples reconstructed geometry and \gls{ray-casting} with learned
+\gls{ray-drop} \parencite{manivasagamLiDARsimRealisticLiDAR2020}.
+Such combinations offer geometric control while retaining dependence on
+real recordings. Across these approaches, control, coverage and annotation
+availability are therefore more informative than dataset size alone.
+The next section examines these trade-offs in concrete LiDAR pipelines.

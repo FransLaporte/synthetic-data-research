@@ -1,24 +1,37 @@
 \section{Introduction}
 \label{sec:introduction}
-Collecting and annotating automotive \gls{lidar} \glspl{point-cloud} is costly,
-and uncommon traffic situations are difficult to capture at scale.
-\Gls{synthetic-data} offers scene control and generated labels, but differences
-from real measurements can limit transfer
+
+Autonomous-driving perception uses \gls{lidar} measurements to identify
+objects and surfaces through tasks such as \gls{object-detection} and
+\gls{semantic-segmentation}
+\parencite{geigerAreWeReady2012a,behleySemanticKITTIDatasetSemantic2019}.
+Developing these methods requires annotated \glspl{point-cloud}, but
+labelling real observations is labour-intensive. SemanticKITTI required
+more than 1,700 hours of labelling, verification and correction
+\parencite{behleySemanticKITTIDatasetSemantic2019}, while uncommon traffic
+situations are difficult to capture in sufficient numbers through recording alone.
+\Gls{synthetic-data} offers opportunities to expand training datasets,
+construct controlled scenarios and generate annotations
 \parencite{hurlPreciseSyntheticImage2019,xiaoTransferLearningSynthetic2022}.
-Real benchmarks such as KITTI provide calibrated sensor recordings and
-object annotations against which perception methods can be assessed
-\parencite{geigerAreWeReady2012a}.
 
-This review connects general generation methods to scene-level automotive
-LiDAR for \gls{object-detection} and \gls{semantic-segmentation}. It separates
-new-scan generation, reconstruction-based simulation and completion of
-existing scans. The central concern is whether generated observations
-support learning that transfers to real driving data.
+Its usefulness depends on more than scene geometry. LiDAR samples visible
+surfaces from a particular viewpoint, with sensor sampling, \gls{occlusion}
+and missing returns shaping the observation. Differences between generated
+and real scans can consequently limit perception performance
+\parencite{manivasagamLiDARsimRealisticLiDAR2020}.
+Furthermore, plausible scans do not necessarily provide suitable training
+data. Scan completion, distributional similarity and improvements from
+synthetic-data training represent different forms of evidence
+\parencite{zyrianovLearningGenerateRealistic2022,xiaoTransferLearningSynthetic2022}.
 
-\input{shared/question-block}
-Figure~\ref{fig:generation-evaluation} connects the questions.
-Section~\ref{sec:background} defines the scope,
-Section~\ref{sec:methodology} explains the evidence base, and
-Sections~\ref{sec:findings}--\ref{sec:conclusion} synthesise findings and
-implications. Linked technical terms are defined in the glossary.
-\input{chapters/figures/generation_evaluation_pipeline}
+This narrative review examines selected literature on synthetic-data
+generation for scene-level automotive LiDAR object detection and semantic
+segmentation. Its scope includes virtual-scene simulation,
+reconstruction-based simulation and learned scan generation. Completion
+is considered where it clarifies a method's capabilities, while its
+results are distinguished from synthetic-training experiments.
+The review first compares general generation approaches, then examines
+LiDAR-specific sensor and annotation requirements. It subsequently assesses
+evaluation metrics and real-data transfer before discussing limitations
+and further research. The starting point is how generation choices shape
+control, coverage and dependence on real observations.
