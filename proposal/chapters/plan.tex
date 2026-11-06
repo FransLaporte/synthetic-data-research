@@ -1,32 +1,102 @@
-\section{Contributions, plan and risks}\label{sec:plan}
-\textbf{Expected contributions.} (1) A quantified answer to how sensitive FRD, MMD and JSD are to ray drop, compared with real-data mIoU. (2) A reusable protocol for comparing cheap diagnostics with downstream performance under controlled degradation. (3) Practical guidance on when a good diagnostic score is a safe reason to skip real-data evaluation. A null result (the diagnostics react in step with mIoU) is also informative, since it supports using them as a shortcut.
+\section{Contributions, schedule and risks}\label{sec:plan}
+This section explains how the outputs of the methodology lead to the expected contributions, and describes the schedule, the division of work, the required resources and the main risks of the study.
 
-\subsection{Provisional schedule}
-\begin{table}[h]
-\centering\small
-\renewcommand{\arraystretch}{1.15}
-\begin{tabularx}{\linewidth}{@{}l>{\raggedright\arraybackslash}X@{}}
-\toprule
-\textbf{Weeks} & \textbf{Activity}\\
-\midrule
-1--2 & Class mapping, data subset, degradation pipeline\\
-3 & Diagnostics for all 11 datasets against real scans\\
-4--6 & Training runs (11 datasets $\times$ 3 seeds) and evaluation\\
-7 & Analysis of reaction points, per class and range\\
-8 & Reporting and review\\
-\bottomrule
-\end{tabularx}
-\end{table}
-The weeks are relative and will be aligned with the confirmed course milestones.
+\subsection{Expected contributions}\label{sec:contributions}
+The study is expected to make three contributions, each of which follows directly from an output of the methodology. First, the reaction points and lags defined in Section~\ref{sec:analysis} quantify, for each diagnostic and for both forms of ray drop, how far the data must degrade before the diagnostic reacts compared with downstream performance. These values answer the main question and provide a comparison that, to our knowledge, is not yet available for FRD, BEV MMD and BEV JSD. Second, the combination of a calibrated baseline, two degradation forms that remove the same expected number of points and thresholds that are fixed in advance (Sections~\ref{sec:data} and~\ref{sec:analysis}) forms a protocol that can be reused for other diagnostics, degradations or datasets. Third, the lags per class and range band obtained under SQ3 show whether the diagnostics react earlier or later than performance in these cases, and thus whether, under the tested conditions, a favourable diagnostic score would have been sufficient grounds for omitting real-data evaluation. Whether an unfavourable score can justify rejecting a dataset version without training a model is a broader decision rule, which this experiment can inform but not establish on its own (Section~\ref{sec:validity}). The outcome remains informative if the hypotheses are refuted, since diagnostics that react in step with performance would support their use as a less costly screening step.
 
-\subsection{Collaboration}
-Frans Laporte builds the degradation pipeline and computes the diagnostics. Florent Kegler sets up training and the per-class and per-range evaluation. Analysis, writing and review are shared, and each author checks the other's work.
+\subsection{Schedule, division of work and resources}\label{sec:schedule}
+Figure~\ref{fig:gantt} shows the provisional schedule, which is derived from the tasks in Table~\ref{tab:tasks} and spans nine weeks counted from the start of the study. The weeks will be aligned with the confirmed course milestones. The first two weeks are used for preparation. Both authors define the class mapping and select the synthetic subset, after which Frans Laporte (FL) adapts the LiDARGen code and generates the eleven datasets, while Florent Kegler (FK) sets up the training and evaluation pipeline. In week 3, FL computes the diagnostics for SQ1 and FK trains the baseline models, which fixes the threshold $\delta$. The 30 degraded training runs for SQ2 require both the datasets and this threshold and take up weeks 4 to 6, which makes them the longest task of the study. FL uses this period to write the methods and the SQ1 results. Once all drop points are available in week 7, both authors carry out the comparison for SQ3, while FK writes the SQ2 results. In week 8, both authors write the SQ3 results, the discussion, the abstract and the conclusion, which completes the draft. Week 9 is reserved for applying the feedback of a fellow student and the reviewer and for finalising the report.
 
-\subsection{Risks and fallbacks}
-\begin{itemize}
-    \item \emph{Noisy or low synthetic-only baseline mIoU:} more seeds, the $\delta$ rule above, or optionally mixed synthetic and real training as an extension.
-    \item \emph{Compute:} 33 training runs may be too many. Reduce the number of scans or epochs, use two seeds, or keep only one degradation form.
-    \item \emph{Diagnostics depend on pretrained RangeNet++ and preprocessing:} use the released weights and settings unchanged.
-    \item \emph{Class mapping mismatch:} restrict to classes that map cleanly and report the exclusions.
-    \item \emph{Novelty not confirmed:} complete the documented literature search before the study starts.
-\end{itemize}
+\begin{figure}[htbp]
+\centering
+\footnotesize
+\newcommand{\gphase}[2]{%
+  \node[lbl, font=\footnotesize\bfseries] at (0,#1*\rh) {#2};}
+\newcommand{\gtask}[6]{% row, task, owner, style, first week, last week
+  \node[lbl] at (0,#1*\rh) {#2};
+  \node[lbl] at (\ox,#1*\rh) {#3};
+  \path[#4] (\wx+#5*\ww-\ww+0.5,#1*\rh-1.35) rectangle (\wx+#6*\ww-0.5,#1*\rh+1.35);}
+\newcommand{\gmile}[2]{% diamond at (x, y), drawn as a plain path so that no TikZ library is needed
+  \path[fill=ink, draw=white, line width=0.4pt] (#1,#2) +(0,-1.5) -- +(1.5,0) -- +(0,1.5) -- +(-1.5,0) -- cycle;}
+\newcommand{\gout}[3]{% row, week, label
+  \gmile{\wx+#2*\ww-0.5}{#1*\rh}
+  \node[lbl, font=\scriptsize, fill=white, inner xsep=0.4mm] at (\wx+#2*\ww+1.2,#1*\rh) {#3};}
+\begin{tikzpicture}[x=1mm, y=-1mm,
+    every node/.style={inner sep=0pt, outer sep=0pt},
+    lbl/.style={anchor=west, text height=1.6ex, text depth=0.4ex},
+    fl/.style={fill=ink!80},
+    fk/.style={fill=ink!35},
+    both/.style={fill=papergray, draw=ink!60, line width=0.4pt}]
+  \def\wx{79.5}\def\ww{9}\def\ox{68}\def\rh{4.6}
+  % header and week grid
+  \node[lbl, font=\footnotesize\bfseries] at (0,0) {Task};
+  \node[lbl, font=\footnotesize\bfseries] at (\ox,0) {Owner};
+  \node[font=\footnotesize\bfseries] at (\wx+4.5*\ww,-0.85*\rh) {Week};
+  \foreach \w in {1,...,9}
+    \node[font=\footnotesize\bfseries, text height=1.6ex, text depth=0.4ex] at (\wx+\w*\ww-0.5*\ww,0) {\w};
+  \draw[ink!60, line width=0.4pt] (0,0.55*\rh) -- (\wx+9*\ww,0.55*\rh);
+  \foreach \w in {0,...,9}
+    \draw[rulegray, line width=0.3pt] (\wx+\w*\ww,0.55*\rh) -- (\wx+\w*\ww,19.5*\rh);
+  \foreach \r in {6,8,11,13}
+    \draw[rulegray, line width=0.3pt] (0,\r*\rh-0.5*\rh) -- (\wx+9*\ww,\r*\rh-0.5*\rh);
+  % preparation
+  \gphase{1}{Preparation}
+  \gtask{2}{Define class mapping and synthetic subset}{Both}{both}{1}{1}
+  \gtask{3}{Adapt LiDARGen code to SemanticKITTI}{FL}{fl}{1}{1}
+  \gtask{4}{Set up training and evaluation pipeline}{FK}{fk}{1}{2}
+  \gtask{5}{Calibrate baseline, create ray-drop datasets}{FL}{fl}{2}{2}
+  \gout{5}{2}{11 datasets}
+  % SQ1
+  \gphase{6}{SQ1: data-level diagnostics}
+  \gtask{7}{Compute diagnostics with 95\,\% intervals}{FL}{fl}{3}{3}
+  \gout{7}{3}{$d_M$}
+  % SQ2
+  \gphase{8}{SQ2: downstream performance}
+  \gtask{9}{Train baseline models, fix threshold $\delta$}{FK}{fk}{3}{3}
+  \gout{9}{3}{$\delta$ fixed}
+  \gtask{10}{Train and evaluate 30 degraded models}{FK}{fk}{4}{6}
+  \gout{10}{6}{$d_P$}
+  % SQ3
+  \gphase{11}{SQ3: comparison}
+  \gtask{12}{Compare reaction points, test H1 to H3}{Both}{both}{7}{7}
+  \gout{12}{7}{lags}
+  % reporting
+  \gphase{13}{Reporting}
+  \gtask{14}{Write methods and SQ1 results}{FL}{fl}{4}{6}
+  \gtask{15}{Write SQ2 results}{FK}{fk}{7}{7}
+  \gtask{16}{Write SQ3 results and discussion}{Both}{both}{8}{8}
+  \gtask{17}{Write abstract and conclusion}{Both}{both}{8}{8}
+  \gout{17}{8}{draft}
+  \gtask{18}{Apply feedback of peer and reviewer}{Both}{both}{9}{9}
+  \gtask{19}{Finalise and submit report}{Both}{both}{9}{9}
+  \gmile{\wx+9*\ww-0.5}{19*\rh}
+  % legend
+  \begin{scope}[shift={(0,20.9*\rh)}]
+    \path[fl] (0,-1.35) rectangle (5,1.35);
+    \node[lbl] at (6.5,0) {Frans Laporte (FL)};
+    \path[fk] (36,-1.35) rectangle (41,1.35);
+    \node[lbl] at (42.5,0) {Florent Kegler (FK)};
+    \path[both] (73,-1.35) rectangle (78,1.35);
+    \node[lbl] at (79.5,0) {Both authors};
+    \gmile{104.5}{0}
+    \node[lbl] at (107,0) {Output used by later tasks};
+  \end{scope}
+\end{tikzpicture}
+\caption{Provisional schedule of the nine-week study. Bars are shaded by the responsible author, and diamonds mark the outputs on which later tasks depend, from the eleven datasets to the complete draft and the final report.}
+\label{fig:gantt}
+\end{figure}
+
+The study uses only public data, namely SemanticKITTI and the synthetic dataset, and publicly released code for the diagnostics and the segmentation model, so the main resource is GPU time. The schedule assumes that a single training run takes at most one day on one GPU, so that the 30 degraded runs fit within weeks 4 to 6 when two GPUs are available in parallel. Access to these GPUs is confirmed with the topic contact, Geert Folkertsma, before the study starts, and the assumption is checked during the baseline runs in week 3, as described in Section~\ref{sec:risks}.
+
+\subsection{Risks and mitigations}\label{sec:risks}
+Five risks could affect the study, and each is described below together with the measure that limits its effect. The first risk is a low or noisy baseline performance. Models trained exclusively on synthetic data may reach a low mIoU on real data, so that the variation between the three training runs with different random seeds (Section~\ref{sec:model}) becomes large compared with the effect of ray drop. The threshold $\delta$ already accounts for this variation, and additional seeds are trained for the baseline if it remains large. If several small-object classes fall below the minimum baseline IoU of Section~\ref{sec:analysis}, H2 is assessed with the remaining classes and the far-range band, and the excluded classes are reported. If the baseline is too low for any decline to be measured, mixed training with a small and fixed subset of real scans is added as an extension and reported separately, since real training data partly compensates for the degradation.
+
+A second risk is that the 33 training runs require more GPU time than is available. The duration of a single run is therefore measured during the baseline runs in week 3, so that the workload can be adjusted before the degraded runs start. The number of scans or epochs is then reduced equally for all runs, or the number of seeds is reduced to two. If any of these settings changes after the baseline runs, the baseline runs are repeated with the final settings and $\delta$ is recomputed before any degraded run is evaluated. As a last resort, only one form of ray drop is kept, in which case H1 can no longer be tested.
+
+The diagnostics also depend on the reference implementation. FRD depends on the pretrained RangeNet++ weights, and all diagnostics depend on preprocessing that was developed for KITTI-360, so adapting the reference loader could change the behaviour of the diagnostics without this being noticed. To prevent this, the released weights and settings are used unchanged, and the adapted code is checked by computing each diagnostic between two disjoint halves of the real reference set, which should yield values well below those between the synthetic and real sets.
+
+In addition, some synthetic classes may not correspond to a SemanticKITTI class. In that case, the evaluation is restricted to classes that map unambiguously, and the excluded classes are reported. If too few small-object classes remain to test H2, CARLA is used as the alternative source of synthetic data.
+
+Finally, the calibration of the baseline may be unreliable. The fraction of empty pixels may be dominated by rays directed at the sky or at open space, in which case the calibration does not reflect the actual ray-drop rate and low levels of ray drop may move the synthetic data closer to the real data. Because the diagnostic reaction point already detects changes in either direction and performance increases are reported separately from the drop point (Section~\ref{sec:analysis}), such an effect remains visible in the results and is discussed under SQ3 rather than hidden in the lag.
+
+With these measures, the identified risks would mainly reduce the scope or precision of the results rather than prevent the main question from being answered.
