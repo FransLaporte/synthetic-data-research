@@ -1,32 +1,91 @@
-\section{Contributions, plan and risks}\label{sec:plan}
-\textbf{Expected contributions.} (1) A quantified answer to how sensitive FRD, MMD and JSD are to ray drop, compared with real-data mIoU. (2) A reusable protocol for comparing cheap diagnostics with downstream performance under controlled degradation. (3) Practical guidance on when a good diagnostic score is a safe reason to skip real-data evaluation. A null result (the diagnostics react in step with mIoU) is also informative, since it supports using them as a shortcut.
+\section{Contributions, schedule and risks}\label{sec:plan}
+This section explains how the outputs of the methodology lead to the expected contributions, and describes the schedule, the division of work and the main risks of the study.
 
-\subsection{Provisional schedule}
-\begin{table}[h]
-\centering\small
-\renewcommand{\arraystretch}{1.15}
-\begin{tabularx}{\linewidth}{@{}l>{\raggedright\arraybackslash}X@{}}
-\toprule
-\textbf{Weeks} & \textbf{Activity}\\
-\midrule
-1--2 & Class mapping, data subset, degradation pipeline\\
-3 & Diagnostics for all 11 datasets against real scans\\
-4--6 & Training runs (11 datasets $\times$ 3 seeds) and evaluation\\
-7 & Analysis of reaction points, per class and range\\
-8 & Reporting and review\\
-\bottomrule
-\end{tabularx}
-\end{table}
-The weeks are relative and will be aligned with the confirmed course milestones.
+\subsection{Expected contributions}\label{sec:contributions}
+The study is expected to make three contributions, each of which follows directly from an output of the methodology. First, the reaction points and lags defined in Section~\ref{sec:analysis} quantify, for each diagnostic and for both forms of ray drop, how far the data must degrade before the diagnostic reacts compared with the mIoU. These values answer the main question and provide a quantified comparison that, to our knowledge, is not yet available for FRD, BEV MMD and BEV JSD. Second, the combination of a calibrated baseline, two degradation forms that remove the same expected number of points and thresholds that are fixed in advance (Sections~\ref{sec:data} and~\ref{sec:analysis}) forms a protocol that does not depend on a specific diagnostic or sensor characteristic, so that it can be reused for other diagnostics, degradations or datasets. Third, the sign of the lag per class and range band, obtained under SQ3, shows whether a favourable diagnostic score can justify omitting real-data evaluation, and whether an unfavourable score is sufficient to reject a dataset version without training a model. This guidance remains informative if the hypotheses are refuted, since diagnostics that react in step with the mIoU would support their use as a less costly substitute.
 
-\subsection{Collaboration}
-Frans Laporte builds the degradation pipeline and computes the diagnostics. Florent Kegler sets up training and the per-class and per-range evaluation. Analysis, writing and review are shared, and each author checks the other's work.
+\subsection{Schedule and division of work}\label{sec:schedule}
+Figure~\ref{fig:gantt} shows the provisional schedule of eight weeks, which is derived from the tasks in Table~\ref{tab:tasks}. During the first three weeks, the two authors work in parallel. Frans Laporte (FL) prepares the range-image projection, calibrates the baseline and builds the degradation pipeline, after which he computes the diagnostics for SQ1. In the same period, Florent Kegler (FK) sets up the training and evaluation pipeline and trains the baseline models, from which the threshold $\delta$ is fixed. The training of the degraded models for SQ2 depends on both the degraded datasets and the fixed threshold, and it is the longest task of the study. The comparison for SQ3 can only start once the diagnostic reaction points and the mIoU drop points are available, and it is carried out jointly. Writing starts during the final training runs, and each author reviews the work of the other before the report is finalised. The weeks are relative and will be aligned with the confirmed course milestones.
 
-\subsection{Risks and fallbacks}
-\begin{itemize}
-    \item \emph{Noisy or low synthetic-only baseline mIoU:} more seeds, the $\delta$ rule above, or optionally mixed synthetic and real training as an extension.
-    \item \emph{Compute:} 33 training runs may be too many. Reduce the number of scans or epochs, use two seeds, or keep only one degradation form.
-    \item \emph{Diagnostics depend on pretrained RangeNet++ and preprocessing:} use the released weights and settings unchanged.
-    \item \emph{Class mapping mismatch:} restrict to classes that map cleanly and report the exclusions.
-    \item \emph{Novelty not confirmed:} complete the documented literature search before the study starts.
-\end{itemize}
+\definecolor{ganttgrey}{HTML}{8A8A8A}
+\definecolor{ganttblue}{HTML}{2A78D6}
+\definecolor{ganttorange}{HTML}{EB6834}
+\definecolor{ganttink}{HTML}{3A3A3A}
+\begin{figure}[htbp]
+\centering
+\footnotesize
+\begin{ganttchart}[
+    x unit=1.2cm,
+    y unit title=0.5cm,
+    y unit chart=0.5cm,
+    canvas/.style={draw=black!35, line width=0.4pt},
+    vgrid={*{8}{draw=black!10}},
+    hgrid=false,
+    title/.style={draw=none, fill=none},
+    title label font=\footnotesize\bfseries,
+    title height=1,
+    bar height=0.5,
+    bar top shift=0.25,
+    bar label font=\footnotesize,
+    bar label node/.append style={align=left, text width=5.6cm},
+    group height=0.22,
+    group top shift=0.39,
+    group peaks height=0.1,
+    group peaks width=0.12,
+    group label font=\footnotesize\bfseries,
+    group label node/.append style={align=left, text width=5.6cm},
+    milestone height=0.5,
+    milestone top shift=0.25,
+    milestone left shift=0.88,
+    milestone right shift=0.12,
+    milestone/.append style={fill=ganttink, draw=ganttink},
+  ]{1}{8}
+  \gantttitle{Week}{8} \\
+  \gantttitlelist{1,...,8}{1} \\
+  \ganttgroup[group/.append style={fill=ganttgrey, draw=ganttgrey}]{Preparation}{1}{2} \\
+  \ganttbar[name=map, bar/.append style={fill=ganttgrey!25, draw=ganttgrey}]{Class mapping and data subset (both)}{1}{1} \\
+  \ganttbar[name=cal, bar/.append style={fill=ganttgrey!25, draw=ganttgrey}]{Calibration and ray-drop pipeline (FL)}{2}{2}
+  \ganttmilestone[name=data]{}{2} \\
+  \ganttgroup[group/.append style={fill=ganttblue, draw=ganttblue}]{SQ1 \,--\, data-level diagnostics}{1}{3} \\
+  \ganttbar[name=proj, bar/.append style={fill=ganttblue!20, draw=ganttblue}]{Range-image projection and loader (FL)}{1}{1} \\
+  \ganttbar[name=diag, bar/.append style={fill=ganttblue!20, draw=ganttblue}]{Diagnostics and bootstrap, $d_M$ (FL)}{3}{3}
+  \ganttmilestone[name=dM]{}{3} \\
+  \ganttgroup[group/.append style={fill=ganttorange, draw=ganttorange}]{SQ2 \,--\, downstream performance}{1}{6} \\
+  \ganttbar[name=pipe, bar/.append style={fill=ganttorange!20, draw=ganttorange}]{Training and evaluation pipeline (FK)}{1}{2} \\
+  \ganttbar[name=base, bar/.append style={fill=ganttorange!20, draw=ganttorange}]{Baseline runs, fix $\delta$ (FK)}{3}{3} \\
+  \ganttbar[name=train, bar/.append style={fill=ganttorange!20, draw=ganttorange}]{Degraded runs and evaluation, $d_P$ (FK)}{4}{6}
+  \ganttmilestone[name=dP]{}{6} \\
+  \ganttgroup[group/.append style={fill=ganttink, draw=ganttink}]{SQ3 \,--\, comparison}{7}{7} \\
+  \ganttbar[name=ana, bar/.append style={fill=ganttink!15, draw=ganttink}]{Reaction points and lags (both)}{7}{7} \\
+  \ganttgroup[group/.append style={fill=ganttgrey, draw=ganttgrey}]{Reporting}{6}{8} \\
+  \ganttbar[name=write, bar/.append style={fill=ganttgrey!25, draw=ganttgrey}]{Writing of methods and results (both)}{6}{8} \\
+  \ganttbar[name=rev, bar/.append style={fill=ganttgrey!25, draw=ganttgrey}]{Mutual review and revision (both)}{8}{8}
+  % dependency arrows (end of one task to the start of the next)
+  \begin{scope}[-latex, draw=black!55, line width=0.5pt]
+    \draw (map.south east) -- (map.south east |- cal.north);
+    \draw (proj.north east) -- (proj.north east |- cal.south);
+    \draw (data.south) -- (data.south |- diag.north);
+    \draw (data.south |- diag.south) -- (data.south |- base.north);
+    \draw (base.south east) -- (base.south east |- train.north);
+    \draw (dM.east) -| ([xshift=4mm]ana.north west);
+    \draw (dP.south) -- (dP.south |- ana.north);
+  \end{scope}
+\end{ganttchart}
+\caption{Provisional schedule. Bars show the tasks per sub-question with the responsible author (FL is Frans Laporte, FK is Florent Kegler), diamonds mark the main outputs (the degraded datasets, $d_M$ and $d_P$), and arrows indicate dependencies.}
+\label{fig:gantt}
+\end{figure}
+
+\subsection{Risks and mitigations}\label{sec:risks}
+\textbf{Low or noisy baseline performance.} Models trained exclusively on synthetic data may reach a low mIoU on real data, so that the variation between seeds becomes large compared with the effect of ray drop. The threshold $\delta$ already accounts for this variation, and additional seeds are trained for the baseline if it remains large. If the baseline is too low for a decline to be measured, mixed training with a small and fixed subset of real scans is added as an extension and reported separately, since real training data partly compensates for the degradation.
+
+\textbf{Insufficient compute.} The 33 training runs may require more GPU time than is available. The duration of a single run is therefore measured during the baseline runs in week 3, so that the workload can be adjusted before the degraded runs start. The number of scans or epochs is then reduced equally for all runs, or the number of seeds is reduced to two. Only as a last resort is a single form of ray drop kept, in which case H1 can no longer be tested.
+
+\textbf{Dependence on the reference implementation.} FRD depends on the pretrained RangeNet++ weights, and all diagnostics depend on preprocessing that was developed for KITTI-360. Adapting the reference loader could therefore change the behaviour of the diagnostics without this being noticed. The released weights and settings are used unchanged, and the adapted code is checked by computing each diagnostic between two disjoint halves of the real reference set, which should yield values well below those between the synthetic and real sets.
+
+\textbf{Mismatch between class definitions.} Some synthetic classes may not correspond to a SemanticKITTI class. The evaluation is then restricted to classes that map unambiguously, and the excluded classes are reported. If too few small-object classes remain to test H2, CARLA is used as the alternative source of synthetic data.
+
+\textbf{Unreliable calibration.} The fraction of empty pixels may be dominated by rays directed at the sky or at open space, in which case the calibration does not reflect the actual ray-drop rate. Both reaction points are then defined two-sided, so that changes in either direction are detected, and the direction of change is reported as part of SQ3.
+
+\textbf{Unconfirmed novelty.} The claim that the sensitivity of the diagnostics has not been quantified rests on a search that has not yet been documented. A documented search in Scopus and Google Scholar is therefore completed before the study starts, and the research questions are adjusted if comparable work is found.
+
+With these measures, the identified risks would mainly reduce the scope or precision of the results rather than prevent the main question from being answered.
